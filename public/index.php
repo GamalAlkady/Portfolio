@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * @author Amirul islam <inbox.amirul@gmail.com>
+ * @copyright 2023 Amirul Islam
+ */
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+/**
+ * Define root directory.
+ */
+define('APP_ROOT', dirname(__DIR__));
+
+
+/**
+ * Register The Auto Loader.
+ */
+require_once APP_ROOT . '/vendor/autoload.php';
+require_once APP_ROOT . '/app/helpers/general.php';
+require_once APP_ROOT . '/app/helpers/adminHelper.php';
+
+// require_once dirname(__DIR__, 5) . '/vendor/autoload.php';
+use Devamirul\PhpMicro\core\Foundation\Application\Application;
+
+/**
+ * Create Application object instance.
+ */
+$app = Application::singleton();
+
+/**
+ * Require registered Route.
+ */
+require_once APP_ROOT . '/routes/web.php';
+
+/**
+ * Run The Application.
+ */
+
+$app->run();
+
+//die();

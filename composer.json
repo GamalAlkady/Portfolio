@@ -1,0 +1,52 @@
+{
+    "name": "devamirul/php-micro-framework",
+    "description": "php micro mvc framework",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Amirul islam",
+            "email": "inbox.amirul@gmail.com"
+        }
+    ],
+    "keywords": [
+        "framework",
+        "project"
+    ],
+    "autoload": {
+        "files": [
+            "src/core/Helpers/GeneralHelper.php",
+            "src/core/Helpers/RequestHelper.php",
+            "src/core/Helpers/ResponseHelper.php",
+            "src/core/Helpers/FormHelper.php"
+        ],
+        "psr-4": {
+            "Devamirul\\PhpMicro\\": "src/",
+            "App\\": "app/"
+        }
+    },
+    "scripts": {
+        "test": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpunit"
+        ],
+        "start": [
+            "cd public && php -S 127.0.0.1:8000 && cd -"
+        ],
+        "create": "cd src/core/Foundation/CLI/Database && php MigrationCreate.php && cd -",
+        "drop": "cd src/core/Foundation/CLI/Database && php MigrationDrop.php && cd -",
+        "migrate": "php src/core/Foundation/CLI/Database/Migration.php",
+        "provider": "php src/core/Foundation/CLI/Provider/ProviderCreate.php",
+        "controller": "cd src/core/Foundation/CLI/Controller && php CreateController.php && cd -",
+        "middleware": "cd src/core/Foundation/CLI/Middleware && php CreateMiddleware.php && cd -"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "vlucas/phpdotenv": "^5.5@dev",
+        "catfan/medoo": "dev-master",
+        "icanboogie/datetime": "dev-master",
+        "phpmailer/phpmailer": "dev-master",
+        "rakit/validation": "dev-master",
+        "txthinking/mailer": "dev-master",
+        "devamirul/p-router": "dev-main"
+    }
+}
