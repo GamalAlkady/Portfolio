@@ -1,153 +1,141 @@
 <?php setTitle("Add Project"); ?>
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
-        <h1 class="h2">Add Project</h1>
-    </div>
 
-    <?php if (hasError()) : ?>
-        <div class="alert alert-danger" role="alert">
-            <?php echo htmlspecialchars(error()); ?>
-        </div>
-    <?php endif; ?>
+<div class="flex flex-wrap items-center justify-between pb-2 mb-3">
+    <h1 class="text-2xl font-semibold">Add Project</h1>
+</div>
 
-    <div class="form-container">
-        <form action="/admin/add-project" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
-            <?=setCsrf()?>
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <label for="title" class="form-label required-field">Title</label>
-                    <input type="text" class="form-control" id="title" name="title"
-                           value="<?php echo isset($_POST['title']) ? htmlspecialchars($_POST['title']) : '' ?>"
-                           required>
-                </div>
 
-                <div class="col-md-6">
-                    <label for="category" class="form-label required-field">Category</label>
-                    <select class="form-select" id="category" name="category" required>
-                        <option value="">Choose...</option>
-                        <?php
-                        $categories = ['Web Development', 'Mobile App', 'Desktop App', 'UI/UX Design', 'Other'];
-                        foreach ($categories as $cat) {
-                            $selected = (isset($_POST['category']) && $_POST['category'] === $cat) ? 'selected' : '';
-                            echo "<option value='$cat' $selected>$cat</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
 
-                <div class="col-12">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" name="description"
-                              rows="4"><?php echo isset($_POST['description']) ? htmlspecialchars($_POST['description']) : '' ?></textarea>
-                </div>
+<div class="form-container">
+    <div class="border-b border-gray-300 pb-12">
+        <form action="/admin/add-project" method="POST" enctype="multipart/form-data" id="productForm" class="p-6" novalidate>
+            <?= setCsrf() ?>
 
-                <div class="col-md-6">
-                    <label for="host_url" class="form-label">Host URL</label>
-                    <input type="url" class="form-control" id="host_url" name="host_url"
-                           value="<?php echo isset($_POST['host_url']) ? htmlspecialchars($_POST['host_url']) : '' ?>"">
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Left Column - Form Fields -->
+                <div>
+                    <!-- Product Title -->
+                    <div class="mb-6">
+                        <label for="title" class="block text-sm font-medium text-gray-700 mb-1">
+                            Product Title <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" id="title" name="title"
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition"
+                               placeholder="Enter product title">
+                        <div id="titleError" class="form-error text-danger text-sm mt-1 ">
+                            <?= errors('title')?>
+                        </div>
+                    </div>
 
-                <div class=" col-md-6">
-                    <label for="github_url" class="form-label">GitHub URL</label>
-                    <input type="url" class="form-control" id="github_url" name="github_url"
-                           value="<?php echo isset($_POST['github_url']) ? htmlspecialchars($_POST['github_url']) : '' ?>">
-                </div>
+                    <!-- Description -->
+                    <div class="mb-6">
+                        <label for="description" class="block text-sm font-medium text-gray-700 mb-1">
+                            Description <span class="text-danger">*</span>
+                        </label>
+                        <textarea id="description" name="description" rows="4"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                placeholder="Enter product description"></textarea>
+                        <div id="descriptionError" class="form-error text-danger text-sm mt-1 "><?= errors('description')?></div>
+                    </div>
 
-                <div class="col-12">
-                    <label for="technologies" class="form-label required-field">Technologies Used</label>
-                    <input type="text" class="form-control" id="technologies" name="technologies"
-                           placeholder="e.g., HTML, CSS, JavaScript, PHP"
-                           value="<?php echo isset($_POST['technologies']) ? htmlspecialchars($_POST['technologies']) : ''; ?>"
-                           required>
-                </div>
+                    <!-- Category -->
+                    <?php
+                    $categories = ["Web Application","Mobile Development","Desktop Software","API Service","Other"];
+                    ?>
+                    <div class="mb-6">
+                        <label for="category" class="block text-sm font-medium text-gray-700 mb-1">
+                            Category <span class="text-danger">*</span>
+                        </label>
+                        <select id="category" name="category"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition">
+                            <option value="">Select a category</option>
+                            <?php foreach ($categories as $category) {
+                                echo "<option value='$category'>$category</option>";
+                            } ?>
+                        </select>
+                        <div id="categoryError" class="form-error text-danger text-sm mt-1 hidden"></div>
+                    </div>
 
-                <div class="col-12">
-                    <label for="image" class="form-label">Image</label>
-                    <input type="file" class="form-control" id="image" name="image"
-                           accept="image/*" onchange="previewImage(this)">
-                    <?php if (isset($_FILES['image']) && !empty($image_url)): ?>
-                        <img src="../<?php echo $image_url; ?>" class="mt-2 preview-image" style="display:block;">
-                    <?php else: ?>
-                        <img id="preview" class="mt-2 preview-image">
-                    <?php endif; ?>
-                </div>
+                    <!-- Technologies -->
+                    <div class="mb-6">
+                        <label for="technologies" class="block text-sm font-medium text-gray-700 mb-1">
+                            Technologies <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" id="technologies" name="technologies"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                placeholder="Enter technologies (comma separated)">
+                        <div class="text-xs text-gray-500 mt-1">Separate technologies with commas (e.g. React, Node.js, MongoDB)</div>
+                        <div id="technologiesError" class="form-error text-danger text-sm mt-1 "><?= errors('technologies')?></div>
+                    </div>
 
-                <div class="col-12" id="otherImages">
-                    <label for="other_images" class="form-label">Other Images</label>
-                    <input type="file" class="form-control" id="other_images" name="other_images[]" accept="image/*"
-                           multiple onchange="previewImages(this)">
-                    <div id="otherImagesPreview" class="mt-2 d-flex flex-wrap gap-2">
-                        <?php
-                        // Display previously uploaded images if form submission failed
-                        if (isset($_FILES['other_images']) && !empty($other_images)) {
-                            foreach ($other_images as $img) {
-                                echo '<img src="../' . $img . '" class="preview-image" style="display:block;">';
-                            }
-                        }
-                        ?>
+                    <!-- URLs -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label for="hostUrl" class="block text-sm font-medium text-gray-700 mb-1">Host URL</label>
+                            <input type="url" id="hostUrl" name="host_url"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    placeholder="https://example.com">
+                            <div id="hostUrlError" class="form-error text-danger text-sm mt-1 "><?= errors('host_url')?></div>
+                        </div>
+                        <div>
+                            <label for="githubUrl" class="block text-sm font-medium text-gray-700 mb-1">
+                                GitHub URL
+                            </label>
+                            <input type="url" id="githubUrl" name="github_url"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition"
+                                    placeholder="https://github.com/username/repo">
+                            <div id="githubUrlError" class="form-error text-danger text-sm mt-1 "><?= errors('github_url')?></div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="col-12 mt-4 d-flex justify-content-between">
-                    <a href="/admin/projects" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left me-2"></i>Back to Projects
-                    </a>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save me-2"></i>Save
+                <!-- Right Column - Image Upload -->
+                <div>
+                    <!-- Additional Images -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            Additional Images
+                        </label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer file-input-label"
+                             id="imagesDropzone">
+                            <input
+                                    type="file"
+                                    id="images"
+                                    name="images[]"
+                                    class="hidden"
+                                    accept="image/*"
+                                    multiple
+                            >
+                            <div id="imagesPreview" class="image-preview">
+                                <i class="fas fa-images text-3xl text-gray-400 mb-2"></i>
+                                <p class="text-gray-600">Click to upload additional images</p>
+                                <p class="text-gray-500 text-sm mt-1">Select multiple images (up to 5)</p>
+                            </div>
+                        </div>
+                        <div id="imagesError" class="form-error text-danger text-sm mt-1"><?= errors('images')?></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="border-t pt-6 mt-6">
+                <div class="flex justify-between space-x-4">
+                    <button
+                            type="button"
+                            class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition"
+                            onclick="resetForm()"
+                    >
+                        Reset
+                    </button>
+                    <button
+                            type="submit"
+                            class="px-6 py-2 bg-primary hover:bg-secondary text-white rounded-lg transition flex items-center"
+                    >
+                        <i class="fas fa-plus-circle mr-2"></i> Add Product
                     </button>
                 </div>
             </div>
         </form>
     </div>
-</main>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    // Form validation
-    (function () {
-        'use strict'
-        var forms = document.querySelectorAll('.needs-validation')
-        Array.prototype.slice.call(forms).forEach(function (form) {
-            form.addEventListener('submit', function (event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
-                form.classList.add('was-validated')
-            }, false)
-        })
-    })()
-
-    // Image preview
-    function previewImage(input) {
-        const preview = document.getElementById('preview');
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-
-    function previewImages(input) {
-        const previewContainer = document.getElementById('otherImagesPreview');
-        previewContainer.innerHTML = ''; // Clear existing previews
-
-        Array.from(input.files).forEach(file => {
-            const reader = new FileReader();
-            const imgPreview = document.createElement('img');
-            imgPreview.className = 'preview-image';
-
-            reader.onload = function (e) {
-                imgPreview.src = e.target.result;
-                imgPreview.style.display = 'block';
-            }
-
-            reader.readAsDataURL(file);
-            previewContainer.appendChild(imgPreview);
-        });
-    }
-</script>
+</div>

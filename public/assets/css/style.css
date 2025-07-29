@@ -1,6 +1,28 @@
 body{
     /*background: red !important;*/
 }
+
+.sidebar-collapse {
+    transition: all 0.3s ease;
+}
+.sidebar-collapse.collapsed {
+    width: 60px;
+    overflow: hidden;
+}
+.sidebar-item-content {
+    transition: opacity 0.2s ease;
+}
+.collapsed .sidebar-item-content {
+    opacity: 0;
+    pointer-events: none;
+}
+.sidebar-toggle-icon {
+    transition: transform 0.3s ease;
+}
+.collapsed .sidebar-toggle-icon {
+    transform: rotate(180deg);
+}
+
 .form-container {
     background: white;
     border-radius: 10px;
@@ -45,4 +67,24 @@ body{
 
 .active2{
     border-left: 4px solid #38e32b;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.form-error {
+    transition: all 0.3s ease;
+}
+
+.image-preview {
+    transition: all 0.3s ease;
+}
+
+.file-input-label {
+    transition: all 0.2s ease;
+}
+
+.file-input-label:hover {
+    background-color: #dbeafe;
 }

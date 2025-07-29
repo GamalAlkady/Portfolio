@@ -8,6 +8,24 @@ if (!function_exists('public_path')) {
     }
 }
 
+if (!function_exists('includeView')) {
+    function includeView($path, $data = [])
+    {
+        // استخراج المتغيرات كمصفوفات إلى متغيرات محلية
+        extract($data);
+
+        // تحديد المسار الكامل إلى الملف المطلوب
+        $viewPath = __DIR__ . '/../../resources/views/' . str_replace('.', '/', $path) . '.php';
+
+        // التحقق من وجود الملف
+        if (file_exists($viewPath)) {
+            include $viewPath;
+        } else {
+            echo "<p style='color:red;'>View not found: $viewPath</p>";
+        }
+    }
+}
+
 
 function assets($path)
 {
@@ -84,7 +102,7 @@ function uploadMultipleImages($inputName, $folder = 'projects'): array
             $targetPath = $uploadDir . $fileName;
 
             if (move_uploaded_file($tmp_name, $targetPath)) {
-                $uploaded[] = 'assets/images/' . $folder . '/' . $fileName;
+                $uploaded[] = 'images/' . $folder . '/' . $fileName;
             }
         }
     }

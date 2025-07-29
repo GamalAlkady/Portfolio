@@ -5,9 +5,7 @@
  * @copyright 2023 Amirul Islam
  */
 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+
 /**
  * Define root directory.
  */
@@ -37,7 +35,9 @@ require_once APP_ROOT . '/routes/web.php';
 /**
  * Run The Application.
  */
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 $app->run();
 
 //die();

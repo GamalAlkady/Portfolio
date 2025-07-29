@@ -35,16 +35,45 @@ class ProjectsController
     public function store(Request $request)
     {
         $data = $this->extracted($request);
-        $project = new Projects();
-        $p = $project->insert([$data]);
+
+        $database = DB::db();
+
+        try {
+            $database->pdo->beginTransaction();
+
+            $database->insert("projects", $data);
+
+            $projectId = $database->id();
+            $images = uploadMultipleImages('images');
+
+            $projectImages=[];
+            foreach ($images as $image){
+                $projectImages[]=['path'=>$image,'project_id'=>$projectId,'is_main'=>0];
+            }
+
+            $projectImages[0]['is_main']=1;
+            $table = $database->insert('project_images',$projectImages);
+
+            if ($table->rowCount()==0){
+                $database->pdo->rollBack();
+                return back()->withError("Can't save project");
+            }
+            /* Commit the changes */
+            $database->pdo->commit();
+        }catch (\Exception $exception){
+            // On any failure, rollback all
+            $database->pdo->rollBack();
+        }
+        flushMessage()->set('success','Project added successfully.');
         return toRoute('projects');
-        redirect("/admin/projects");
     }
 
     public function edit(Request $request)
     {
         $project = (new Projects())->get('*', ["id" => $request->getParam('id')])->getData();
-        return viewAdmin('projects/edit',compact('project'));
+        $images = DB::db()->select("project_images","*",['project_id'=>$project['id']]);
+
+        return viewAdmin('projects/edit',compact('project','images'));
 //        return layout('admin/app')->view('/admin/edit_project', compact('project'));
     }
 
@@ -53,40 +82,38 @@ class ProjectsController
 //        dd($request->all());
         $projects = (new Projects());
         $data = $this->extracted($request, true);
-        unset($data['old_image'], $data['old_other_images']);
 
         $p = $projects->update($data, ['id' => $request->input('id')]);
         if ($p->error() != null) {
             return back()->withError($p->error());
         }
+        flushMessage()->set('success','Project updated successfully.');
         return toRoute('projects');
-//        redirect("/admin/projects");
     }
 
     /**
      * @param Request $request
-     * @return array
+     * @return \Devamirul\PhpMicro\core\Foundation\Application\Redirect\Redirect
      */
-    public function extracted(Request $request, $removeOld = false): array
+    public function extracted(Request $request, $removeOld = false): \Devamirul\PhpMicro\core\Foundation\Application\Redirect\Redirect|array
     {
+//        TODO: test add project
         $data = $request->input();
         $validator = new Validator();
         $validation = $validator->validate($data + $_FILES, [
-            'title' => 'required',
+            'title' => 'required|min:3',
+            'description' => 'required|min:10',
             'category' => 'required',
-            'image' => 'nullable|uploaded_file:0,500K,png,jpeg',
-            'other_images' => 'nullable|array',
+            'technologies' => 'required',
+            'images.*' => 'required|uploaded_file:0,1M,png,jpeg',
             'host_url' => 'nullable|url',
+            'github_url' => 'nullable|url',
         ]);
-        $data['image'] = uploadImage('image', removeOld: $removeOld); // 'image' هو اسم الحقل في نموذج الـ HTML
-        if ($data['image'] == null)
-            unset($data['image']);
 
-        // Handle multiple other images
-        $data['other_images'] = uploadMultipleImages('other_images');
-        if (count($data['other_images']) == 0)
-            unset($data['other_images']);
-        else $data['other_images'] = json_encode($data['other_images']);
+        if ($validation->fails()){
+            $errors = $validation->errors();
+            return back()->withError($errors);
+        }
         unset($data['csrf']);
         return $data;
     }

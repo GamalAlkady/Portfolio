@@ -1,100 +1,73 @@
 <?php setTitle('dashboard');?>
-<div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
+<div class="container mx-auto px-4">
+    <div class="flex">
+        <!-- Sidebar -->
 
-
-
-            <!-- Main content -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-
-
-                <!-- Stats Cards -->
-                <div class="row">
-                    <div class="col-md-6 mb-4">
-                        <div class="card text-white bg-primary">
-                            <div class="card-body">
-                                <h5 class="card-title">Total Works</h5>
-                                <h2 class="card-text"><?= /** @var TYPE_NAME $countProjects */
-                                    ($countProjects) ?></h2>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 mb-4">
-                        <div class="card text-white bg-success">
-                            <div class="card-body">
-                                <h5 class="card-title">Total Orders</h5>
-                                <h2 class="card-text"><?= /** @var TYPE_NAME $countOrders */
-                                    ($countOrders) ?></h2>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- <div class="col-md-4 mb-4">
-                        <div class="card text-white bg-info">
-                            <div class="card-body">
-                                <h5 class="card-title">Comments</h5>
-                                <h2 class="card-text">294</h2>
-                            </div>
-                        </div>
-                    </div> -->
+        <!-- Main content -->
+        <main class="flex-1  p-8">
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-blue-600 rounded-lg shadow-lg p-6 text-white">
+                    <h5 class="text-lg font-semibold">Total Projects</h5>
+                    <h2 class="text-4xl font-bold mt-2"><?= /** @var TYPE_NAME $countProjects */
+                        ($countProjects) ?></h2>
                 </div>
 
-                <!-- Recent Orders Table -->
-
-                <div class="row">
-                    <div class="col">
-                        <h4>Recent Orders</h4>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Project</th>
-                                        <th>Status</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <?php foreach ($orders as $order){ ?>
-
-                                        <tr>
-                                            <td><?= $order['id'] ?></td>
-                                            <td><?= $order['project_title'] ?></td>
-                                            <td>
-                                                <?php
-                                                $statusClass = '';
-                                                $statusText = $order['status'];
-
-                                                switch(strtolower($order['status'])) {
-                                                    case 'pending':
-                                                        $statusClass = 'bg-warning text-dark';
-                                                        break;
-                                                    case 'completed':
-                                                        $statusClass = 'bg-success text-white';
-                                                        break;
-                                                    case 'cancelled':
-                                                        $statusClass = 'bg-danger text-white';
-                                                        break;
-                                                    default:
-                                                        $statusClass = 'bg-secondary text-white';
-                                                }
-                                                ?>
-                                                <span class="badge <?= $statusClass ?> rounded-pill"><?= $statusText ?></span>
-                                            </td>
-                                            <td><?= date('Y-m-d', strtotime($order['created_at'])) ?></td>
-                                        </tr>
-                                    <?php } ?>
-
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="bg-green-600 rounded-lg shadow-lg p-6 text-white">
+                    <h5 class="text-lg font-semibold">Total Orders</h5>
+                    <h2 class="text-4xl font-bold mt-2"><?= /** @var TYPE_NAME $countOrders */
+                        ($countOrders) ?></h2>
                 </div>
-            </main>
-        </div>
+            </div>
+
+            <!-- Recent Orders Table -->
+            <div class="mt-8">
+                <h4 class="text-2xl font-semibold mb-4">Recent Orders</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white rounded-lg overflow-hidden">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Project</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <?php foreach ($orders as $order){ 
+                                $statusClass = '';
+                                $statusText = $order['status'];
+                                
+                                switch(strtolower($order['status'])) {
+                                    case 'pending':
+                                        $statusClass = 'bg-yellow-100 text-yellow-800';
+                                        break;
+                                    case 'completed':
+                                        $statusClass = 'bg-green-100 text-green-800';
+                                        break;
+                                    case 'cancelled':
+                                        $statusClass = 'bg-red-100 text-red-800';
+                                        break;
+                                    default:
+                                        $statusClass = 'bg-gray-100 text-gray-800';
+                                }
+                            ?>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?= $order['id'] ?></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?= $order['project_title'] ?></td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full <?= $statusClass ?>">
+                                        <?= $statusText ?>
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?= date('Y-m-d', strtotime($order['created_at'])) ?></td>
+                            </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
 </div>
 
