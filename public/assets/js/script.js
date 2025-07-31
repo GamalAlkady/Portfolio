@@ -1,4 +1,7 @@
 // Form validation and handling
+
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('productForm');
 
@@ -21,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
 
 // Set up drag and drop functionality
 function setupDropzone(dropzone, input) {

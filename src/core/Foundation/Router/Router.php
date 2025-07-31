@@ -8,7 +8,8 @@ use Devamirul\PhpMicro\core\Foundation\Application\Traits\Singleton;
 use Devamirul\PhpMicro\core\Foundation\Exception\Exceptions\RouterException;
 use Devamirul\PhpMicro\core\Foundation\Middleware\BaseMiddleware;
 
-class Router {
+class Router
+{
     use Singleton;
 
     /**
@@ -55,14 +56,15 @@ class Router {
     /**
      * Set required dependencies.
      */
-    public function setDependency(Request $request) {
+    public function setDependency(Request $request)
+    {
         $this->request = $request;
     }
 
     /**
      * Add user defined routes to the $this->routers property.
      */
-    public function addRoute(string $method, string $path, array | callable $callback): static
+    public function addRoute(string $method, string $path, array|callable $callback): static
     {
         // Set the Declare router method.
         $this->method = $method;
@@ -71,11 +73,11 @@ class Router {
 
         // Add route to '$this->router'.
         $this->routes[$method][] = [
-            'path'       => ($path === '/') ? '/' : explode('/', $path),
-            'callback'   => $callback,
-            'name'       => null,
+            'path' => ($path === '/') ? '/' : explode('/', $path),
+            'callback' => $callback,
+            'name' => null,
             'middleware' => config('middleware', $this->method) ? config('middleware', $this->method) : null,
-            'where'      => null,
+            'where' => null,
         ];
         return $this;
     }
@@ -83,7 +85,7 @@ class Router {
     /**
      * Store "GET" method router in $this->routers property.
      */
-    public function get(string $path, array | callable $callback): static
+    public function get(string $path, array|callable $callback): static
     {
         // Set the name of the called function.
         $this->prevMethod = __FUNCTION__;
@@ -95,7 +97,7 @@ class Router {
     /**
      * Store "POST" method router in $this->routers property.
      */
-    public function post(string $path, array | callable $callback): static
+    public function post(string $path, array|callable $callback): static
     {
         // Set the name of the called function.
         $this->prevMethod = __FUNCTION__;
@@ -107,7 +109,7 @@ class Router {
     /**
      * Store "PUT" method router in $this->routers property.
      */
-    public function put(string $path, array | callable $callback): static
+    public function put(string $path, array|callable $callback): static
     {
         // Set the name of the called function.
         $this->prevMethod = __FUNCTION__;
@@ -119,7 +121,7 @@ class Router {
     /**
      * Store "PATCH" method router in $this->routers property.
      */
-    public function patch(string $path, array | callable $callback): static
+    public function patch(string $path, array|callable $callback): static
     {
         // Set the name of the called function.
         $this->prevMethod = __FUNCTION__;
@@ -131,7 +133,7 @@ class Router {
     /**
      * Store "DELETE" method router in $this->routers property.
      */
-    public function delete(string $path, array | callable $callback): static
+    public function delete(string $path, array|callable $callback): static
     {
         // Set the name of the called function.
         $this->prevMethod = __FUNCTION__;
@@ -145,7 +147,7 @@ class Router {
      * Sometimes you may need to register a route that responds to multiple HTTP verbs.
      * You may do so using the match method.
      */
-    public function match(array $methods, string $path, array | callable $callback): static
+    public function match(array $methods, string $path, array|callable $callback): static
     {
         // Set the name of the called function.
         $this->prevMethod = __FUNCTION__;
@@ -164,7 +166,7 @@ class Router {
      * Sometimes you may need to register a route that responds to multiple HTTP verbs.
      * You may do so using the match method.
      */
-    public function any(string $path, array | callable $callback): static
+    public function any(string $path, array|callable $callback): static
     {
         // Set the name of the called function.
         $this->prevMethod = __FUNCTION__;
@@ -198,7 +200,7 @@ class Router {
     /**
      * Set router middleware.
      */
-    public function middleware(string | array $middleware): static
+    public function middleware(string|array $middleware): static
     {
         if ($this->prevMethod === 'any') {
             foreach ($this->allMethods as $method) {
@@ -217,7 +219,7 @@ class Router {
     /**
      * Set regular expression for dynamic params.
      */
-    public function where(string | array $expression = null): static
+    public function where(string|array $expression = null): static
     {
         if ($this->prevMethod === 'any') {
             if (is_string($expression)) {
@@ -252,7 +254,7 @@ class Router {
     /**
      * Set fallback route.
      */
-    public function fallback(array | callable $callback): void
+    public function fallback(array|callable $callback): void
     {
         $this->routes['fallback'] = [
             'callback' => $callback,
@@ -273,8 +275,8 @@ class Router {
             // Loop all route.
             foreach ($this->routes[$this->request->method()] as $routes) {
                 $implodeRoutePath = implode('/', $routes['path']);
-                $params           = [];
-                $url              = '';
+                $params = [];
+                $url = '';
 
                 // Check if requested path size and route path size equal
                 // or check if "*" finds it in the route path
@@ -289,8 +291,7 @@ class Router {
                         // Check if requested path and route path equal.
                         if (isset($path[$key]) && $route === $path[$key]) {
                             $url .= '/' . $path[$key];
-                        }
-                        // check if ":" finds it in the route path dynamic param.
+                        } // check if ":" finds it in the route path dynamic param.
                         elseif (str_starts_with($route, ':')) {
                             // check if "?" finds it in the dynamic param.
                             if (str_ends_with($route, '?')) {
@@ -314,8 +315,7 @@ class Router {
                             $this->request->setParam(ltrim($route, ':'), $path[$key]);
                             $params[] = $path[$key];
                             $url .= '/' . $path[$key];
-                        }
-                        // check if "*" finds it in the route path.
+                        } // check if "*" finds it in the route path.
                         elseif ($route === '*') {
                             if ($key > sizeof($path) - 1) {
                                 return $this->fallbackHandling();
@@ -380,53 +380,109 @@ class Router {
 //        I edit this function
         // Iterate over all routes which defined with the Requested method.
 //        foreach ($this->routes[$this->request->method()] as $routes) {
-        foreach ($this->routes as $method =>$routeList) {
+        foreach ($this->routes as $method => $routeList) {
             foreach ($routeList as $routes) {
 
-            // Check if requested name and route name equal.
-            if ($routes['name'] === $name) {
+                // Check if requested name and route name equal.
+                if ($routes['name'] === $name) {
 
-                // Check the route dynamic params.
-                if (!$routes['where']) {
-                    $url = '';
+                    // Check the route dynamic params.
+                    if (!$routes['where']) {
+                        $url = '';
 
-                    foreach ($routes['path'] as $key => $value) {
-                        if (str_starts_with($value, ':') && $params) {
-                            $url .= '/' . $params[ltrim($value, ':')];
-                        } elseif (str_starts_with($value, ':') && !$params) {
-                            throw new RouterException('This route\'s param missing', 404);
-                        } else {
-                            if (sizeof($routes['path']) - 1 === $key && $params) {
-                                $url .= '/' . $value . '?' . http_build_query($params);
+                        foreach ($routes['path'] as $key => $value) {
+                            if (str_starts_with($value, ':') && $params) {
+                                $url .= '/' . $params[ltrim($value, ':')];
+                            } elseif (str_starts_with($value, ':') && !$params) {
+                                throw new RouterException('This route\'s param missing', 404);
+                            } else {
+                                if (sizeof($routes['path']) - 1 === $key && $params) {
+                                    $url .= '/' . $value . '?' . http_build_query($params);
+                                } else {
+                                    $url .= '/' . $value;
+                                }
+                            }
+                        }
+
+                        redirect($url);
+                    } elseif (isset($routes['where']) && isset($params) && (sizeof($params) === sizeof($routes['where']))) {
+
+                        foreach ($routes['where'] as $key => $expression) {
+                            if (!preg_match('/' . $expression . '/', $params[$key])) {
+                                throw new RouterException('Route param expression does not match', 404);
+                            }
+                        }
+
+                        $url = '';
+
+                        foreach ($routes['path'] as $key => $value) {
+                            if (str_starts_with($value, ':')) {
+                                $url .= '/' . $params[ltrim($value, ':')];
                             } else {
                                 $url .= '/' . $value;
                             }
                         }
+                        redirect($url);
+                    } else {
+                        throw new RouterException('Route param expression does not match', 404);
                     }
-
-                    redirect($url);
-                } elseif (isset($routes['where']) && isset($params) && (sizeof($params) === sizeof($routes['where']))) {
-
-                    foreach ($routes['where'] as $key => $expression) {
-                        if (!preg_match('/' . $expression . '/', $params[$key])) {
-                            throw new RouterException('Route param expression does not match', 404);
-                        }
-                    }
-
-                    $url = '';
-
-                    foreach ($routes['path'] as $key => $value) {
-                        if (str_starts_with($value, ':')) {
-                            $url .= '/' . $params[ltrim($value, ':')];
-                        } else {
-                            $url .= '/' . $value;
-                        }
-                    }
-                    redirect($url);
-                } else {
-                    throw new RouterException('Route param expression does not match', 404);
                 }
             }
+        }
+        throw new RouterException('Route name did not defined', 404);
+    }
+    public function getRoute(string $name, array $params = null)
+    {
+//        I edit this function
+        // Iterate over all routes which defined with the Requested method.
+//        foreach ($this->routes[$this->request->method()] as $routes) {
+        foreach ($this->routes as $method =>$routeList) {
+            foreach ($routeList as $routes) {
+
+                // Check if requested name and route name equal.
+                if ($routes['name'] === $name) {
+
+                    // Check the route dynamic params.
+                    if (!$routes['where']) {
+                        $url = '';
+
+                        foreach ($routes['path'] as $key => $value) {
+                            if (str_starts_with($value, ':') && $params) {
+                                $url .= '/' . $params[ltrim($value, ':')];
+                            } elseif (str_starts_with($value, ':') && !$params) {
+                                throw new RouterException('This route\'s param missing', 404);
+                            } else {
+                                if (sizeof($routes['path']) - 1 === $key && $params) {
+                                    $url .= '/' . $value . '?' . http_build_query($params);
+                                } else {
+                                    $url .= '/' . $value;
+                                }
+                            }
+                        }
+
+                        return $url;
+                    } elseif (isset($routes['where']) && isset($params) && (sizeof($params) === sizeof($routes['where']))) {
+
+                        foreach ($routes['where'] as $key => $expression) {
+                            if (!preg_match('/' . $expression . '/', $params[$key])) {
+                                throw new RouterException('Route param expression does not match', 404);
+                            }
+                        }
+
+                        $url = '';
+
+                        foreach ($routes['path'] as $key => $value) {
+                            if (str_starts_with($value, ':')) {
+                                $url .= '/' . $params[ltrim($value, ':')];
+                            } else {
+                                $url .= '/' . $value;
+                            }
+                        }
+                        return $url;
+                    } else {
+                        throw new RouterException('Route param expression does not match', 404);
+                    }
+                }
             }
         }
         throw new RouterException('Route name did not defined', 404);
@@ -452,10 +508,8 @@ class Router {
                     );
                 }
             }
-        } else {
-            throw new RouterException();
         }
-
+            throw new RouterException();
     }
 
     /**

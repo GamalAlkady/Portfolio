@@ -1,5 +1,15 @@
 <?php
 
+use Devamirul\PhpMicro\core\Foundation\Application\Facade\Facades\Session;
+
+if (!function_exists('getCsrf')) {
+    function getCsrf(): string {
+        if (!Session::singleton()->has('csrf')) {
+            Session::singleton()->set('csrf', bin2hex(random_bytes(50)));
+        }
+        return Session::singleton()->get('csrf');
+    }
+}
 
 if (!function_exists('public_path')) {
     function public_path($path = '')
@@ -26,6 +36,22 @@ if (!function_exists('includeView')) {
     }
 }
 
+if (!function_exists('old')){
+    function old($key,$default=''){
+        if (session()->has('old')) {
+            $value = session()->get('old')[$key];
+            if (!empty($value)) return $value;
+        }
+        return $default;
+    }
+}
+
+if (!function_exists('destroy_old')){
+    function destroy_old(){
+        session()->delete('old');
+        session()->delete('old_files');
+    }
+}
 
 function assets($path)
 {
@@ -81,7 +107,18 @@ function uploadImage($fileInputName, $folder = 'projects',$removeOld=false)
     return null; // فشل النقل
 }
 
-function uploadMultipleImages($inputName, $folder = 'projects'): array
+
+if (!function_exists('removeFile')){
+    function removeFile($imagePath){
+        $imageFullPath = public_path('assets/'.$imagePath);
+        if (file_exists($imageFullPath)) {
+            unlink($imageFullPath);
+        }
+    }
+}
+
+
+    function uploadMultipleImages($inputName, $folder = 'projects'): array
 {
     $uploaded = [];
 

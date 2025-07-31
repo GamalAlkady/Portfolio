@@ -4,8 +4,9 @@ A simple, fast, and small PHP MVC Framework that enables to develop of modern ap
 
 <em>**Click to view full [Documentation](https://github.com/DevAmirul/PHP-MVC-Framework/wiki/Documentation)**</em>
 
-## Features:
+composer run-script start --dev  --timeout=0
 
+## Features:
 - Service Provider & Container 
 
 - Facade

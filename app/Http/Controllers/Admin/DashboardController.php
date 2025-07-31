@@ -16,7 +16,7 @@ class DashboardController
                       FROM orders o 
                       JOIN projects p ON o.project_id = p.id")->fetchAll();
 
-//        var_dump($countOrders);
+//        var_dump($data);
 //        die();
         return layout('admin/app')->view('/admin/dashboard',$data);
     }

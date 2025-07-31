@@ -1,5 +1,15 @@
-<footer class="bg-gray-100 py-6">
-    <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
-        <p>&copy; 2023 Product Dashboard. All rights reserved.</p>
-    </div>
+
+<!--begin::Footer-->
+<footer class="app-footer">
+    <!--begin::To the end-->
+    <div class="float-end d-none d-sm-inline">Anything you want</div>
+    <!--end::To the end-->
+    <!--begin::Copyright-->
+    <strong>
+        Copyright &copy; 2014-{year}&nbsp;
+        <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+    </strong>
+    All rights reserved.
+    <!--end::Copyright-->
 </footer>
+<!--end::Footer-->
