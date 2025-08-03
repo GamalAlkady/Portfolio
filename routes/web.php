@@ -16,7 +16,7 @@ Router::get('/login', [AuthController::class, 'create']);
 Router::post('/login', [AuthController::class, 'login']);
 Router::delete('/logout', [AuthController::class, 'destroy'])->name('logout')->middleware('auth');
 
-Router::get("/admin", [DashboardController::class,'index']);
+Router::get("/admin/", [DashboardController::class,'index']);
 Router::get("/admin/dashboard", [DashboardController::class,'index'])->name("dashboard");
 
 /**  Projects  */
@@ -27,10 +27,11 @@ Router::get("/admin/projects/add", [Admin\ProjectController::class,'create'])->n
 Router::post("/admin/projects/store", [Admin\ProjectController::class,'store'])->name("storeProject");
 Router::get("/admin/projects/:id/edit", [Admin\ProjectController::class,'edit'])->name("editProject");
 Router::put("/admin/projects/:id/update", [Admin\ProjectController::class,'update'])->name("updateProject");
-Router::delete("/admin/projects/:id/delete", [Admin\ProjectController::class,'destroy']);
+Router::delete("/admin/projects/:id/delete", [Admin\ProjectController::class,'destroy'])->name('deleteProject');
 
 
-Router::post("/admin/projects/:id/add", [Admin\ProjectController::class,'addImage'])->name("addImage");
+Router::get("/admin/projects/images/:project_id", [Admin\ProjectController::class,'getImages'])->name("getImages");
+Router::post("/admin/projects/images/:project_id/add", [Admin\ProjectController::class,'addImage'])->name("addImage");
 Router::put("/admin/projects/images/:id/replace", [Admin\ProjectController::class,'replaceImage'])->name("replaceImage");
 Router::delete("/admin/projects/images/:id/delete", [Admin\ProjectController::class,'deleteImage'])->name("deleteImage");
 Router::post("/admin/projects/images/:id/set-main", [Admin\ProjectController::class,'setMainImage'])->name("setMainImage");

@@ -38,11 +38,11 @@ if (!function_exists('includeView')) {
 
 if (!function_exists('old')){
     function old($key,$default=''){
-        if (session()->has('old')) {
-            $value = session()->get('old')[$key];
+        if (flushMessage()->has('old') and isset(session()->get('old')[$key])) {
+            $value = flushMessage()->get('old')[$key];
             if (!empty($value)) return $value;
         }
-        return $default;
+        return $default??'';
     }
 }
 
@@ -133,9 +133,11 @@ if (!function_exists('removeFile')){
     }
 
     foreach ($_FILES[$inputName]['tmp_name'] as $key => $tmp_name) {
+//            return [$tmp_name];
         if ($_FILES[$inputName]['error'][$key] === UPLOAD_ERR_OK) {
             $extension = pathinfo($_FILES[$inputName]['name'][$key], PATHINFO_EXTENSION);
             $fileName = uniqid('img_', true) . '.' . $extension;
+//            $fileName = uniqid() . '_' . $_FILES[$inputName]['name'][$key][0];
             $targetPath = $uploadDir . $fileName;
 
             if (move_uploaded_file($tmp_name, $targetPath)) {

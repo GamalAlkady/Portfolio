@@ -1,101 +1,115 @@
 <?php setTitle("Add Project"); ?>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
-    <h1 class="h2">Add Project</h1>
-</div>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Add Project</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+<!--                    <ol class="breadcrumb float-sm-right">-->
+<!--                        <li class="breadcrumb-item"><a href="#">Home</a></li>-->
+<!--                        <li class="breadcrumb-item active">Dashboard v2</li>-->
+<!--                    </ol>-->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
-<div class="form-container">
-    <form action="/admin/projects/store" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
-        <?= setCsrf() ?>
-        <div class="row g-3">
-            <div class="col-md-6">
-                <label for="title" class="form-label required-field">Title</label>
-                <input type="text" class="form-control" id="title" name="title"
-                       value="<?php echo old('title') ?>"
-                       required>
-                <div class="form-error text-danger text-sm mt-1"><?= errors('title') ?></div>
-            </div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card p-5">
+                        <div class="form-container">
+                            <?php
+                            $form = new FormHelper();
+                            echo $form->openForm(['action' => route('storeProject'), 'method' => 'post', 'enctype' => "multipart/form-data", 'class' => 'row needs-validation', 'novalidate' => ''])->render();
+                            $form->formGroupClass('col-md-6 mb-2');
+                            echo setCsrf();
+                            echo '<input type="file" name="images[]" id="file-input" multiple hidden>';
+                            echo $form->input('title', 'Title', old('title'))->attrs(['required' => true, 'placeholder' => 'Enter project title'])->render();
 
-            <div class="col-md-6">
-                <label for="category" class="form-label required-field">Category</label>
-                <select class="form-select" id="category" name="category" required>
-                    <option value="">Choose...</option>
-                    <?php
-                    $categories = ['Web Development', 'Mobile App', 'Desktop App', 'UI/UX Design', 'Other'];
-                    foreach ($categories as $cat) {
-                        $selected = (old('category') === $cat) ? 'selected' : '';
-                        echo "<option value='$cat' $selected>$cat</option>";
-                    }
-                    ?>
-                </select>
-                <div class="form-error text-danger text-sm mt-1"><?= errors('category') ?></div>
-            </div>
+                            $categories = ['Web Development', 'Mobile App', 'Desktop App', 'UI/UX Design', 'Other'];
+                            // استخدام Select مع المصفوفة البسيطة مباشرةً
+                            echo $form->select(
+                                'category', // اسم حقل الـ select
+                                $categories, // المصفوفة البسيطة مباشرةً
+                                [], // لا حاجة لتحديد option_attrs إذا كانت بسيطة (ستفترض 'id' و 'name' بنفس القيمة)
+                                'Choose category...' // تسمية الحقل
+                            )->selected(old('category')) // اختيار قيمة افتراضية (يجب أن تتطابق مع قيمة في المصفوفة الأصلية)
+                            ->selectAttrs(['required' => 'true']) // سمات إضافية
+                            ->selectClass('form-control mb-3')
+                            ->render();
 
-            <div class="col-12">
-                <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" name="description"
-                          rows="4"><?php echo old('description') ?></textarea>
-                <div class="form-error text-danger text-sm mt-1"><?= errors('description') ?></div>
-            </div>
+                            echo $form->textarea('description', 'Description')
+                                ->value(old('description'))
+                                ->attrs(['rows' => 5])
+                                ->formGroupClass('col-md-12 mb-3')
+                                ->textareaClass('tinymce ') // إذا كنت تستخدم TinyMCE
+                                ->render();
 
-            <div class="col-md-6">
-                <label for="host_url" class="form-label">Host URL</label>
-                <input type="url" class="form-control" id="host_url" name="host_url"
-                       value="<?php echo old('host_url') ?>" >
-                <div class="form-error text-danger text-sm mt-1"><?= errors('host_url') ?></div>
-            </div>
+                            echo $form->input('host_url', 'Host URL')
+                                ->type('url')
+                                ->value(old('host_url'))
+                                ->formGroupClass('col-md-6')
+                                ->render();
 
-            <div class=" col-md-6">
-                <label for="github_url" class="form-label">GitHub URL</label>
-                <input type="url" class="form-control" id="github_url" name="github_url"
-                       value="<?php echo old('github_url') ?>">
-                <div class="form-error text-danger text-sm mt-1"><?= errors('github_url') ?></div>
-            </div>
+                            echo $form->input('github_url', 'GitHub URL')
+                                ->type('url')
+                                ->value(old('github_url'))
+                                ->formGroupClass('col-md-6')
+                                ->class('form-control')
+                                ->render();
 
-            <div class="col-12">
-                <label for="technologies" class="form-label required-field">Technologies Used</label>
-                <input type="text" class="form-control" id="technologies" name="technologies"
-                       placeholder="e.g., HTML, CSS, JavaScript, PHP"
-                       value="<?php echo old('technologies') ?>"
-                       required>
-                <div class="form-error text-danger text-sm mt-1"><?= errors('technologies') ?></div>
-            </div>
+                            echo $form->input('technologies', 'Technologies Used')
+                                ->type('text')
+                                ->value(old('technologies'))
+                                ->attrs([
+                                    'placeholder' => 'e.g., HTML, CSS, JavaScript, PHP',
+                                    'required' => true // إضافة سمة required هنا
+                                ])
+                                ->formGroupClass('col-12')
+                                ->class('form-control')
+                                ->render();
 
-            <div class="col-12" id="otherImages">
-                <label for="images" class="form-label">Other Images</label>
-                <input type="file" class="form-control" id="images" name="images[]" accept="image/*"
-                       multiple onchange="previewImages(this)">
-                <div id="otherImagesPreview" class="mt-2 d-flex flex-wrap gap-2">
-                    <?php
-                    // Display previously uploaded images if form submission failed
-                    if (isset($_FILES['images']) && !empty($images)) {
-                        foreach ($images as $img) {
-                            echo '<img src="../' . $img . '" class="preview-image" style="display:block;">';
-                        }
-                    }
-                    ?>
+                            echo $form->fileInput('images','Images')->placeHolder('Choose files')
+                                ->class('custom-file-input')
+                                ->attrs([
+                                    'placeholder' => 'Choose image',
+                                    'multiple'=>'',
+                                     'accept'=>"image/*",
+                                    'required' => true // إضافة سمة required هنا
+                                ])
+                                ->render();
+//                            echo '  <div id="dropzone-container" class="col-md-12"></div>';
+                            ?>
+
+                            <?php
+                            echo $form->button(['type' => 'submit', 'class' => 'btn btn-primary mt-3'], 'Save', '<i class="fas fa-save mr-2"></i>')->render();
+
+                            echo $form->closeForm()->render();
+                            ?>
+
+                        </div>
+                    </div>
                 </div>
-                <div class="form-error text-danger text-sm mt-1"><?= errors('images.0') ?></div>
-            </div>
-
-            <div class="col-12 mt-4 d-flex justify-content-between">
-                <a href="/admin/projects" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left me-2"></i>Back to Projects
-                </a>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save me-2"></i>Save
-                </button>
             </div>
         </div>
-    </form>
+    </section>
 </div>
+<script src="<?= assets('plugins/select2/js/select2.full.min.js') ?>"></script>
+<script src="<?= assets('js/DropzoneCard.js') ?>"></script>
 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     // Form validation
     (function () {
         'use strict'
+
         var forms = document.querySelectorAll('.needs-validation')
         Array.prototype.slice.call(forms).forEach(function (form) {
             form.addEventListener('submit', function (event) {
@@ -105,25 +119,51 @@
                 }
                 form.classList.add('was-validated')
             }, false)
-        })
-    })()
-
-    function previewImages(input) {
-        const previewContainer = document.getElementById('otherImagesPreview');
-        previewContainer.innerHTML = ''; // Clear existing previews
-
-        Array.from(input.files).forEach(file => {
-            const reader = new FileReader();
-            const imgPreview = document.createElement('img');
-            imgPreview.className = 'preview-image';
-
-            reader.onload = function (e) {
-                imgPreview.src = e.target.result;
-                imgPreview.style.display = 'block';
-            }
-
-            reader.readAsDataURL(file);
-            previewContainer.appendChild(imgPreview);
         });
-    }
+
+        var fileInput = document.querySelector('.custom-file-input');
+        fileInput.addEventListener('change',function ({target}){
+            console.log(target.files)
+            const label = document.querySelector('.custom-file-label');
+            label.innerHTML = target.files.length +" files";
+
+            const previewContainer = document.getElementById('otherImagesPreview');
+            previewContainer.innerHTML = ''; // Clear existing previews
+
+            Array.from(target.files).forEach(file => {
+                const reader = new FileReader();
+                const imgPreview = document.createElement('img');
+                imgPreview.className = 'preview-image';
+
+                reader.onload = function (e) {
+                    imgPreview.src = e.target.result;
+                    imgPreview.style.display = 'block';
+                }
+
+                reader.readAsDataURL(file);
+                previewContainer.appendChild(imgPreview);
+            });
+        });
+        // DropzoneJS Demo Code End
+        function previewImages(input) {
+            const previewContainer = document.getElementById('otherImagesPreview');
+            previewContainer.innerHTML = ''; // Clear existing previews
+
+            Array.from(input.files).forEach(file => {
+                const reader = new FileReader();
+                const imgPreview = document.createElement('img');
+                imgPreview.className = 'preview-image';
+
+                reader.onload = function (e) {
+                    imgPreview.src = e.target.result;
+                    imgPreview.style.display = 'block';
+                }
+
+                reader.readAsDataURL(file);
+                previewContainer.appendChild(imgPreview);
+            });
+        }
+    })();
 </script>
+
+

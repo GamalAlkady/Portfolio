@@ -44,6 +44,15 @@ if (!function_exists('toRoute')) {
     }
 }
 
+if (!function_exists('route')) {
+    /**
+     * Finds route by route name and redirect this route.
+     */
+    function route(string $name, array | string $params = null): string {
+        return Router::singleton()->getRoute($name, $params);
+    }
+}
+
 if (!function_exists('view')) {
     /**
      * Get the evaluated view contents for the given view.

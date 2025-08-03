@@ -1,62 +1,3 @@
-body{
-    /*background: red !important;*/
-}
-
-body {
-    overflow-x: hidden;
-}
-
-#sidebar {
-    min-height: 100vh;
-    transition: all 0.3s;
-}
-
-#sidebar.active {
-    margin-left: -250px;
-}
-
-#content {
-    transition: all 0.3s;
-    min-height: 100vh;
-}
-
-.sidebar-header {
-    padding: 20px;
-    background: #f8f9fa;
-}
-
-.sidebar-links a {
-    padding: 10px 20px;
-    font-size: 1.1em;
-    display: block;
-    transition: all 0.3s;
-}
-
-.sidebar-links a:hover {
-    background: #0d6efd;
-    color: #fff !important;
-}
-
-.sidebar-links a i {
-    margin-right: 10px;
-}
-
-@media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
-}
-
-.form-container {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-}
-
 .required-field::after {
     content: '*';
     color: red;
@@ -69,41 +10,6 @@ body {
     object-fit: cover;
     border-radius: 8px;
     display: none;
-}
-
-.action-buttons .btn {
-    margin: 0 0.2rem;
-}
-
-.stats-card {
-    border-left: 4px solid #0d6efd;
-    background: white;
-    margin-bottom: 1rem;
-}
-
-.table-custom {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.table-custom thead th {
-    background-color: #f8f9fa;
-    border-bottom: 2px solid #dee2e6;
-}
-
-.activeLink{
-    background: #4a7cc7;
-    /*opacity: 0.6;*/
-    color: white;
-}
-
-.pointer{
-    cursor: pointer;
-}
-
-.form-error {
-    transition: all 0.3s ease;
 }
 
 .image-preview {

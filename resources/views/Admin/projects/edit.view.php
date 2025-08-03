@@ -1,91 +1,112 @@
-<?php use App\Models\Projects;
+<?php setTitle("Edit Project"); ?>
 
-setTitle("Edit Project"); ?>
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
-    <h1 class="h2">Edit Project</h1>
-    <!--        <a href="/admin/works" class="btn btn-secondary">-->
-    <!--            <i class="fas fa-arrow-left me-2"></i>Back to Projects-->
-    <!--        </a>-->
-</div>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Edit Project</h1>
+                </div><!-- /.col -->
 
-<?php /** @var Projects $project */
-if ($project) : ?>
-    <div class="form-container">
-        <form action="/admin/projects/<?=$project['id']?>/update" method="POST" enctype="multipart/form-data">
-            <?= setCsrf() ?>
-            <?= setMethod("PUT") ?>
-            <input type="hidden" name="id" value="<?= $project['id'] ?>">
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <label for="title" class="form-label">Project Title</label>
-                    <input type="text" class="form-control" id="title" name="title"
-                           value="<?php echo htmlspecialchars($project['title'] ?? ''); ?>" required>
-                    <div class="form-error text-danger text-sm mt-1"><?= errors('title') ?></div>
-                </div>
-                <div class="col-md-6">
-                    <label for="category" class="form-label">Category</label>
-                    <select class="form-select" id="category" name="category" required>
-                        <option value="">Select Category</option>
-                        <option value="Web Development" <?php echo (($project['category'] ?? '') == 'Web Development') ? 'selected' : ''; ?>>
-                            Web Development
-                        </option>
-                        <option value="Mobile Development" <?php echo (($project['category'] ?? '') == 'Mobile Development') ? 'selected' : ''; ?>>
-                            Mobile Development
-                        </option>
-                        <option value="Desktop Application" <?php echo (($project['category'] ?? '') == 'Desktop Application') ? 'selected' : ''; ?>>
-                            Desktop Application
-                        </option>
-                        <option value="Data Science" <?php echo (($project['category'] ?? '') == 'Data Science') ? 'selected' : ''; ?>>
-                            Data Science
-                        </option>
-                        <option value="Other" <?php echo (($project['category'] ?? '') == 'Other') ? 'selected' : ''; ?>>
-                            Other
-                        </option>
-                    </select>
-                    <div class="form-error text-danger text-sm mt-1"><?= errors('category') ?></div>
-                </div>
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
                 <div class="col-12">
-                    <label for="description" class="form-label">Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="4"
-                              required><?php echo htmlspecialchars($project['description'] ?? ''); ?></textarea>
-                    <div class="form-error text-danger text-sm mt-1"><?= errors('description') ?></div>
-                </div>
+                    <div class="card p-5">
+                        <div class="form-container">
+                            <?php
+                            $form = new FormHelper();
+                            /** @var array $project */
+                            echo $form->openForm(['action' => route('updateProject',['id'=>$project['id']]), 'method' => 'post', 'enctype' => "multipart/form-data", 'class' => 'row needs-validation', 'novalidate' => ''])->render();
+                            $form->formGroupClass('col-md-6 mb-2');
+                            echo setCsrf();
+                            echo setMethod('PUT');
+                            echo $form->input('title', 'Title', old('title',$project['title']))->attrs(['required' => true, 'placeholder' => 'Enter project title'])->render();
 
-                <div class="col-md-6">
-                    <label for="host_url" class="form-label">Host URL (Optional)</label>
-                    <input type="url" class="form-control" id="host_url" name="host_url"
-                           value="<?php echo htmlspecialchars($project['host_url'] ?? ''); ?>">
-                    <div class="form-error text-danger text-sm mt-1"><?= errors('host_url') ?></div>
-                </div>
+                            $categories = ['Web Development', 'Mobile App', 'Desktop App', 'UI/UX Design', 'Other'];
+                            // استخدام Select مع المصفوفة البسيطة مباشرةً
+                            echo $form->select(
+                                'category', // اسم حقل الـ select
+                                $categories, // المصفوفة البسيطة مباشرةً
+                                [], // لا حاجة لتحديد option_attrs إذا كانت بسيطة (ستفترض 'id' و 'name' بنفس القيمة)
+                                'Choose category...' // تسمية الحقل
+                            )->selected(old('category',$project['category'])) // اختيار قيمة افتراضية (يجب أن تتطابق مع قيمة في المصفوفة الأصلية)
+                            ->selectAttrs(['required' => 'true']) // سمات إضافية
+                            ->selectClass('form-control mb-3')
+                                ->render();
 
-                <div class="col-md-6">
-                    <label for="github_url" class="form-label">GitHub URL (Optional)</label>
-                    <input type="url" class="form-control" id="github_url" name="github_url"
-                           value="<?php echo htmlspecialchars($project['github_url'] ?? ''); ?>">
-                    <div class="form-error text-danger text-sm mt-1"><?= errors('github_url') ?></div>
-                </div>
+                            echo $form->textarea('description', 'Description')
+                                ->value(old('description',$project['description']))
+                                ->attrs(['rows' => 5])
+                                ->formGroupClass('col-md-12 mb-3')
+                                ->textareaClass('tinymce ') // إذا كنت تستخدم TinyMCE
+                                ->render();
 
-                <div class="col-12">
-                    <label for="technologies" class="form-label">Technologies (Comma separated)</label>
-                    <input type="text" class="form-control" id="technologies" name="technologies"
-                           value="<?php echo htmlspecialchars($project['technologies'] ?? ''); ?>" required>
-                    <div class="form-error text-danger text-sm mt-1"><?= errors('technologies') ?></div>
-                </div>
+                            echo $form->input('host_url', 'Host URL')
+                                ->type('url')
+                                ->value(old('host_url',$project['host_url']))
+                                ->formGroupClass('col-md-6')
+                                ->render();
 
-                <div class="col-12 d-flex justify-content-around">
-                    <button type="button" class="btn btn-secondary" onclick="history.back()">Back</button>
-                    <button type="submit" class="btn btn-primary">Update Project</button>
+                            echo $form->input('github_url', 'GitHub URL')
+                                ->type('url')
+                                ->value(old('github_url',$project['github_url']))
+                                ->formGroupClass('col-md-6')
+                                ->class('form-control')
+                                ->render();
+
+                            echo $form->input('technologies', 'Technologies Used')
+                                ->type('text')
+                                ->value(old('technologies',$project['technologies']))
+                                ->attrs([
+                                    'placeholder' => 'e.g., HTML, CSS, JavaScript, PHP',
+                                    'required' => true // إضافة سمة required هنا
+                                ])
+                                ->formGroupClass('col-12')
+                                ->class('form-control')
+                                ->render();
+
+                            echo $form->button(['type' => 'submit', 'class' => 'btn btn-primary mt-3'], 'Save', '<i class="fas fa-save mr-2"></i>')->render();
+
+                            echo $form->closeForm()->render();
+                            ?>
+
+                        </div>
+                    </div>
                 </div>
             </div>
-        </form>
-    </div>
-<?php else : ?>
-    <div class="alert alert-warning" role="alert">
-        Project not found or an error occurred.
-    </div>
-<?php endif; ?>
+        </div>
+    </section>
+</div>
+<script src="<?= assets('plugins/select2/js/select2.full.min.js') ?>"></script>
+<script src="<?= assets('js/DropzoneCard.js') ?>"></script>
 
+<script>
+    // Form validation
+    (function () {
+        'use strict'
 
+        $('.select2').select2()
+
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        });
+
+    })()
+</script>
 
 

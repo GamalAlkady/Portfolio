@@ -134,29 +134,47 @@ class ProjectController
     public function destroy(Request $request)
     {
         $id = $request->getParam('id');
+
+        $projectImages = DB::db()->select("project_images","path",['project_id'=>$id]);
+
         $projects = new Projects();
+
         $project = $projects->delete(['id'=>$id]);
         if ($project->error()!=null){
             return json_encode(['success'=>false,'message'=>$project->error()]);
+        }
+        foreach ($projectImages as $image){
+            removeFile($image);
         }
         // flushMessage()->set("success","Project deleted successfully.");
         return json_encode(['success'=>true,'message'=>"Project deleted successfully."]);
     }
 
+    public function getImages(Request $request){
+        $images = DB::db()->select("project_images","*",['project_id'=>$request->getParam('project_id')]);
+        header('Content-Type: application/json');
+        echo json_encode($images);
+    }
     public function addImage(Request $request)
     {
+        $projectId = $request->getParam('project_id');
         $images = uploadMultipleImages('images');
+//        return json_encode(['success'=>$images,'message'=>!is_array($_FILES['images']['name'])]);
         $projectImages=[];
         foreach ($images as $image){
-            $projectImages[]=['path'=>$image,'project_id'=>$request->input('project_id'),'is_main'=>0];
+            $projectImages[]=['path'=>$image,'project_id'=>$projectId,'is_main'=>0];
         }
+
         $database = DB::db();
         $table = $database->insert('project_images',$projectImages);
         if ($table->rowCount()==0){
+            return back()->withError($database->error());
             return json_encode(['success'=>false,'message'=>$database->error()]);
         }
-        // flushMessage()->set('success','Project image added successfully.');
-        return json_encode(['success'=>true,'message'=>"Project image added successfully."]);
+         flushMessage()->set('success','Project image added successfully.');
+        return  back();
+        return toRoute('updateProject',['id'=>$projectId]);
+//        return json_encode(['success'=>true,'message'=>"Project image added successfully."]);
     }
 
     public function replaceImage(Request $request)
@@ -238,22 +256,24 @@ class ProjectController
     public function extracted(Request $request, $removeOld = false): \Devamirul\PhpMicro\core\Foundation\Application\Redirect\Redirect|array
     {
         $data = $request->input();
+        $projectId = $data['id'];
         $validator = new Validator([
             "images.*"=>"images is required"
         ]);
+
         $validation = $validator->validate($data + $_FILES, [
             'title' => 'required|min:3',
             'description' => 'required|min:10',
             'category' => 'required',
             'technologies' => 'required',
-            'images.*' => 'required|uploaded_file:0,1M,png,jpeg',
+            'images' => "required_without:id|array|uploaded_file:0,1M,png,jpeg",
             'host_url' => 'nullable|url',
             'github_url' => 'nullable|url',
         ]);
 
         if ($validation->fails()){
-            Session::set('old', $_POST);
-            Session::set('old_files', $_FILES);
+            flushMessage()->set('old', $_POST);
+            flushMessage()->set('old_files', $_FILES);
             $errors = $validation->errors();
             return back()->withError($errors);
         }

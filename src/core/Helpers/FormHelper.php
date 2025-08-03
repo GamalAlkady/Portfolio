@@ -19,6 +19,12 @@ if (!function_exists('isCsrfValid')) {
      * Check CSRF is valid or not.
      */
     function isCsrfValid(): bool {
+        $token = $_SERVER['HTTP_X_CSRF_TOKEN'] ?? null;
+
+        if (Session::singleton()->has('csrf') && $token !== Session::singleton()->get('csrf')) {
+            return true;
+        }
+
         if (!Session::singleton()->has('csrf') || !isset($_POST['csrf'])) {
             return false;
         }
