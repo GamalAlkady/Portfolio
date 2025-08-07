@@ -23,7 +23,7 @@ class WelcomeController extends BaseController {
 
 //        var_dump($users);
 //        die('aa');
-        return view('welcome');
+        return view('index');
     }
 
 }

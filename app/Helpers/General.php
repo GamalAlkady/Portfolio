@@ -38,7 +38,8 @@ if (!function_exists('includeView')) {
 
 if (!function_exists('old')){
     function old($key,$default=''){
-        if (flushMessage()->has('old') and isset(session()->get('old')[$key])) {
+//            dd(flushMessage()->get('old'));
+        if (flushMessage()->has('old')) {
             $value = flushMessage()->get('old')[$key];
             if (!empty($value)) return $value;
         }
@@ -53,8 +54,9 @@ if (!function_exists('destroy_old')){
     }
 }
 
-function assets($path)
+function assets($path,$default='')
 {
+    if (empty($path) and !empty($default)) $path=$default;
     $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
     $scheme = $isSecure ? 'https' : 'http';
 
@@ -66,7 +68,7 @@ function assets($path)
     return $baseUrl . '/assets/' . $path;
 }
 
-function uploadImage($fileInputName, $folder = 'projects',$removeOld=false)
+function uploadImage($fileInputName, $folder = 'projects',$oldImagePath='')
 {
     if (!isset($_FILES[$fileInputName]) || $_FILES[$fileInputName]['error'] !== UPLOAD_ERR_OK) {
         return null; // لا يوجد ملف أو خطأ في الرفع
@@ -93,8 +95,8 @@ function uploadImage($fileInputName, $folder = 'projects',$removeOld=false)
 
     // نقل الملف
     if (move_uploaded_file($_FILES[$fileInputName]['tmp_name'], $targetPath)) {
-        if ($removeOld && !empty($_POST['old_image'])) {
-            $oldImageRelativePath = trim($_POST['old_image'], '/\\');
+        if (!empty($oldImagePath)) {
+            $oldImageRelativePath = trim($oldImagePath, '/\\');
                 $oldImageFullPath = public_path('assets/'.$oldImageRelativePath);
                 if (file_exists($oldImageFullPath)) {
                     unlink($oldImageFullPath);

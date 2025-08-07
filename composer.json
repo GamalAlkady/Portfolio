@@ -47,6 +47,7 @@
         "phpmailer/phpmailer": "dev-master",
         "rakit/validation": "dev-master",
         "txthinking/mailer": "dev-master",
-        "devamirul/p-router": "dev-main"
+        "devamirul/p-router": "dev-main",
+        "ezyang/htmlpurifier": "dev-master"
     }
 }

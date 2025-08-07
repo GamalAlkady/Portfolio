@@ -18,7 +18,7 @@ class AuthAttempt {
     public function attempt(array $input, string $redirect = '/') {
         $model = new $this->guard['model'];
 
-        $isModelExist = $model->get(['id', 'name', 'email', 'password'], [
+        $isModelExist = $model->get('*', [
             "email" => $input['email'],
         ])->getData();
 

@@ -1,55 +1,73 @@
 <?php setTitle("Add Skill"); ?>
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
-    <h1 class="h2">Add Skill</h1>
-</div>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Add Project</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <!--                    <ol class="breadcrumb float-sm-right">-->
+                    <!--                        <li class="breadcrumb-item"><a href="#">Home</a></li>-->
+                    <!--                        <li class="breadcrumb-item active">Dashboard v2</li>-->
+                    <!--                    </ol>-->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
 
-<div class="form-container">
-    <form action="/admin/skills/store" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
-        <?= setCsrf() ?>
-        <div class="row g-3">
-            <div class="col-md-6">
-                <label for="name" class="form-label required-field">Name</label>
-                <input type="text" class="form-control" id="name" name="name"
-                       value="<?php echo old('name') ?>"
-                       required>
-                <div class="form-error text-danger text-sm mt-1"><?= errors('name') ?></div>
-            </div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
 
-            <div class="col-md-6">
-                <label for="category" class="form-label required-field">Category</label>
-                <select class="form-select" id="category" name="category" required>
-                    <option value="">Choose...</option>
+            <div class="card p-5">
+                <div class="form-container">
+
                     <?php
+                    $form = new FormHelper();
+                    echo $form->openForm(['action' => route('storeSkill'), 'method' => 'post', 'enctype' => "multipart/form-data", 'class' => 'row needs-validation', 'novalidate' => ''])->render();
+                    $form->formGroupClass('col-md-6 mb-2');
+                    echo setCsrf();
+                    echo $form->input('name', 'Name', old('name'))->attrs(['required' => true, 'placeholder' => 'Enter name'])->render();
+
                     $categories = ['Technical skills', 'Design skills', 'Personal skills', 'Other'];
-                    foreach ($categories as $cat) {
-                        $selected = (old('category') === $cat) ? 'selected' : '';
-                        echo "<option value='$cat' $selected>$cat</option>";
-                    }
+                    // استخدام Select مع المصفوفة البسيطة مباشرةً
+                    echo $form->select(
+                        'category', // اسم حقل الـ select
+                        $categories, // المصفوفة البسيطة مباشرةً
+                        [], // لا حاجة لتحديد option_attrs إذا كانت بسيطة (ستفترض 'id' و 'name' بنفس القيمة)
+                        'Choose category...' // تسمية الحقل
+                    )->selected(old('category')) // اختيار قيمة افتراضية (يجب أن تتطابق مع قيمة في المصفوفة الأصلية)
+                    ->selectAttrs(['required' => 'true']) // سمات إضافية
+                    ->selectClass('form-control mb-3')
+                        ->render();
+
+                    echo $form->textarea('description', 'Description')
+                        ->value(old('description'))
+                        ->attrs(['rows' => 5])
+                        ->formGroupClass('col-md-12 mb-3')
+                        ->textareaClass('tinymce ') // إذا كنت تستخدم TinyMCE
+                        ->render();
                     ?>
-                </select>
-                <div class="form-error text-danger text-sm mt-1"><?= errors('category') ?></div>
+                    <div class="col-12 mt-4 d-flex justify-content-between">
+                       <div>
+                           <button onclick="history.back()" class="btn btn-secondary">
+                               <i class="fas fa-arrow-left me-2"></i>Back to Skills
+                           </button>
+                       </div>
+                        <?php echo $form->button(['type' => 'submit', 'class' => 'btn btn-primary mt-3'], 'Save', '<i class="fas fa-save mr-2"></i>')->render(); ?>
+                    </div>
+                    <?php echo $form->closeForm()->render(); ?>
+
+                </div>
             </div>
 
-            <div class="col-12">
-                <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" name="description"
-                          rows="4"><?php echo old('description') ?></textarea>
-                <div class="form-error text-danger text-sm mt-1"><?= errors('description') ?></div>
-            </div>
-
-            <div class="col-12 mt-4 d-flex justify-content-between">
-                <a href="/admin/skills" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left me-2"></i>Back to Skills
-                </a>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save me-2"></i>Save
-                </button>
-            </div>
         </div>
-    </form>
+    </section>
 </div>
-
 
 <script>
     // Form validation

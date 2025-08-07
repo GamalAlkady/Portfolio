@@ -115,7 +115,8 @@ class Input extends Field
         // Handle required indicator in label
         $label_html = '';
         if ($this->label !== '') {
-            $label_html .= '<label for="' . htmlspecialchars($this->name) . '" class="control-label">' . htmlspecialchars(_($this->label));
+            $label_class=$this->label_class??'control-label';
+            $label_html .= '<label for="' . htmlspecialchars($this->name) . '" class="'.$label_class.'">' . htmlspecialchars(_($this->label));
             if (isset($this->input_attrs['required']) && $this->input_attrs['required']) {
                 $label_html .= '<span class="required text-danger" style="margin-left:5px">*</span>';
             }

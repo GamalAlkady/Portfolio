@@ -14,7 +14,7 @@ class GuestMiddleware implements Middleware {
     public function handle(Request $request, array $guards) {
         if (!empty($guards)) {
             foreach ($guards as $guard) {
-                if ($guard === 'editor' && Auth::guard($guard)->check()) {
+                if ($guard === 'admin' && Auth::guard($guard)->check()) {
                     return redirect('/editors/home');
                 }
                 return;

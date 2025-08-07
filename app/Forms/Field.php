@@ -25,6 +25,7 @@ abstract class Field
     protected string $label = '';
     protected string $placeHolder = '';
     protected array $form_group_attr = [];
+    protected string $label_class = '';
     protected string $form_group_class = '';
 
     public function __construct(string $name, string $label = '',$placeHolder='')
@@ -53,6 +54,17 @@ abstract class Field
     public function label(string $label): static
     {
         $this->label = $label;
+        return $this;
+    }
+
+    /**
+     * Set the label for the field.
+     * @param string $label_class
+     * @return static
+     */
+    public function labelClass(string $label_class): static
+    {
+        $this->label_class = $label_class;
         return $this;
     }
 

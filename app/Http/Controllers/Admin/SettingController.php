@@ -9,11 +9,12 @@ use Devamirul\PhpMicro\core\Foundation\Application\Facade\Facades\Session;
 use Rakit\Validation\Validator;
 
 
-class SkillController
+class SettingController
 {
     public function index()
     {
-        return viewAdmin('skills/index');
+
+        return viewAdmin('profile');
     }
 
     public function dataTable(Request $request)
@@ -102,6 +103,7 @@ class SkillController
         flushMessage()->set('success','Skill updated successfully.');
         return toRoute('skills');
     }
+
 
     public function destroy(Request $request)
     {

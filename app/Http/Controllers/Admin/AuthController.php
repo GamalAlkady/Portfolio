@@ -13,7 +13,7 @@ use function view;
 class AuthController extends BaseController {
 
     public function create(){
-        return view('login');
+        return layout('loginLayout')-> view('login');
     }
     /**
      * View welcome page.
@@ -26,6 +26,7 @@ class AuthController extends BaseController {
 
     public function destroy() {
         (new AuthAttempt())->destroy();
+        return redirect('/');
     }
 
 //    public function destroy() {

@@ -11,37 +11,45 @@ use Devamirul\PhpMicro\core\Foundation\Application\Facade\Facades\Router;
  */
 
 Router::get('/', [WelcomeController::class, 'index'])->name('welcome');
+Router::get('/projects', [WelcomeController::class, 'showProjects'])->name('showProjects');
 
-Router::get('/login', [AuthController::class, 'create']);
+Router::get('/login', [AuthController::class, 'create'])->name('login')->middleware('guest');
 Router::post('/login', [AuthController::class, 'login']);
-Router::delete('/logout', [AuthController::class, 'destroy'])->name('logout')->middleware('auth');
+Router::get('/logout', [AuthController::class, 'destroy'])->name('logout')->middleware('auth');
 
-Router::get("/admin/", [DashboardController::class,'index']);
-Router::get("/admin/dashboard", [DashboardController::class,'index'])->name("dashboard");
+Router::get("/admin/", [DashboardController::class,'index'])->middleware('auth');
+Router::get("/admin/dashboard", [DashboardController::class,'index'])->name("dashboard")->middleware('auth');
 
 /**  Projects  */
-Router::get("/admin/projects", [Admin\ProjectController::class,'index'])->name("projects");
-Router::get('/admin/projects/datatable', [App\Http\Controllers\Admin\ProjectController::class, 'dataTable']);
-Router::get("/admin/project/details/:id", [Admin\ProjectController::class,'show'])->name("project.details");
-Router::get("/admin/projects/add", [Admin\ProjectController::class,'create'])->name("addProject");
-Router::post("/admin/projects/store", [Admin\ProjectController::class,'store'])->name("storeProject");
-Router::get("/admin/projects/:id/edit", [Admin\ProjectController::class,'edit'])->name("editProject");
-Router::put("/admin/projects/:id/update", [Admin\ProjectController::class,'update'])->name("updateProject");
-Router::delete("/admin/projects/:id/delete", [Admin\ProjectController::class,'destroy'])->name('deleteProject');
+Router::get("/admin/projects", [Admin\ProjectController::class,'index'])->name("projects")->middleware('auth');
+Router::get('/admin/projects/datatable', [App\Http\Controllers\Admin\ProjectController::class, 'dataTable'])->middleware('auth');
+Router::get("/admin/project/details/:id", [Admin\ProjectController::class,'show'])->name("project.details")->middleware('auth');
+Router::get("/admin/projects/add", [Admin\ProjectController::class,'create'])->name("addProject")->middleware('auth');
+Router::post("/admin/projects/store", [Admin\ProjectController::class,'store'])->name("storeProject")->middleware('auth');
+Router::get("/admin/projects/:id/edit", [Admin\ProjectController::class,'edit'])->name("editProject")->middleware('auth');
+Router::put("/admin/projects/:id/update", [Admin\ProjectController::class,'update'])->name("updateProject")->middleware('auth');
+Router::delete("/admin/projects/:id/delete", [Admin\ProjectController::class,'destroy'])->name('deleteProject')->middleware('auth');
 
 
-Router::get("/admin/projects/images/:project_id", [Admin\ProjectController::class,'getImages'])->name("getImages");
-Router::post("/admin/projects/images/:project_id/add", [Admin\ProjectController::class,'addImage'])->name("addImage");
-Router::put("/admin/projects/images/:id/replace", [Admin\ProjectController::class,'replaceImage'])->name("replaceImage");
-Router::delete("/admin/projects/images/:id/delete", [Admin\ProjectController::class,'deleteImage'])->name("deleteImage");
-Router::post("/admin/projects/images/:id/set-main", [Admin\ProjectController::class,'setMainImage'])->name("setMainImage");
+Router::get("/admin/projects/images/:project_id", [Admin\ProjectController::class,'getImages'])->name("getImages")->middleware('auth');
+Router::post("/admin/projects/images/:project_id/add", [Admin\ProjectController::class,'addImage'])->name("addImage")->middleware('auth');
+Router::put("/admin/projects/images/:id/replace", [Admin\ProjectController::class,'replaceImage'])->name("replaceImage")->middleware('auth');
+Router::delete("/admin/projects/images/:id/delete", [Admin\ProjectController::class,'deleteImage'])->name("deleteImage")->middleware('auth');
+Router::post("/admin/projects/images/:id/set-main", [Admin\ProjectController::class,'setMainImage'])->name("setMainImage")->middleware('auth');
 
 
 /**  Skills */
-Router::get("/admin/skills", [Admin\SkillController::class,'index'])->name("skills");
-Router::get('/admin/skills/datatable', [Admin\SkillController::class, 'dataTable']);
-Router::get("/admin/skills/add", [Admin\SkillController::class,'create'])->name("skill.add");
-Router::post("/admin/skills/store", [Admin\SkillController::class,'store'])->name("skill.store");
-Router::get("/admin/skills/:id/edit", [Admin\SkillController::class,'edit'])->name("skill.edit");
-Router::put("/admin/skills/:id/update", [Admin\SkillController::class,'update'])->name("skill.update");
-Router::delete("/admin/skills/:id/delete", [Admin\SkillController::class,'destroy']);
+Router::get("/admin/skills", [Admin\SkillController::class,'index'])->name("skills")->middleware('auth');
+Router::get('/admin/skills/datatable', [Admin\SkillController::class, 'dataTable'])->middleware('auth');
+Router::get("/admin/skills/add", [Admin\SkillController::class,'create'])->name("addSkill")->middleware('auth');
+Router::post("/admin/skills/store", [Admin\SkillController::class,'store'])->name("storeSkill")->middleware('auth');
+Router::get("/admin/skills/:id/edit", [Admin\SkillController::class,'edit'])->name("editSkill")->middleware('auth');
+Router::put("/admin/skills/:id/update", [Admin\SkillController::class,'update'])->name("updateSkill")->middleware('auth');
+Router::delete("/admin/skills/:id/delete", [Admin\SkillController::class,'destroy'])->name('deleteSkill')->middleware('auth');
+
+
+Router::get("/admin/profile", [Admin\ProfileController::class,'index'])->name('profile')->middleware('auth');
+Router::put("/admin/profile", [Admin\ProfileController::class,'update'])->name('updateProfile')->middleware('auth');
+
+
+

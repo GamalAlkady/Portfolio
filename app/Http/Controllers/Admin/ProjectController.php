@@ -256,7 +256,6 @@ class ProjectController
     public function extracted(Request $request, $removeOld = false): \Devamirul\PhpMicro\core\Foundation\Application\Redirect\Redirect|array
     {
         $data = $request->input();
-        $projectId = $data['id'];
         $validator = new Validator([
             "images.*"=>"images is required"
         ]);

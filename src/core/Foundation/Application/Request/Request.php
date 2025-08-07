@@ -16,7 +16,7 @@ class Request {
      */
     public function path(): string {
         $url = parse_url($_SERVER['REQUEST_URI']);
-        return trim($url['path']) ?? null;
+        return trim($url['path']) ?? '';
     }
 
     /**
@@ -124,6 +124,21 @@ class Request {
             }
         }
         return $only;
+    }
+
+    /**
+     * Retrieve all data except some from all data requested.
+     */
+    public function except(): mixed
+    {
+        $all = [];
+        $args = func_get_args();
+
+        foreach ($_REQUEST as $key => $value) {
+            if (!in_array($key,$args))
+                $all[$key] = strip_tags($value);
+        }
+        return $all;
     }
 
     /**

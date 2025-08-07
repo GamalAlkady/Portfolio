@@ -16,5 +16,6 @@
 <!-- ChartJS -->
 <script src="<?=assets('plugins/chart.js/Chart.min.js')?>"></script>
 
+
 <!-- AdminLTE for demo purposes -->
 <script src="<?=assets('js/demo.js')?>"></script>

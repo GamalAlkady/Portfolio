@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb1f4fb4e40505504e08ca10379e2861",
+    "content-hash": "6fa4ca702405d02eb7354c4d0a3ead79",
     "packages": [
         {
             "name": "catfan/medoo",
@@ -82,6 +82,122 @@
                 }
             ],
             "time": "2023-06-10T07:54:55+00:00"
+        },
+        {
+            "name": "devamirul/p-router",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DevAmirul/p-router.git",
+                "reference": "92fa1e0a8e9ca60ce69b9e2b99cd6d369234f2ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DevAmirul/p-router/zipball/92fa1e0a8e9ca60ce69b9e2b99cd6d369234f2ed",
+                "reference": "92fa1e0a8e9ca60ce69b9e2b99cd6d369234f2ed",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=8.00"
+            },
+            "default-branch": true,
+            "type": "package",
+            "autoload": {
+                "files": [
+                    "src/Helper/Helpers.php"
+                ],
+                "psr-4": {
+                    "Devamirul\\PRouter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Amirul islam",
+                    "email": "inbox.amirul@gmail.com",
+                    "homepage": "https://amirul.web.app"
+                }
+            ],
+            "description": "Simple, lightweight, and powerful PHP Router with rich features like Middlewares and Controllers is a simple and useful router class. Heavily inspired by the way Laravel handles routing.",
+            "keywords": [
+                "input-handler",
+                "php-router",
+                "request-handler",
+                "router",
+                "routing-engine",
+                "url-handling"
+            ],
+            "support": {
+                "issues": "https://github.com/DevAmirul/p-router/issues",
+                "source": "https://github.com/DevAmirul/p-router/tree/main"
+            },
+            "time": "2023-11-11T10:20:44+00:00"
+        },
+        {
+            "name": "ezyang/htmlpurifier",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezyang/htmlpurifier.git",
+                "reference": "1eb05d9864620e926535ce2131803acd2a6d7a4d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/1eb05d9864620e926535ce2131803acd2a6d7a4d",
+                "reference": "1eb05d9864620e926535ce2131803acd2a6d7a4d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~5.6.0 || ~7.0.0 || ~7.1.0 || ~7.2.0 || ~7.3.0 || ~7.4.0 || ~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+            },
+            "require-dev": {
+                "cerdic/css-tidy": "^1.7 || ^2.0",
+                "simpletest/simpletest": "dev-master"
+            },
+            "suggest": {
+                "cerdic/css-tidy": "If you want to use the filter 'Filter.ExtractStyleBlocks'.",
+                "ext-bcmath": "Used for unit conversion and imagecrash protection",
+                "ext-iconv": "Converts text to and from non-UTF-8 encodings",
+                "ext-tidy": "Used for pretty-printing HTML"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "library/HTMLPurifier.composer.php"
+                ],
+                "psr-0": {
+                    "HTMLPurifier": "library/"
+                },
+                "exclude-from-classmap": [
+                    "/library/HTMLPurifier/Language/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Edward Z. Yang",
+                    "email": "admin@htmlpurifier.org",
+                    "homepage": "http://ezyang.com"
+                }
+            ],
+            "description": "Standards compliant HTML filter written in PHP",
+            "homepage": "http://htmlpurifier.org/",
+            "keywords": [
+                "html"
+            ],
+            "support": {
+                "issues": "https://github.com/ezyang/htmlpurifier/issues",
+                "source": "https://github.com/ezyang/htmlpurifier/tree/master"
+            },
+            "time": "2025-07-22T02:38:54+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -855,6 +971,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "catfan/medoo": 20,
+        "devamirul/p-router": 20,
+        "ezyang/htmlpurifier": 20,
         "icanboogie/datetime": 20,
         "phpmailer/phpmailer": 20,
         "rakit/validation": 20,
