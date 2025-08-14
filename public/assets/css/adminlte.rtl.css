@@ -1,0 +1,46 @@
+body{
+  text-align: right !important;
+}
+
+dd{
+  margin-right: 0 !important;
+}
+
+caption{
+  text-align: right !important;
+}
+
+
+.list-unstyled {
+  padding-right: 0 !important;
+}
+
+.list-inline {
+  padding-right: 0 !important;
+}
+
+
+.list-inline-item:not(:last-child) {
+  margin-left: 0.5rem !important;
+}
+
+.container,
+.container-fluid,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl {
+  padding-left: 7.5px !important;
+  padding-right: 7.5px !important;
+}
+.layout-boxed .wrapper .main-sidebar {
+  right: inherit !important;
+}
+
+.layout-navbar-fixed .wrapper .main-header {
+  right: 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1033;
+}
