@@ -13,7 +13,7 @@
     <!-- icheck bootstrap -->
     <link rel="stylesheet" href="<?=assets('plugins/icheck-bootstrap/icheck-bootstrap.min.css')?>">
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?=assets('css/adminlte.min.css')?>">
+    <link rel="stylesheet" href="<?=assets('css/adminlte.css')?>">
 </head>
 <body class="hold-transition login-page">
 

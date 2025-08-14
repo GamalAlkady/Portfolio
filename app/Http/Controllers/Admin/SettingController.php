@@ -2,142 +2,104 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Skills;
-use Devamirul\PhpMicro\core\Foundation\Application\Facade\Facades\DB;
+use App\Models\Settings;
 use Devamirul\PhpMicro\core\Foundation\Application\Request\Request;
-use Devamirul\PhpMicro\core\Foundation\Application\Facade\Facades\Session;
-use Rakit\Validation\Validator;
-
+use HTMLPurifier;
+use HTMLPurifier_Config;
 
 class SettingController
 {
+    // private $settingsModel;
+    // public function  __construct()
+    // {
+    //     $this->settingsModel = new Settings();
+    // }
+
     public function index()
     {
-
-        return viewAdmin('profile');
-    }
-
-    public function dataTable(Request $request)
-    {
-        $start = $_GET['start'] ?? 0;
-        $limit = $_GET['length'] ?? 10;
-        $search = $_GET['search']['value'] ?? '';
-        
-        $params = [':search' => "%$search%"];
-        
-        // ✅ حساب عدد السجلات بعد الفلترة
-        $countFiltered = DB::db()->query(
-            "SELECT COUNT(*) as total FROM skills WHERE name LIKE :search OR description LIKE :search",
-            $params
-        )->fetch()['total'];
-        
-        // ✅ جلب البيانات مع التقطيع
-        $params[':start'] = (int)$start;
-        $params[':limit'] = (int)$limit;
-        
-        $query = DB::db()->query(
-            "SELECT * FROM skills WHERE name LIKE :search OR description LIKE :search LIMIT :start, :limit",
-            $params
-        )->fetchAll();
-        
-        // ✅ العدد الكلي بدون فلترة
-        $total = (new Skills())->count()->getData();
-        
-        header('Content-Type: application/json');
-        
-        return json_encode([
-            "draw" => (int) $_GET['draw'],
-            "recordsTotal" => $total,
-            "recordsFiltered" => $countFiltered,
-            "data" => $query
-        ]);
-        
-
-    }
-
-    public function create()
-    {
-        return viewAdmin('skills/add');
-    }
-
-    public function store(Request $request)
-    {
-        $data = $this->extracted($request);
-
-        $database = DB::db();
-
-        try {
-            $database->pdo->beginTransaction();
-
-            $database->insert("skills", $data);
-
-            $skillId = $database->id();
-
-            /* Commit the changes */
-            $database->pdo->commit();
-        }catch (\Exception $exception){
-            // On any failure, rollback all
-            $database->pdo->rollBack();
-        }
-//        destroy_old();
-        flushMessage()->set('success','Skill added successfully.');
-        return toRoute('skills');
-    }
-
-    public function edit(Request $request)
-    {
-        $skill = (new Skills())->get('*', ["id" => $request->getParam('id')])->getData();
-        return viewAdmin('skills/edit',compact('skill'));
+        return viewAdmin('settings/index');
     }
 
     public function update(Request $request)
     {
-        $skills = (new Skills());
-        $data = $this->extracted($request, true);
-        unset($data['_method']);
-        $p = $skills->update($data, ['id' => $request->input('id')]);
-        if ($p->error() != null) {
-            return back()->withError($p->error());
+        $config = HTMLPurifier_Config::createDefault();
+        $purifier = new HTMLPurifier($config);
+        $settings = (new Settings());
+
+        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+            $isAjax = true;
         }
-//        destroy_old();
-        flushMessage()->set('success','Skill updated successfully.');
-        return toRoute('skills');
-    }
 
+        $data = $_POST;
 
-    public function destroy(Request $request)
-    {
-        $id = $request->getParam('id');
-        $skills = new Skills();
-        $skill = $skills->delete(['id'=>$id]);
-        if ($skill->error()!=null){
-            return json_encode(['success'=>false,'message'=>$skill->error()]);
+        if (isset($_POST['image'])) {
+            $image = uploadImage('image', 'user', $_POST['image']);
+            if ($image) $data['image'] = $image;
         }
-        // flushMessage()->set("success","Skill deleted successfully.");
-        return json_encode(['success'=>true,'message'=>"Skill deleted successfully."]);
-    }
 
+        if (isset($_POST['site_logo'])) {
+            $site_logo = uploadImage('site_logo', '', $_POST['site_logo']);
+            if ($site_logo) $data['site_logo'] = $site_logo;
+        }
+        if(isset($_POST['cv_pdf'])){
+            $cv_pdf = uploadFile('cv_pdf', 'files', $_POST['cv_pdf']);
+            if ($cv_pdf) $data['cv_pdf'] = $cv_pdf;
+        }
+
+        // dd($_POST);
+        $data['maintenance_mode'] = $request->input('maintenance_mode',0);
+        $data['allow_registration'] = $request->input('allow_registration',0);
+        foreach ($data as $name => $value) {
+            $val = $purifier->purify($value);   
+            $p = Settings::setSetting($name, $val);
+            if ($p->error() != null) {
+                if (isset($isAjax))
+                    return json_encode(['success' => false, 'message' => $p->error()]);
+                return back()->withError($p->error());
+            }
+            \Devamirul\PhpMicro\core\Foundation\Session\Session::singleton()->set($name, $value);
+        }
+
+        if (isset($isAjax))
+            return json_encode(['success' => true, 'message' => "Profile updated successfully."]);
+        flushMessage()->set('success', 'Skill updated successfully.');
+        return back();
+    }
 
     /**
-     * @param Request $request
-     * @return \Devamirul\PhpMicro\core\Foundation\Application\Redirect\Redirect
+     * إعادة تعيين الإعدادات إلى القيم الافتراضية
      */
-    public function extracted(Request $request, $removeOld = false): \Devamirul\PhpMicro\core\Foundation\Application\Redirect\Redirect|array
+    public function reset()
     {
-        $data = $request->input();
-        $validator = new Validator();
-        $validation = $validator->validate($data + $_FILES, [
-            'name' => 'required|min:3',
-            'description' => 'nullable|min:10',
-            'category' => 'required'
-        ]);
+        try {
+            $defaultSettings = [
+                'site_name' => 'Profolio',
+                'site_description' => 'Professional Portfolio Website',
+                'site_keywords' => 'portfolio, web development, programming',
+                'site_email' => 'admin@example.com',
+                'site_phone' => '+1234567890',
+                'site_address' => 'Your Address Here',
+                'facebook_url' => '',
+                'twitter_url' => '',
+                'linkedin_url' => '',
+                'github_url' => '',
+                'instagram_url' => '',
+                'youtube_url' => '',
+                'maintenance_mode' => '0',
+                'allow_registration' => '1',
+                'items_per_page' => '10',
+                'site_timezone' => 'UTC'
+            ];
 
-        if ($validation->fails()){
-            flushMessage()->set('old', $_POST);
-            $errors = $validation->errors();
-            return back()->withError($errors);
+            foreach ($defaultSettings as $name => $value) {
+                Settings::setSetting($name, $value);
+            }
+
+            flushMessage()->set('success', __('settings_reset_successfully'));
+
+            return back();
+        } catch (\Exception $e) {
+            return back()->withError(__('error_resetting_settings') . ': ' . $e->getMessage());
         }
-        unset($data['csrf']);
-        return $data;
     }
 }

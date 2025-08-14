@@ -277,19 +277,6 @@ class Form
                 }
                 break;
 
-            case 'toaster':
-                $text_escaped = addslashes($text); // Escape quotes for JavaScript
-                if ($type == Toaster::SUCCESS) {
-                    $html .= '<script> toastr.success("' . $text_escaped . '")</script>';
-                    clear_success();
-                } elseif ($type == Toaster::ERROR) {
-                    $html .= '<script> toastr.error("' . $text_escaped . '")</script>';
-                    clear_error();
-                } elseif ($type == Toaster::INFO) {
-                    $html .= '<script> toastr.info("' . $text_escaped . '")</script>';
-                }
-                break;
-
             case 'button':
                 $_attrs = '';
                 foreach ($attr as $key => $val) {

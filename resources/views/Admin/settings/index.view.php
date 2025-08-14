@@ -72,25 +72,7 @@
                             </ul>
                         </div>
                         
-                        <div class="card-body">
-                                <?php
-                                    $form = new FormHelper();
-                                    echo setCsrf();
-                                    echo setMethod("PUT");
-                                    echo $form->openForm(['action' => route('updateSetting'), 'method' => 'post', 'enctype' => "multipart/form-data", 'class' => 'row needs-validation form-horizontal', 'novalidate' => ''])->render();
-                                    $form->formGroupClass('row');
-
-                                    echo $form->input('setting[name]', 'Name', old('setting[name]', setting('name')))
-                                        ->labelClass('col-sm-2 col-form-label')->controlsClass('col-sm-10')->render();
-
-                                    echo $form->input('setting[email]', 'Email', old('setting[email]', setting('email')))
-                                        ->labelClass('col-sm-2 col-form-label')->controlsClass('col-sm-10')->render();
-
-                                    echo $form->input('setting[phone]', 'Phone', old('setting[phone]', setting('phone')))
-                                        ->labelClass('col-sm-2 col-form-label')->controlsClass('col-sm-10')->render();
-                                    echo $form->button(['type'=>'submit','class'=>'btn btn-primary'],'save','<i class ="fas fa-save mr-2"></i>','col-md-11 offset-sm-1 col-sm-10 text-end')->render();
-                                    echo $form->closeForm()->render();
-                                    ?>
+                        <div class="card-body">                                      
                             <form action="<?= route('updateSetting') ?>" method="POST" enctype="multipart/form-data">
                                 <?= setCsrf() ?>
                                 <?= setMethod('PUT') ?>
@@ -100,39 +82,44 @@
                                     <!-- General Settings Tab -->
                                     <div class="tab-pane fade show active" id="general" role="tabpanel">
                                         <div class="row">
+
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="site_name" class="form-label">
                                                         <i class="fas fa-globe me-1"></i><?= __("site_name") ?>
                                                     </label>
                                                     <input type="text" class="form-control" id="site_name" name="site_name" 
-                                                           value="<?= htmlspecialchars($settings['site_name'] ?? 'Profolio') ?>" required>
+                                                           value="<?= htmlspecialchars(setting('site_name')) ?>" required>
                                                 </div>
                                             </div>
                                             
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
                                                 <div class="mb-3">
                                                     <label for="site_logo" class="form-label">
                                                         <i class="fas fa-image me-1"></i><?= __("site_logo") ?>
                                                     </label>
-                                                    <input type="file" class="form-control" id="site_logo" name="logo" accept="image/*">
-                                                    <?php if (!empty($settings['site_logo'])): ?>
+                                                    <input type="file" class="form-control" id="site_logo" name="site_logo" accept="image/*">
+                                                    <input type="hidden" class="form-control" id="old_site_logo" name="site_logo" value="<?=setting('site_logo')?>" accept="image/*">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-md-1">
+                                                        <?php if (!empty(setting('site_logo'))): ?>
                                                         <div class="mt-2">
-                                                            <img src="<?= assets($settings['site_logo']) ?>" alt="<?= __("current_logo") ?>" 
+                                                            <img src="<?= assets(setting('site_logo')) ?>" alt="<?= __("current_logo") ?>" 
                                                                  class="img-thumbnail" style="max-height: 60px;">
                                                             <small class="text-muted d-block"><?= __("current_logo") ?></small>
                                                         </div>
                                                     <?php endif; ?>
-                                                </div>
                                             </div>
-                                            
+
                                             <div class="col-12">
                                                 <div class="mb-3">
                                                     <label for="site_description" class="form-label">
                                                         <i class="fas fa-align-left me-1"></i><?= __("site_description") ?>
                                                     </label>
                                                     <textarea class="form-control" id="site_description" name="site_description" 
-                                                              rows="3" placeholder="<?= __("enter_site_description") ?>"><?= htmlspecialchars($settings['site_description'] ?? '') ?></textarea>
+                                                              rows="3" placeholder="<?= __("enter_site_description") ?>"><?= htmlspecialchars(setting('site_description')) ?></textarea>
                                                 </div>
                                             </div>
                                             
@@ -142,7 +129,7 @@
                                                         <i class="fas fa-tags me-1"></i><?= __("site_keywords") ?>
                                                     </label>
                                                     <input type="text" class="form-control" id="site_keywords" name="site_keywords" 
-                                                           value="<?= htmlspecialchars($settings['site_keywords'] ?? '') ?>"
+                                                           value="<?= htmlspecialchars(setting('site_keywords')) ?>"
                                                            placeholder="<?= __("keywords_placeholder") ?>">
                                                     <small class="form-text text-muted"><?= __("keywords_help") ?></small>
                                                 </div>
@@ -159,7 +146,7 @@
                                                         <i class="fas fa-envelope me-1"></i><?= __("email") ?>
                                                     </label>
                                                     <input type="email" class="form-control" id="site_email" name="site_email" 
-                                                           value="<?= htmlspecialchars($settings['site_email'] ?? '') ?>">
+                                                           value="<?= htmlspecialchars(setting('site_email')) ?>">
                                                 </div>
                                             </div>
                                             
@@ -169,7 +156,7 @@
                                                         <i class="fas fa-phone me-1"></i><?= __("phone") ?>
                                                     </label>
                                                     <input type="text" class="form-control" id="site_phone" name="site_phone" 
-                                                           value="<?= htmlspecialchars($settings['site_phone'] ?? '') ?>">
+                                                           value="<?= htmlspecialchars(setting('site_phone')) ?>">
                                                 </div>
                                             </div>
                                             
@@ -179,7 +166,7 @@
                                                         <i class="fas fa-map-marker-alt me-1"></i><?= __("address") ?>
                                                     </label>
                                                     <textarea class="form-control" id="site_address" name="site_address" 
-                                                              rows="3"><?= htmlspecialchars($settings['site_address'] ?? '') ?></textarea>
+                                                              rows="3"><?= htmlspecialchars(setting('site_address')) ?></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -194,7 +181,7 @@
                                                         <i class="fab fa-facebook me-1"></i><?= __("facebook_url") ?>
                                                     </label>
                                                     <input type="url" class="form-control" id="facebook_url" name="facebook_url" 
-                                                           value="<?= htmlspecialchars($settings['facebook_url'] ?? '') ?>">
+                                                           value="<?= htmlspecialchars(setting('facebook_url')) ?>">
                                                 </div>
                                             </div>
                                             
@@ -204,7 +191,7 @@
                                                         <i class="fab fa-twitter me-1"></i><?= __("twitter_url") ?>
                                                     </label>
                                                     <input type="url" class="form-control" id="twitter_url" name="twitter_url" 
-                                                           value="<?= htmlspecialchars($settings['twitter_url'] ?? '') ?>">
+                                                           value="<?= htmlspecialchars(setting('twitter_url')) ?>">
                                                 </div>
                                             </div>
                                             
@@ -214,7 +201,7 @@
                                                         <i class="fab fa-linkedin me-1"></i><?= __("linkedin_url") ?>
                                                     </label>
                                                     <input type="url" class="form-control" id="linkedin_url" name="linkedin_url" 
-                                                           value="<?= htmlspecialchars($settings['linkedin_url'] ?? '') ?>">
+                                                           value="<?= htmlspecialchars(setting('linkedin_url')) ?>">
                                                 </div>
                                             </div>
                                             
@@ -224,7 +211,7 @@
                                                         <i class="fab fa-github me-1"></i><?= __("github_url") ?>
                                                     </label>
                                                     <input type="url" class="form-control" id="github_url" name="github_url" 
-                                                           value="<?= htmlspecialchars($settings['github_url'] ?? '') ?>">
+                                                           value="<?= htmlspecialchars(setting('github_url')) ?>">
                                                 </div>
                                             </div>
                                             
@@ -234,7 +221,7 @@
                                                         <i class="fab fa-instagram me-1"></i><?= __("instagram_url") ?>
                                                     </label>
                                                     <input type="url" class="form-control" id="instagram_url" name="instagram_url" 
-                                                           value="<?= htmlspecialchars($settings['instagram_url'] ?? '') ?>">
+                                                           value="<?= htmlspecialchars(setting('instagram_url')) ?>">
                                                 </div>
                                             </div>
                                             
@@ -244,7 +231,7 @@
                                                         <i class="fab fa-youtube me-1"></i><?= __("youtube_url") ?>
                                                     </label>
                                                     <input type="url" class="form-control" id="youtube_url" name="youtube_url" 
-                                                           value="<?= htmlspecialchars($settings['youtube_url'] ?? '') ?>">
+                                                           value="<?= htmlspecialchars(setting('youtube_url')) ?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -258,12 +245,15 @@
                                                     <label for="site_timezone" class="form-label">
                                                         <i class="fas fa-clock me-1"></i><?= __("timezone") ?>
                                                     </label>
+                                                    <?php
+                                                    $timezone = setting('site_timezone');
+                                                    ?>
                                                     <select class="form-control" id="site_timezone" name="site_timezone">
-                                                        <option value="UTC" <?= ($settings['site_timezone'] ?? 'UTC') === 'UTC' ? 'selected' : '' ?>>UTC</option>
-                                                        <option value="Asia/Riyadh" <?= ($settings['site_timezone'] ?? '') === 'Asia/Riyadh' ? 'selected' : '' ?>>Asia/Riyadh</option>
-                                                        <option value="Asia/Dubai" <?= ($settings['site_timezone'] ?? '') === 'Asia/Dubai' ? 'selected' : '' ?>>Asia/Dubai</option>
-                                                        <option value="Europe/London" <?= ($settings['site_timezone'] ?? '') === 'Europe/London' ? 'selected' : '' ?>>Europe/London</option>
-                                                        <option value="America/New_York" <?= ($settings['site_timezone'] ?? '') === 'America/New_York' ? 'selected' : '' ?>>America/New_York</option>
+                                                        <option value="UTC" <?= ($timezone ?? 'UTC') === 'UTC' ? 'selected' : '' ?>>UTC</option>
+                                                        <option value="Asia/Riyadh" <?= ($timezone ?? '') === 'Asia/Riyadh' ? 'selected' : '' ?>>Asia/Riyadh</option>
+                                                        <option value="Asia/Dubai" <?= ($timezone ?? '') === 'Asia/Dubai' ? 'selected' : '' ?>>Asia/Dubai</option>
+                                                        <option value="Europe/London" <?= ($timezone ?? '') === 'Europe/London' ? 'selected' : '' ?>>Europe/London</option>
+                                                        <option value="America/New_York" <?= ($timezone ?? '') === 'America/New_York' ? 'selected' : '' ?>>America/New_York</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -273,21 +263,24 @@
                                                     <label for="items_per_page" class="form-label">
                                                         <i class="fas fa-list me-1"></i><?= __("items_per_page") ?>
                                                     </label>
+                                                    <?php
+                                                    $items_per_page = setting('items_per_page');
+                                                    ?>
                                                     <select class="form-control" id="items_per_page" name="items_per_page">
-                                                        <option value="5" <?= ($settings['items_per_page'] ?? '10') === '5' ? 'selected' : '' ?>>5</option>
-                                                        <option value="10" <?= ($settings['items_per_page'] ?? '10') === '10' ? 'selected' : '' ?>>10</option>
-                                                        <option value="25" <?= ($settings['items_per_page'] ?? '10') === '25' ? 'selected' : '' ?>>25</option>
-                                                        <option value="50" <?= ($settings['items_per_page'] ?? '10') === '50' ? 'selected' : '' ?>>50</option>
+                                                        <option value="5" <?= ($items_per_page ?? '10') === '5' ? 'selected' : '' ?>>5</option>
+                                                        <option value="10" <?= ($items_per_page ?? '10') === '10' ? 'selected' : '' ?>>10</option>
+                                                        <option value="25" <?= ($items_per_page ?? '10') === '25' ? 'selected' : '' ?>>25</option>
+                                                        <option value="50" <?= ($items_per_page ?? '10') === '50' ? 'selected' : '' ?>>50</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
+                                            <div class="col-md-6 px-2">
+                                                <div class="mb-3 px-4">
                                                     <div class="form-check form-switch">
                                                         <input class="form-check-input" type="checkbox" id="maintenance_mode" 
-                                                               name="maintenance_mode" value="1" 
-                                                               <?= ($settings['maintenance_mode'] ?? '0') === '1' ? 'checked' : '' ?>>
+                                                               name="maintenance_mode" value="1"
+                                                               <?= (setting('maintenance_mode') ?? '0') === '1' ? 'checked' : '' ?>>
                                                         <label class="form-check-label" for="maintenance_mode">
                                                             <i class="fas fa-tools me-1"></i><?= __("maintenance_mode") ?>
                                                         </label>
@@ -296,12 +289,12 @@
                                                 </div>
                                             </div>
                                             
-                                            <div class="col-md-6">
-                                                <div class="mb-3">
+                                            <div class="col-md-6 px-2">
+                                                <div class="mb-3 px-4">
                                                     <div class="form-check form-switch">
                                                         <input class="form-check-input" type="checkbox" id="allow_registration" 
                                                                name="allow_registration" value="1" 
-                                                               <?= ($settings['allow_registration'] ?? '1') === '1' ? 'checked' : '' ?>>
+                                                               <?= (setting('allow_registration') ?? '1') === '1' ? 'checked' : '' ?>>
                                                         <label class="form-check-label" for="allow_registration">
                                                             <i class="fas fa-user-plus me-1"></i><?= __("allow_registration") ?>
                                                         </label>
@@ -317,17 +310,17 @@
                                 <div class="row mt-4">
                                     <div class="col-12">
                                         <div class="d-flex justify-content-between">
-                                            <div>
-                                                <button type="submit" class="btn btn-primary">
-                                                    <i class="fas fa-save me-2"></i><?= __("save_settings") ?>
-                                                </button>
-                                                <button type="button" class="btn btn-secondary" onclick="location.reload()">
-                                                    <i class="fas fa-undo me-2"></i><?= __("reset_form") ?>
+                                              <div>
+                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#resetModal">
+                                                    <i class="fas fa-refresh me-2"></i><?= __("reset_to_default") ?>
                                                 </button>
                                             </div>
                                             <div>
-                                                <button type="button" class="btn btn-warning" onclick="confirmReset()">
-                                                    <i class="fas fa-refresh me-2"></i><?= __("reset_to_default") ?>
+                                                <button type="button" class="btn btn-secondary" onclick="location.reload()">
+                                                    <i class="fas fa-undo me-2"></i><?= __("reset_form") ?>
+                                                </button>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fas fa-save me-2"></i><?= __("save_settings") ?>
                                                 </button>
                                             </div>
                                         </div>
@@ -359,8 +352,9 @@
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     <?= __("cancel") ?>
                 </button>
-                <form action="<?= route('dashboard') ?>" method="POST" style="display: inline;">
-                    <?= setCsrf() ?>
+                <form action="<?= route('resetSetting') ?>" method="POST" style="display: inline;">
+                     <?= setCsrf() ?>
+                    <?= setMethod('PUT') ?>
                     <button type="submit" class="btn btn-warning">
                         <i class="fas fa-refresh me-2"></i><?= __("reset_to_default") ?>
                     </button>
@@ -376,12 +370,12 @@
 //     modal.show();
 // }
 
-// // Auto-hide alerts after 5 seconds
-// setTimeout(function() {
-//     const alerts = document.querySelectorAll('.alert');
-//     alerts.forEach(function(alert) {
-//         const bsAlert = new bootstrap.Alert(alert);
-//         bsAlert.close();
-//     });
-// }, 5000);
+// Auto-hide alerts after 5 seconds
+setTimeout(function() {
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(function(alert) {
+        const bsAlert = new bootstrap.Alert(alert);
+        bsAlert.close();
+    });
+}, 5000);
 </script>

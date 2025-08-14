@@ -7,6 +7,7 @@ return [
      */
     'middleware' => [
         'auth'  => App\Http\Middlewares\AuthMiddleware::class,
+        'maintenance'  => App\Http\Middlewares\MaintenanceModeMiddleware::class,
         'guest' => App\Http\Middlewares\GuestMiddleware::class,
         'csrf'  => Devamirul\PhpMicro\core\Foundation\Middleware\Middlewares\CsrfMiddleware::class,
     ],

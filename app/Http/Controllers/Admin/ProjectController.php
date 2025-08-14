@@ -94,7 +94,7 @@ class ProjectController
 
             $projectImages[0]['is_main']=1;
             $table = $database->insert('project_images',$projectImages);
-
+            
             if ($table->rowCount()==0){
                 $database->pdo->rollBack();
                 return back()->withError("Can't save project");
@@ -105,6 +105,7 @@ class ProjectController
             // On any failure, rollback all
             $database->pdo->rollBack();
         }
+        // dd('d');
         flushMessage()->set('success','Project added successfully.');
         return toRoute('projects');
     }
@@ -265,7 +266,7 @@ class ProjectController
             'description' => 'required|min:10',
             'category' => 'required',
             'technologies' => 'required',
-            'images' => "required_without:id|array|uploaded_file:0,1M,png,jpeg",
+            'images.*' => "required_without:id|uploaded_file:0,1M,png,jpeg",
             'host_url' => 'nullable|url',
             'github_url' => 'nullable|url',
         ]);

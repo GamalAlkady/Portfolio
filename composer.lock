@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6fa4ca702405d02eb7354c4d0a3ead79",
+    "content-hash": "5846f3baf0f2344fa1a59f9cbce2dd17",
     "packages": [
         {
             "name": "catfan/medoo",
@@ -82,60 +82,6 @@
                 }
             ],
             "time": "2023-06-10T07:54:55+00:00"
-        },
-        {
-            "name": "devamirul/p-router",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/DevAmirul/p-router.git",
-                "reference": "92fa1e0a8e9ca60ce69b9e2b99cd6d369234f2ed"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/DevAmirul/p-router/zipball/92fa1e0a8e9ca60ce69b9e2b99cd6d369234f2ed",
-                "reference": "92fa1e0a8e9ca60ce69b9e2b99cd6d369234f2ed",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": ">=8.00"
-            },
-            "default-branch": true,
-            "type": "package",
-            "autoload": {
-                "files": [
-                    "src/Helper/Helpers.php"
-                ],
-                "psr-4": {
-                    "Devamirul\\PRouter\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Amirul islam",
-                    "email": "inbox.amirul@gmail.com",
-                    "homepage": "https://amirul.web.app"
-                }
-            ],
-            "description": "Simple, lightweight, and powerful PHP Router with rich features like Middlewares and Controllers is a simple and useful router class. Heavily inspired by the way Laravel handles routing.",
-            "keywords": [
-                "input-handler",
-                "php-router",
-                "request-handler",
-                "router",
-                "routing-engine",
-                "url-handling"
-            ],
-            "support": {
-                "issues": "https://github.com/DevAmirul/p-router/issues",
-                "source": "https://github.com/DevAmirul/p-router/tree/main"
-            },
-            "time": "2023-11-11T10:20:44+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -324,12 +270,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "ee4090bd62ad3ded3eac19d6fd0213abbe3596f1"
+                "reference": "f202f351cad2ce8c17f59dceca3b7229280a9e80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/ee4090bd62ad3ded3eac19d6fd0213abbe3596f1",
-                "reference": "ee4090bd62ad3ded3eac19d6fd0213abbe3596f1",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/f202f351cad2ce8c17f59dceca3b7229280a9e80",
+                "reference": "f202f351cad2ce8c17f59dceca3b7229280a9e80",
                 "shasum": ""
             },
             "require": {
@@ -349,6 +295,7 @@
                 "yoast/phpunit-polyfills": "^1.0.4"
             },
             "suggest": {
+                "decomplexity/SendOauth2": "Adapter for using XOAUTH2 authentication",
                 "ext-mbstring": "Needed to send email in multibyte encoding charset or decode encoded addresses",
                 "ext-openssl": "Needed for secure SMTP sending and DKIM signing",
                 "greew/oauth2-azure-provider": "Needed for Microsoft Azure XOAUTH2 authentication",
@@ -397,7 +344,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-10-31T22:08:15+00:00"
+            "time": "2025-08-08T09:58:13+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -971,7 +918,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "catfan/medoo": 20,
-        "devamirul/p-router": 20,
         "ezyang/htmlpurifier": 20,
         "icanboogie/datetime": 20,
         "phpmailer/phpmailer": 20,

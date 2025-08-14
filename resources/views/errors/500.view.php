@@ -2,7 +2,7 @@
 <div class="d-flex align-items-center justify-content-center vh-100">
     <div class="text-center">
         <h1 class="display-1 fw-bold"><?=$code?></h1>
-        <p class="fs-3"> <span class="text-danger">Opps!</span> Something went wrong.</p>
+        <p class="fs-3"> <span class="text-danger"><?= __("oops") ?>!</span> <?= __("something_went_wrong") ?>.</p>
         <p class="lead">
             <?php
 if (isset($message)) {
@@ -10,6 +10,6 @@ if (isset($message)) {
 }
 ?>
             </p>
-        <a href="<?=(config('app', 'home_url'))?>" class="btn btn-primary">Go Home</a>
+        <a href="<?=(config('app', 'home_url'))?>" class="btn btn-primary"><?= __("go_home") ?></a>
     </div>
 </div>

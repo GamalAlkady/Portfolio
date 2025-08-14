@@ -1,6 +1,6 @@
 <?php
 
-use Devamirul\PhpMicro\core\Foundation\Application\Facade\Facades\Session;
+use Devamirul\PhpMicro\core\Foundation\Session\Session;
 
 if (!function_exists('getCsrf')) {
     function getCsrf(): string {
@@ -15,6 +15,13 @@ if (!function_exists('public_path')) {
     function public_path($path = '')
     {
         return dirname(__DIR__, 2) . '/public' . ($path ? '/' . ltrim($path, '/') : '');
+    }
+}
+
+if (!function_exists('resource_path')) {
+    function resource_path($path = '')
+    {
+        return dirname(__DIR__, 2) . '/resources' . ($path ? '/' . ltrim($path, '/') : '');
     }
 }
 
@@ -68,15 +75,15 @@ function assets($path,$default='')
     return $baseUrl . '/assets/' . $path;
 }
 
-function uploadImage($fileInputName, $folder = 'projects',$oldImagePath='')
+function uploadFile($name, $folder = 'files',$oldFile='')
 {
-    if (!isset($_FILES[$fileInputName]) || $_FILES[$fileInputName]['error'] !== UPLOAD_ERR_OK) {
+    if (!isset($_FILES[$name]) || $_FILES[$name]['error'] !== UPLOAD_ERR_OK) {
         return null; // لا يوجد ملف أو خطأ في الرفع
     }
 
     // المسار الكامل داخل السيرفر
 //    $uploadDir = __DIR__ . '/../../public/assets/images/' . $folder . '/';
-    $uploadDir = public_path('assets/images/' . $folder.'/');
+    $uploadDir = public_path('assets/' . $folder.'/');
 
 //    dd([$uploadDir,public_path('')]);
     // أنشئ المجلد إذا لم يكن موجودًا
@@ -85,36 +92,42 @@ function uploadImage($fileInputName, $folder = 'projects',$oldImagePath='')
     }
 
     // احصل على امتداد الملف
-    $extension = pathinfo($_FILES[$fileInputName]['name'], PATHINFO_EXTENSION);
+    // $extension = pathinfo($_FILES[$name]['name'], PATHINFO_EXTENSION);
 
     // أنشئ اسم فريد للملف
-    $fileName = uniqid('img_', true) . '.' . $extension;
+    $fileName = uniqid() .$_FILES[$name]['name'];
 
     // المسار الفعلي للحفظ
     $targetPath = $uploadDir . $fileName;
 
     // نقل الملف
-    if (move_uploaded_file($_FILES[$fileInputName]['tmp_name'], $targetPath)) {
-        if (!empty($oldImagePath)) {
-            $oldImageRelativePath = trim($oldImagePath, '/\\');
-                $oldImageFullPath = public_path('assets/'.$oldImageRelativePath);
-                if (file_exists($oldImageFullPath)) {
-                    unlink($oldImageFullPath);
+    if (move_uploaded_file($_FILES[$name]['tmp_name'], $targetPath)) {
+        if (!empty($oldFile)) {
+            $oldFileRelativePath = trim($oldFile, '/\\');
+                $oldFileFullPath = public_path('assets/'.$oldFileRelativePath);
+                if (file_exists($oldFileFullPath)) {
+                    unlink($oldFileFullPath);
                 }
         }
         // المسار النسبي داخل public لاستخدامه في العرض أو قاعدة البيانات
-        return 'images/' . $folder . '/' . $fileName;
+        return $folder . '/' . $fileName;
     }
 
     return null; // فشل النقل
 }
 
+function uploadImage($name, $folder = 'projects',$oldImagePath='')
+{
+   return uploadFile($name,'images/'. $folder,$oldImagePath);
+}
+
+
 
 if (!function_exists('removeFile')){
-    function removeFile($imagePath){
-        $imageFullPath = public_path('assets/'.$imagePath);
-        if (file_exists($imageFullPath)) {
-            unlink($imageFullPath);
+    function removeFile($filePath){
+        $filePathFullPath = public_path('assets/'.$filePath);
+        if (file_exists($filePathFullPath)) {
+            unlink($filePathFullPath);
         }
     }
 }
@@ -123,23 +136,21 @@ if (!function_exists('removeFile')){
     function uploadMultipleImages($inputName, $folder = 'projects'): array
 {
     $uploaded = [];
-
     if (!isset($_FILES[$inputName]) || !is_array($_FILES[$inputName]['name'])) {
         return $uploaded;
     }
 
-    $uploadDir = __DIR__ . '/../../public/assets/images/' . $folder . '/';
+    $uploadDir = public_path('assets/images/' . $folder . '/');
 
     if (!file_exists($uploadDir)) {
         mkdir($uploadDir, 0777, true);
     }
 
     foreach ($_FILES[$inputName]['tmp_name'] as $key => $tmp_name) {
-//            return [$tmp_name];
         if ($_FILES[$inputName]['error'][$key] === UPLOAD_ERR_OK) {
-            $extension = pathinfo($_FILES[$inputName]['name'][$key], PATHINFO_EXTENSION);
-            $fileName = uniqid('img_', true) . '.' . $extension;
-//            $fileName = uniqid() . '_' . $_FILES[$inputName]['name'][$key][0];
+            // $extension = pathinfo($_FILES[$inputName]['name'][$key], PATHINFO_EXTENSION);
+            // $fileName = uniqid('img_', true) . '.' . $extension;
+           $fileName = uniqid() . '_' . $_FILES[$inputName]['name'][$key];
             $targetPath = $uploadDir . $fileName;
 
             if (move_uploaded_file($tmp_name, $targetPath)) {
@@ -149,4 +160,41 @@ if (!function_exists('removeFile')){
     }
 
     return $uploaded;
+}
+
+
+
+if (!function_exists('locale')){
+    function locale(){
+        return session()->get('locale');
+    }
+}
+
+if (!function_exists('__')) {
+
+    function __(string $key, array $replace = []) {
+        if(!session()->has('locale')){
+            session()->set('locale', config('app', 'locale'));
+        }
+        $locale = session()->get('locale');
+        // die(config('app', 'locale'));
+
+        $path = resource_path("lang/{$locale}/messages.php");
+        
+        // var_dump(file_exists($path));
+        // die();
+        if (!file_exists($path)) {
+            return $key;
+        }
+        
+        $messages = require $path;
+        $translation = $messages[$key] ?? $key;
+        if (!empty($replace)) {
+            foreach ($replace as $key => $value) {
+                $translation = str_replace(":$key", $value, $translation);
+            }
+        }
+        
+        return $translation;
+    }
 }

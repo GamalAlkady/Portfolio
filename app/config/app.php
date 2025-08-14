@@ -8,7 +8,7 @@ return [
     /**
      * Application Name.
      */
-    'app_name'  => env('APP_NAME', 'PhpMicroFramework'),
+    'app_name'  => env('APP_NAME', 'Profolio'),
 
     /**
      * Application Url.
@@ -32,5 +32,12 @@ return [
         ApplicationContainer::class,
         AppServiceProvider::class,
     ],
+
+    /**
+     * Application Locale Configuration
+     */
+    'locale' => 'en',
+    'fallback_locale' => 'en',
+    'available_locales' => ['en', 'ar'],
 
 ];

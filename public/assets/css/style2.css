@@ -44,7 +44,34 @@ html::-webkit-scrollbar-track {
 html::-webkit-scrollbar-thumb {
   background: #420177;
 }
+.language-switcher {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
 
+.language-switcher a {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.language-switcher a.active {
+    background-color: #007bff;
+    color: white;
+}
+
+[lang="ar"] {
+    direction: rtl;
+    text-align: right;
+}
+
+[lang="en"] {
+    direction: ltr;
+    text-align: left;
+}
 /* pre loader start */
 .loader-container {
   position: fixed;
@@ -648,9 +675,12 @@ header .navbar ul li a:hover {
 /* skills section ends */
 
 /* education section starts */
-.education {
+.bg1 {
   background: #e5ecfb;
+}
 
+.education {
+  /*background: #e5ecfb;*/
 }
 
 .education .qoute {
@@ -775,6 +805,9 @@ header .navbar ul li a:hover {
   }
 }
 
+.exp{
+
+}
 /* education media queries ends*/
 /* education section ends */
 
@@ -919,14 +952,14 @@ header .navbar ul li a:hover {
 
 /* work section ends */
 
-/* experience section starts */
-.experience .timeline {
+/* skill section starts */
+.skill .timeline {
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.experience .timeline::after {
+.skill .timeline::after {
   content: "";
   position: absolute;
   width: 6px;
@@ -938,7 +971,7 @@ header .navbar ul li a:hover {
   z-index: -2;
 }
 
-.experience .container {
+.skill .container {
   padding: 10px 40px;
   position: relative;
   background-color: inherit;
@@ -946,7 +979,7 @@ header .navbar ul li a:hover {
 }
 
 /*circles on timeline*/
-.experience .container::after {
+.skill .container::after {
   content: "\f0b1";
   position: absolute;
   width: 25px;
@@ -964,16 +997,16 @@ header .navbar ul li a:hover {
   font-family: "Font Awesome\ 5 Free";
 }
 
-.experience .left {
+.skill .left {
   left: 0;
 }
 
-.experience .right {
+.skill .right {
   left: 50%;
 }
 
 /* arrows pointing right */
-.experience .left::before {
+.skill .left::before {
   content: " ";
   height: 0;
   position: absolute;
@@ -987,7 +1020,7 @@ header .navbar ul li a:hover {
 }
 
 /* arrows pointing left  */
-.experience .right::before {
+.skill .right::before {
   content: " ";
   height: 0;
   position: absolute;
@@ -1000,33 +1033,33 @@ header .navbar ul li a:hover {
   border-color: transparent #f68c09 transparent transparent;
 }
 
-.experience .right::after {
+.skill .right::after {
   left: -16px;
 }
 
-.experience .content {
+.skill .content {
   background-color: #f68c09;
   position: relative;
   border-radius: 6px;
 }
 
-.experience .content .tag {
+.skill .content .tag {
   font-size: 1.3rem;
   padding-top: 1.5rem;
   padding-left: 1.5rem;
 }
 
-.experience .content .desc {
+.skill .content .desc {
   margin-left: 1.5rem;
   padding-bottom: 1rem;
 }
 
-.experience .content .desc h3 {
+.skill .content .desc h3 {
   font-size: 1.5rem;
   font-weight: 600;
 }
 
-.experience .content .desc p {
+.skill .content .desc p {
   font-size: 1.2rem;
 }
 
@@ -1070,11 +1103,11 @@ header .navbar ul li a:hover {
 
 /* Media queries - Responsive timeline on screens less than 600px wide */
 @media screen and (max-width: 600px) {
-  .experience {
+  .skill {
     min-height: 80vh;
   }
 
-  .experience .timeline {
+  .skill .timeline {
     margin-top: 2rem;
   }
 
@@ -1082,11 +1115,11 @@ header .navbar ul li a:hover {
     margin-top: 60px;
   }
 
-  .experience .timeline::after {
+  .skill .timeline::after {
     left: 31px;
   }
 
-  .experience .container {
+  .skill .container {
     width: 100%;
     padding-left: 8rem;
     padding-right: 2rem;
@@ -1098,26 +1131,26 @@ header .navbar ul li a:hover {
 
   }
 
-  .experience .container::after {
+  .skill .container::after {
     font-size: 2.2rem;
   }
 
-  .experience .container::before {
+  .skill .container::before {
     left: 61px;
     border: medium solid #f68c09;
     border-width: 10px 10px 10px 0;
     border-color: transparent #f68c09 transparent transparent;
   }
 
-  .experience .left::after {
+  .skill .left::after {
     left: 15px;
   }
 
-  .experience .right::after {
+  .skill .right::after {
     left: 15px;
   }
 
-  .experience .right {
+  .skill .right {
     left: 0%;
   }
 
@@ -1126,12 +1159,12 @@ header .navbar ul li a:hover {
   }
 }
 
-/* experience media queries ends */
-/* experience section ends */
+/* skill media queries ends */
+/* skill section ends */
 
 /* contact section starts */
 .contact {
-  background: #e5ecfb;
+  /*background: #e5ecfb;*/
   min-height: 60vh;
 }
 
@@ -1475,7 +1508,7 @@ form .button-area {
   position: fixed;
   top: -140%;
   right: 2rem;
-  padding: 1rem 1.5rem;
+  padding: 1rem;
   font-size: 2rem;
   background: #ffae00;
   color: rgb(13, 0, 44);
@@ -1492,3 +1525,67 @@ form .button-area {
 .row{--bs-gutter-x:1.5rem;--bs-gutter-y:0;display:flex;flex-wrap:wrap;margin-top:calc(var(--bs-gutter-y) * -1);margin-left:calc(var(--bs-gutter-x) * -.5);margin-right:calc(var(--bs-gutter-x) * -.5)}.row>*{flex-shrink:0;width:100%;max-width:100%;padding-left:calc(var(--bs-gutter-x) * .5);padding-right:calc(var(--bs-gutter-x) * .5);margin-top:var(--bs-gutter-y)}
 
 .col-auto{flex:0 0 auto;width:auto}.col-1{flex:0 0 auto;width:8.33333333%}.col-2{flex:0 0 auto;width:16.66666667%}.col-3{flex:0 0 auto;width:25%}.col-4{flex:0 0 auto;width:33.33333333%}.col-5{flex:0 0 auto;width:41.66666667%}.col-6{flex:0 0 auto;width:50%}.col-7{flex:0 0 auto;width:58.33333333%}.col-8{flex:0 0 auto;width:66.66666667%}.col-9{flex:0 0 auto;width:75%}.col-10{flex:0 0 auto;width:83.33333333%}.col-11{flex:0 0 auto;width:91.66666667%}.col-12{flex:0 0 auto;width:100%}
+
+ /* Language Switcher */
+        .language-switcher {
+            position: fixed;
+            top: 12px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        [dir="rtl"] .language-switcher {
+            right: auto;
+            left: 20px;
+        }
+
+        .language-switcher a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50%;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .language-switcher a:hover,
+        .language-switcher a.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .language-switcher a:focus {
+            outline: 2px solid #667eea;
+            outline-offset: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .language-switcher {
+                top: 10px;
+                right: 10px;
+            }
+
+            [dir="rtl"] .language-switcher {
+                right: auto;
+                left: 10px;
+            }
+
+            .language-switcher a {
+                width: 35px;
+                height: 35px;
+                font-size: 12px;
+            }
+        }

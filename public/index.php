@@ -19,6 +19,7 @@ require_once APP_ROOT . '/vendor/autoload.php';
 require_once APP_ROOT . '/app/helpers/General.php';
 require_once APP_ROOT . '/app/helpers/AdminHelper.php';
 require_once APP_ROOT . '/app/helpers/FormHelper.php';
+require_once APP_ROOT . '/app/helpers/SettingsHelper.php';
 
 // require_once dirname(__DIR__, 5) . '/vendor/autoload.php';
 use Devamirul\PhpMicro\core\Foundation\Application\Application;

@@ -33,7 +33,7 @@
         </li>
 
         <!-- Messages Dropdown Menu -->
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown d-none">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-comments"></i>
                 <span class="badge badge-danger navbar-badge">3</span>
@@ -42,7 +42,7 @@
                 <a href="#" class="dropdown-item">
                     <!-- Message Start -->
                     <div class="media">
-                        <img src="<?=assets('images/user1-128x128.jpg')?>" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                        <img src="<?= assets('images/default-150x150.png') ?>" alt="User Avatar" class="img-size-50 mr-3 img-circle">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
                                 Brad Diesel
@@ -58,7 +58,7 @@
                 <a href="#" class="dropdown-item">
                     <!-- Message Start -->
                     <div class="media">
-                        <img src="dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                        <img src="<?= assets('images/default-150x150.png') ?>" alt="User Avatar" class="img-size-50 img-circle mr-3">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
                                 John Pierce
@@ -74,7 +74,7 @@
                 <a href="#" class="dropdown-item">
                     <!-- Message Start -->
                     <div class="media">
-                        <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                        <img src="<?= assets('images/default-150x150.png') ?>" alt="User Avatar" class="img-size-50 img-circle mr-3">
                         <div class="media-body">
                             <h3 class="dropdown-item-title">
                                 Nora Silvester
@@ -91,7 +91,7 @@
             </div>
         </li>
         <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdow d-none">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
                 <span class="badge badge-warning navbar-badge">15</span>
@@ -117,38 +117,60 @@
                 <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
         </li>
+
+        <!-- Change Theme -->
+         <li class="nav-item">
+            <a class="nav-link" id="changeTheme" href="#" role="button">
+                <i class="fa fa-moon" id="darkMode"></i>
+            </a>
+        </li>
+        <!-- switch language -->
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                <img src="<?=assets(auth()->user()['image'],'images/default-150x150.png')?>" class="user-image img-circle elevation-2" alt="User Image">
-                <span class="d-none d-md-inline"><?=auth()->user()['name']?></span>
+                <span class="d-none d-md-inline"><i class="fas fa-language"></i></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right w-auto" style="min-width: 100px;">
+                <li class="p-1 text-center border-bottom"> <a href="<?= route('language.switch', ['locale' => 'ar']) ?>" class="<?= session()->get('locale') === 'ar' ? 'active' : '' ?>"> <?=__('arabic') ?> </a></li>
+                <li class="p-1 text-center"> <a href="<?= route('language.switch', ['locale' => 'en']) ?>" class="<?= session()->get('locale') === 'en' ? 'active' : '' ?>">
+                <?=__('english') ?>
+                    </a></li>
+            </ul>
+        </li>
+
+        <!-- User menu -->
+        <li class="nav-item dropdown user-menu">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                <img src="<?= assets(setting('image'), 'images/default-150x150.png') ?>" class="user-image img-circle elevation-2" alt="User Image">
+                <span class="d-none d-md-inline"><?= setting('name') ?></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <!-- User image -->
                 <li class="user-header bg-primary">
-                    <img src="<?=assets(auth()->user()['image'],'images/default-150x150.png')?>" class="img-circle elevation-2" alt="User Image">
+                    <img src="<?= assets(setting('image'), 'images/default-150x150.png') ?>" class="img-circle elevation-2" alt="User Image">
 
                     <p>
-                        <?=auth()->user()['specialization']?>
-<!--                        <small>Member since Nov. 2012</small>-->
+                        <?= setting('specialization') ?>
+                        <!--                        <small>Member since Nov. 2012</small>-->
                     </p>
                 </li>
 
                 <!-- Menu Footer-->
                 <li class="user-footer">
-                    <a href="<?=route('profile')?>" class="btn btn-default btn-flat">Profile</a>
-                    <a href="<?=route('logout')?>" class="btn btn-default btn-flat float-right">Sign out</a>
+                    <a href="<?= route('profile') ?>" class="btn btn-default btn-flat"><?= __('profile') ?></a>
+                    <a href="<?= route('logout') ?>" class="btn btn-default btn-flat float-right"><?= __('logout') ?></a>
                 </li>
             </ul>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-none">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item d-none">
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
                 <i class="fas fa-th-large"></i>
             </a>
         </li>
+
     </ul>
 </nav>

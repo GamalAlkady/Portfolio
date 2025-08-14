@@ -3,15 +3,17 @@
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\HomeController;
 use Devamirul\PhpMicro\core\Foundation\Application\Facade\Facades\Router;
 
 /**
  * Here is where you can register routes for your application.
  */
 
-Router::get('/', [WelcomeController::class, 'index'])->name('welcome');
-Router::get('/projects', [WelcomeController::class, 'showProjects'])->name('showProjects');
+Router::get('/', [HomeController::class, 'index'])->name('home')->middleware('maintenance');
+Router::get('/maintenance', [HomeController::class, 'maintenance'])->name('maintenance');
+Router::post('/sendEmail', [HomeController::class, 'sendEmail'])->name('sendEmail');
+Router::get('/projects', [HomeController::class, 'showProjects'])->name('showProjects')->middleware('maintenance');;
 
 Router::get('/login', [AuthController::class, 'create'])->name('login')->middleware('guest');
 Router::post('/login', [AuthController::class, 'login']);
@@ -50,6 +52,12 @@ Router::delete("/admin/skills/:id/delete", [Admin\SkillController::class,'destro
 
 Router::get("/admin/profile", [Admin\ProfileController::class,'index'])->name('profile')->middleware('auth');
 Router::put("/admin/profile", [Admin\ProfileController::class,'update'])->name('updateProfile')->middleware('auth');
+
+Router::get("/admin/settings", [Admin\SettingController::class,'index'])->name('admin.settings')->middleware('auth');
+Router::put("/admin/setting", [Admin\SettingController::class,'update'])->name('updateSetting')->middleware('auth');
+Router::put("/admin/setting/reset", [Admin\SettingController::class,'reset'])->name('resetSetting')->middleware('auth');
+
+Router::get('/language/:locale', [Admin\LanguageController::class, 'switch'])->name('language.switch');
 
 
 

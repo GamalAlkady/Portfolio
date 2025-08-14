@@ -34,7 +34,7 @@ trait ModelDebug {
         return $this->db->errorInfo;
     }
 
-    public function action(callable $function): string {
+    public function action(callable $function) {
         $this->db->action($function);
         return $this;
     }

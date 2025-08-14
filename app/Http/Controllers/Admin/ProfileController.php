@@ -2,14 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Skills;
 use App\Models\Users;
-use Devamirul\PhpMicro\core\Foundation\Application\Facade\Facades\DB;
 use Devamirul\PhpMicro\core\Foundation\Application\Request\Request;
-use Devamirul\PhpMicro\core\Foundation\Application\Facade\Facades\Session;
-use HTMLPurifier;
-use HTMLPurifier_Config;
-use Rakit\Validation\Validator;
 
 
 class ProfileController
@@ -30,16 +24,31 @@ class ProfileController
         }
 
         $data = $request->except('_method','csrf');
-        $config = HTMLPurifier_Config::createDefault();
-        $purifier = new HTMLPurifier($config);
-        if (isset($_POST['description'])) $data['description'] = $purifier->purify($_POST['description']);
-        elseif (isset($_POST['education'])) $data['education'] = $purifier->purify($_POST['education']);
-        elseif (isset($_POST['experience'])) $data['experience'] = $purifier->purify($_POST['experience']);
-//        return json_encode(['success'=>false,'message'=>$data]);
 
         if (isset($_POST['image'])) {
             $image = uploadImage('image', 'user', $_POST['image']);
             if ($image) $data['image'] = $image;
+        }
+
+        // Handle PDF upload
+        if (isset($_FILES['cv_pdf']) && $_FILES['cv_pdf']['error'] === UPLOAD_ERR_OK) {
+            $pdfResult = $this->uploadPDF($_FILES['cv_pdf']);
+            if ($pdfResult['success']) {
+                $data['cv_pdf'] = $pdfResult['path'];
+            } else {
+                if (isset($isAjax))
+                    return json_encode(['success' => false, 'message' => $pdfResult['message']]);
+                return back()->withError($pdfResult['message']);
+            }
+        }
+
+        // Handle PDF deletion
+        if (isset($_POST['delete_pdf']) && $_POST['delete_pdf'] === '1') {
+            $currentPdf = $users->get('cv_pdf', ['id' => $id])->getData();
+            if ($currentPdf && !empty($currentPdf['cv_pdf'])) {
+                $this->deletePDF($currentPdf['cv_pdf']);
+            }
+            $data['cv_pdf'] = '';
         }
         $p = $users->update($data, ['id' => $id]);
         if ($p->error() != null) {
@@ -47,48 +56,91 @@ class ProfileController
                 return json_encode(['success'=>false,'message'=>$p->error()]);
             return back()->withError($p->error());
         }
-//        destroy_old();
         if (isset($isAjax))
             return json_encode(['success'=>true,'message'=>"Profile updated successfully."]);
         flushMessage()->set('success','Skill updated successfully.');
         return back();
     }
 
-
-    public function destroy(Request $request)
+    /**
+     * Upload PDF file
+     * @param array $file
+     * @return array
+     */
+    private function uploadPDF($file)
     {
-        $id = auth()->user()['id'];
+        try {
+            // Validate file type
+            $allowedTypes = ['application/pdf'];
+            $fileType = $file['type'];
 
-        $skills = new Skills();
-        $skill = $skills->delete(['id'=>$id]);
-        if ($skill->error()!=null){
-            return json_encode(['success'=>false,'message'=>$skill->error()]);
+            // Additional validation using file extension
+            $fileName = $file['name'];
+            $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+            if (!in_array($fileType, $allowedTypes) || $fileExtension !== 'pdf') {
+                return ['success' => false, 'message' => __('only_pdf_allowed')];
+            }
+
+            // Validate file size (10MB max)
+            $maxSize = 10 * 1024 * 1024; // 10MB in bytes
+            if ($file['size'] > $maxSize) {
+                return ['success' => false, 'message' => __('file_too_large')];
+            }
+
+            // Check if file was uploaded without errors
+            if ($file['error'] !== UPLOAD_ERR_OK) {
+                return ['success' => false, 'message' => __('upload_error')];
+            }
+
+        // Create upload directory if it doesn't exist
+        $uploadDir = APP_ROOT . '/public/uploads/cv/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
         }
-        // flushMessage()->set("success","Skill deleted successfully.");
-        return json_encode(['success'=>true,'message'=>"Skill deleted successfully."]);
-    }
 
+        // Generate unique filename
+        $fileName = 'cv_' . auth()->user()['id'] . '_' . time() . '.pdf';
+        $filePath = $uploadDir . $fileName;
+
+            // Move uploaded file
+            if (move_uploaded_file($file['tmp_name'], $filePath)) {
+                return ['success' => true, 'path' => 'uploads/cv/' . $fileName];
+            } else {
+                return ['success' => false, 'message' => __('upload_error')];
+            }
+        } catch (Exception $e) {
+            return ['success' => false, 'message' => __('upload_error') . ': ' . $e->getMessage()];
+        }
+    }
 
     /**
-     * @param Request $request
-     * @return \Devamirul\PhpMicro\core\Foundation\Application\Redirect\Redirect
+     * Delete PDF file
+     * @param string $filePath
+     * @return bool
      */
-    public function extracted(Request $request, $removeOld = false): \Devamirul\PhpMicro\core\Foundation\Application\Redirect\Redirect|array
+    private function deletePDF($filePath)
     {
-        $data = $request->input();
-        $validator = new Validator();
-        $validation = $validator->validate($data + $_FILES, [
-            'name' => 'required|min:3',
-            'description' => 'nullable|min:10',
-            'category' => 'required'
-        ]);
-
-        if ($validation->fails()){
-            flushMessage()->set('old', $_POST);
-            $errors = $validation->errors();
-            return back()->withError($errors);
+        if (!empty($filePath)) {
+            $fullPath = APP_ROOT . '/public/' . $filePath;
+            if (file_exists($fullPath)) {
+                return unlink($fullPath);
+            }
         }
-        unset($data['csrf']);
-        return $data;
+        return false;
     }
+
+
+//    public function destroy(Request $request)
+//    {
+//        $id = auth()->user()['id'];
+//
+//        $skills = new Skills();
+//        $skill = $skills->delete(['id'=>$id]);
+//        if ($skill->error()!=null){
+//            return json_encode(['success'=>false,'message'=>$skill->error()]);
+//        }
+//        // flushMessage()->set("success","Skill deleted successfully.");
+//        return json_encode(['success'=>true,'message'=>"Skill deleted successfully."]);
+//    }
 }

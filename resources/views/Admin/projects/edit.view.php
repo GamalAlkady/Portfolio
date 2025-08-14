@@ -1,4 +1,4 @@
-<?php setTitle("Edit Project"); ?>
+<?php setTitle(__("edit_project")); ?>
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Edit Project</h1>
+                    <h1 class="m-0"><?= __("edit_project") ?></h1>
                 </div><!-- /.col -->
 
             </div><!-- /.row -->
@@ -28,52 +28,52 @@
                             $form->formGroupClass('col-md-6 mb-2');
                             echo setCsrf();
                             echo setMethod('PUT');
-                            echo $form->input('title', 'Title', old('title',$project['title']))->attrs(['required' => true, 'placeholder' => 'Enter project title'])->render();
+                            echo $form->input('title', __("title"), old('title',$project['title']))->attrs(['required' => true, 'placeholder' => __("enter_project_title")])->render();
 
-                            $categories = ['Web Development', 'Mobile App', 'Desktop App', 'UI/UX Design', 'Other'];
+                            $categories = [__("Web Development"), __("Mobile App"), __("Desktop App"), __("Ui_ux_design"), __("Other")];
                             // استخدام Select مع المصفوفة البسيطة مباشرةً
                             echo $form->select(
                                 'category', // اسم حقل الـ select
                                 $categories, // المصفوفة البسيطة مباشرةً
                                 [], // لا حاجة لتحديد option_attrs إذا كانت بسيطة (ستفترض 'id' و 'name' بنفس القيمة)
-                                'Choose category...' // تسمية الحقل
+                                __("choose_category") // تسمية الحقل
                             )->selected(old('category',$project['category'])) // اختيار قيمة افتراضية (يجب أن تتطابق مع قيمة في المصفوفة الأصلية)
                             ->selectAttrs(['required' => 'true']) // سمات إضافية
                             ->selectClass('form-control mb-3')
                                 ->render();
 
-                            echo $form->textarea('description', 'Description')
+                            echo $form->textarea('description', __("Description"))
                                 ->value(old('description',$project['description']))
                                 ->attrs(['rows' => 5])
                                 ->formGroupClass('col-md-12 mb-3')
                                 ->textareaClass('tinymce ') // إذا كنت تستخدم TinyMCE
                                 ->render();
 
-                            echo $form->input('host_url', 'Host URL')
+                            echo $form->input('host_url', __("host_url"))
                                 ->type('url')
                                 ->value(old('host_url',$project['host_url']))
                                 ->formGroupClass('col-md-6')
                                 ->render();
 
-                            echo $form->input('github_url', 'GitHub URL')
+                            echo $form->input('github_url', __("github_url"))
                                 ->type('url')
                                 ->value(old('github_url',$project['github_url']))
                                 ->formGroupClass('col-md-6')
                                 ->class('form-control')
                                 ->render();
 
-                            echo $form->input('technologies', 'Technologies Used')
+                            echo $form->input('technologies', __("technologies_used"))
                                 ->type('text')
                                 ->value(old('technologies',$project['technologies']))
                                 ->attrs([
-                                    'placeholder' => 'e.g., HTML, CSS, JavaScript, PHP',
+                                    'placeholder' => __("tech_placeholder"),
                                     'required' => true // إضافة سمة required هنا
                                 ])
                                 ->formGroupClass('col-12')
                                 ->class('form-control')
                                 ->render();
 
-                            echo $form->button(['type' => 'submit', 'class' => 'btn btn-primary mt-3'], 'Save', '<i class="fas fa-save mr-2"></i>')->render();
+                            echo $form->button(['type' => 'submit', 'class' => 'btn btn-primary mt-3'], __("save"), '<i class="fas fa-save mr-2"></i>')->render();
 
                             echo $form->closeForm()->render();
                             ?>

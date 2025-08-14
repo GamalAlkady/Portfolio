@@ -86,11 +86,11 @@ class Input extends Field
         $_input_attrs_str = $this->buildAttributes($this->input_attrs);
         $input_class_final = !empty($this->input_class) ? ' ' . $this->input_class : '';
         $controls_class_final = !empty($this->controls_class) ? ' ' . $this->controls_class : '';
-
+        $this->placeHolder=(!empty($this->placeHolder)?$this->placeHolder:$this->label);
         $input_html = '';
         if ($this->type === 'file') {
             $input_html .= '<div class="custom-file">';
-            $input_html .= '<input type="' . htmlspecialchars($this->type) . '" id="' . htmlspecialchars($this->name) . '" name="' . htmlspecialchars($this->name) . '" class="form-control' . htmlspecialchars($input_class_final) . '" ' . $_input_attrs_str . ' value="' . htmlspecialchars($this->value) . '"' . 'placeholder="' . htmlspecialchars(_($this->label)) . '">';
+            $input_html .= '<input type="' . htmlspecialchars($this->type) . '" id="' . htmlspecialchars($this->name) . '" name="' . htmlspecialchars($this->name) . '" class="form-control' . htmlspecialchars($input_class_final) . '" ' . $_input_attrs_str . ' value="' . htmlspecialchars($this->value) . '"' . 'placeholder="' . htmlspecialchars(_($this->placeHolder)) . '">';
             $input_html .= '<label class="custom-file-label" for="' . htmlspecialchars($this->name) . '">' . htmlspecialchars($this->placeHolder) . '</label>';
             $input_html .= '</div>';
         } elseif ($this->type === 'date' || $this->type === 'datetime-local') { // Using datetime-local for datetimepicker
@@ -108,7 +108,7 @@ class Input extends Field
             </div>';
         } else {
             $input_html .= '<div class="controls' . htmlspecialchars($controls_class_final) . '">';
-            $input_html .= '<input type="' . htmlspecialchars($this->type) . '" id="' . htmlspecialchars($this->name) . '" name="' . htmlspecialchars($this->name) . '" class="form-control' . htmlspecialchars($input_class_final) . '" ' . $_input_attrs_str . ' value="' . htmlspecialchars($this->value) . '"' . 'placeholder="' . htmlspecialchars(_(ucfirst($this->name))) . '">';
+            $input_html .= '<input type="' . htmlspecialchars($this->type) . '" id="' . htmlspecialchars($this->name) . '" name="' . htmlspecialchars($this->name) . '" class="form-control' . htmlspecialchars($input_class_final) . '" ' . $_input_attrs_str . ' value="' . htmlspecialchars($this->value) . '"' . 'placeholder="' . htmlspecialchars(_(ucfirst($this->placeHolder))) . '">';
             $input_html .= '</div>';
         }
 

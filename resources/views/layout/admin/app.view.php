@@ -3,7 +3,7 @@
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="<?=locale()?>" dir="<?=(locale()=='en'?'ltr':'rtl')?>">
 <head>
     <base target="_self">
     <meta charset="UTF-8">
@@ -16,9 +16,9 @@
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
     <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
         <img class="animation__wobble" src="<?=assets('images/logo.png')?>" alt="AdminLTELogo" height="60" width="60">
-    </div>
+    </div> -->
 <?php if (flushMessage()->has('success')) : ?>
     <script>toastr.success("<?php echo htmlspecialchars(flushMessage()->get('success')); ?>")</script>
 <?php endif; ?>
