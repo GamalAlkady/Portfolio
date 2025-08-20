@@ -19,7 +19,7 @@
     <section class="content">
         <div class="container-fluid">
             <!-- Info boxes -->
-            <div class="row justify-content-around">
+            <div class="row justify-content-start">
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="info-box">
                         <span class="info-box-icon bg-info elevation-1"><i class="fas fa-diagram-project"></i></span>

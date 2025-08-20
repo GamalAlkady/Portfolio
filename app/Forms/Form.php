@@ -160,7 +160,7 @@ class Form
     public function colorPicker(string $name, string $label = '', string $value = ''): Input
     {
         return (new Input($name, $label, $value, 'color'))
-            ->inputClass('colorpicker-input'); // Add class for color picker JS
+            ->class('colorpicker-input'); // Add class for color picker JS
     }
 
     /**
@@ -173,7 +173,7 @@ class Form
     public function dateInput(string $name, string $label = '', string $value = ''): Input
     {
         return (new Input($name, $label, $value, 'date'))
-            ->inputClass('datepicker') // Add class for date picker JS
+            ->class('datepicker') // Add class for date picker JS
             ->attrs(['autocomplete' => 'off']);
     }
 
@@ -187,7 +187,7 @@ class Form
     public function datetimeInput(string $name, string $label = '', string $value = ''): Input
     {
         return (new Input($name, $label, $value, 'datetime-local')) // Using datetime-local for consistency
-        ->inputClass('datetimepicker') // Add class for datetime picker JS
+        ->class('datetimepicker') // Add class for datetime picker JS
         ->attrs(['autocomplete' => 'off']);
     }
 
@@ -370,7 +370,7 @@ class Form
                 // Use the new Select class
                 $select_field = (new Select($name, $statuses, ['id', 'name'], $lang_key))
                     ->selected($selected)
-                    ->selectAttrs($select_attrs);
+                    ->attrs($select_attrs);
                 $html = $select_field->render();
                 break;
 

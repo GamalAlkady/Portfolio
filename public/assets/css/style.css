@@ -1,4 +1,3 @@
-
 .required-field::after {
     content: '*';
     color: red;
@@ -32,6 +31,228 @@
     cursor: pointer;
 }
 
-.dark-mode .table-hover tbody tr:hover td{
+.dark-mode .table-hover tbody tr:hover td {
     color: #e3eaf0 !important;
 }
+
+.dt-search label,
+.dt-length label select {
+    margin-inline-start: 10px;
+    margin-inline-end: 10px;
+}
+
+.dark-mode .dt-container .dt-input {
+    background-color: #343a40;
+}
+
+html[lang='ar'] div.dt-container div.dt-layout-row div.dt-layout-cell.dt-layout-start {
+    justify-content: flex-start;
+    margin-left: auto;
+    margin-right: 0%;
+}
+
+html[lang='ar'] div.dt-container div.dt-layout-row div.dt-layout-cell.dt-layout-end {
+    justify-content: flex-start;
+    margin-right: auto;
+    margin-left: 0;
+}
+
+html[lang='ar'] .form-check-input{
+    margin-left: 0.5rem;
+    margin-right: -2.5rem;
+}
+
+.nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: 0.375rem;
+    border-top-right-radius: 0.375rem;
+    color: #495057;
+    background-color: #f8f9fa;
+    margin-right: 2px;
+}
+
+.nav-tabs .nav-link:hover {
+    border-color: #e9ecef #e9ecef #dee2e6;
+    background-color: #e9ecef;
+}
+
+.nav-tabs .nav-link.active {
+    color: #495057;
+    /* background-color: #fff; */
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.tab-content {
+    border: 1px solid #dee2e6;
+    border-top: none;
+    padding: 20px;
+    border-radius: 0 0 0.375rem 0.375rem;
+    /* background-color: #fff; */
+}
+
+/* Profile Form Styling */
+.form-horizontal .form-group {
+    margin-bottom: 1rem;
+}
+
+.form-horizontal .col-form-label {
+    font-weight: 600;
+    /* color: #495057; */
+}
+
+/* Editor Buttons */
+.d-flex.justify-content-end {
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-info,
+.btn-primary {
+    transition: all 0.3s ease;
+}
+
+.btn-info:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* PDF Section */
+.pdf-viewer-container {
+    /* background: #f8f9fa; */
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+}
+
+.pdf-info {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pdf-details {
+    display: flex;
+    align-items: center;
+}
+
+.pdf-actions .btn {
+    margin-left: 5px;
+}
+
+.pdf-viewer iframe {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.no-pdf-message {
+    background: white;
+    border: 2px dashed #dee2e6;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+#pdfUploadForm .card {
+    border: 1px solid #007bff;
+    border-radius: 10px;
+}
+
+.custom-file-label::after {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .pdf-actions {
+        margin-top: 10px;
+    }
+
+    .pdf-actions .btn {
+        margin: 2px;
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+
+    .pdf-viewer iframe {
+        height: 400px !important;
+    }
+
+    .pdf-details {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Loading animation */
+.btn:disabled {
+    opacity: 0.7;
+}
+
+.fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+   /* Summernote RTL/LTR Support */
+    .note-editor.rtl-editor {
+        direction: rtl;
+        text-align: right;
+    }
+
+    .note-editor.rtl-editor .note-editable {
+        direction: rtl;
+        text-align: right;
+        font-family: 'Cairo', 'Tajawal', 'Amiri', 'Noto Sans Arabic', Arial, sans-serif;
+    }
+
+    .note-editor.ltr-editor {
+        direction: ltr;
+        text-align: left;
+    }
+
+    .note-editor.ltr-editor .note-editable {
+        direction: ltr;
+        text-align: left;
+        font-family: 'Roboto', 'Open Sans', 'Lato', Arial, sans-serif;
+    }
+
+    /* Arabic fonts support */
+    .note-editor.rtl-editor .note-editable h1,
+    .note-editor.rtl-editor .note-editable h2,
+    .note-editor.rtl-editor .note-editable h3,
+    .note-editor.rtl-editor .note-editable h4,
+    .note-editor.rtl-editor .note-editable h5,
+    .note-editor.rtl-editor .note-editable h6 {
+        font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
+        font-weight: bold;
+    }
+
+    /* Toolbar adjustments for RTL */
+    .note-editor.rtl-editor .note-toolbar {
+        direction: ltr; /* Keep toolbar LTR for better UX */
+    }
+
+    /* Dropdown adjustments */
+    .note-editor.rtl-editor .note-dropdown-menu {
+        direction: rtl;
+        text-align: right;
+    }
+
+    /* Nested Language Tabs Styling */

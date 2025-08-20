@@ -24,11 +24,14 @@ abstract class Field
     protected string $name = '';
     protected string $label = '';
     protected string $placeHolder = '';
+    protected array $attrs = [];
     protected array $form_group_attr = [];
     protected string $label_class = '';
     protected string $form_group_class = '';
+    protected string $errorMessage = '';
+    protected bool $is_required = false;
 
-    public function __construct(string $name, string $label = '',$placeHolder='')
+    public function __construct(string $name, string $label = '', $placeHolder = '')
     {
         $this->name = $name;
         $this->label = $label;
@@ -102,6 +105,39 @@ abstract class Field
     }
 
     /**
+     * Set HTML attributes for the <input> tag.
+     * @param array $attributes
+     * @return static
+     */
+    public function attrs(array $attributes): static
+    {
+        $this->attrs = array_merge($this->attrs, $attributes);
+        return $this;
+    }
+
+
+    /**
+     * Set the field as required.
+     * @return static
+     */
+    public function required()
+    {
+        $this->attrs['required'] = true;
+        return $this;
+    }
+
+    /**
+     * Set the error message for the field.
+     * @param string|null $message
+     * @return static
+     */
+    public function errorMessage($message)
+    {
+        if (!empty($message))
+            $this->errorMessage = $message;
+        return $this;
+    }
+    /**
      * Render the HTML for the field.
      * @return string
      */
@@ -147,9 +183,8 @@ abstract class Field
         }
         $html .= $content;
 
-        $html .='<div class="form-error text-danger text-sm mt-1">'.errors($this->name).'</div>';
-
-$html .= '</div>';
+        $html .= '<div class="form-error text-danger text-sm mt-1">' . (!empty($this->errorMessage) ? $this->errorMessage : errors($this->name)) . '</div>';
+        $html .= '</div>';
 
         return $html;
     }

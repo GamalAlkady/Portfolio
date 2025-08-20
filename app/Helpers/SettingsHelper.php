@@ -20,7 +20,7 @@ if (!function_exists('setting')){
  * @return string
  */
 function siteName() {
-    return setting('site_name', 'Profolio');
+    return setting('site_name', config('app', 'app_name'));
 }
 
 /**

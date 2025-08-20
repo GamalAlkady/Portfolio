@@ -1,4 +1,8 @@
-<?php setTitle("Home"); ?>
+<?php
+
+use App\Models\Skills;
+
+ setTitle("Home"); ?>
 <!-- navbar starts -->
 
 <!-- navbar ends -->
@@ -9,10 +13,12 @@
     <div id="particles-js"></div>
 
     <div class="content">
-        <h2>Hi There,<br /> I'm Mohammed Al-Qadi <span></span></h2>
-        <p>I am interested in web development and technical support for computer networks.<span class="typing-text"></span></p>
-        <a href="<?= route('showProjects') ?>" class="btn"><span>View Portfolio</span>
-            <i class="fa fa-arrow-circle-right"></i>
+        
+        <!-- <h2>Hi There,<br /> I'm Mohammed Al-Qadi <span></span></h2> -->
+        <p><?=setting('site_description_' . locale())?><span class="typing-text"></span></p>
+
+        <a href="<?= route('showProjects') ?>" class="btn"><span><?= __("view_portfolio") ?></span>
+            <i class="fa fa-arrow-circle-<?=(locale()=='ar' ? 'left' : 'right')?>"></i>
         </a>
         <div class="socials">
             <ul class="social-icons">
@@ -29,20 +35,20 @@
         </div>
     </div>
     <div class="image">
-        <img draggable="false" class="tilt" src="<?= assets('images/logo.png') ?>" alt="">
+        <img draggable="false" class="tilt" src="<?= assets(setting('home_image'),'images/logo.png') ?>" alt="">
     </div>
 </section>
 
 <section class="about" id="about">
-    <h2 class="heading"><i class="fas fa-user-alt"></i> About <span>Me</span></h2>
+    <h2 class="heading"><i class="fas fa-user-alt"></i><span><?= __("about_me") ?></span></h2>
 
     <div class="row">
 
         <div class="image">
-            <img draggable="false" class="tilt" src="<?= assets('images/hero.png') ?>" alt="">
+            <img draggable="false" class="tilt" src="<?= assets(setting('about_image'),'images/hero.png') ?>" alt="">
         </div>
         <div class="content">
-            <?php echo setting('description') ?>
+            <?php echo setting('description_'.locale()) ?>
 
             <div class="box-container">
                 <!-- <div class="box">
@@ -51,15 +57,15 @@
                   </div> -->
                 <div class="box">
                     <p><span> email : </span> <?php echo setting('email') ?></p>
-                    <p><span> place : </span> <?php echo setting('location') ?></p>
+                    <p><span> place : </span> <?php echo setting('location_'.locale()) ?></p>
                     <p><span> Phone : </span> <?php echo setting('phone') ?></p>
 
                 </div>
             </div>
 
             <div class="resumebtn">
-                <a href="#" target="_blank" class="btn"><span>Resume</span>
-                    <i class="fas fa-chevron-right"></i>
+                <a href="<?= assets(setting('cv_pdf')) ?>" target="_blank"  class="btn"><span><?= __("view_resume")?></span>
+                    <i class="fas fa-chevron-<?=(locale()=='ar' ? 'left' : 'right')?>"></i>
                 </a>
             </div>
 
@@ -89,17 +95,15 @@
 
 <!-- education section starts -->
 <section class="education bg1" id="education">
-    <h1 class="heading"><i class="fas fa-graduation-cap"></i> My <span>Education</span></h1>
+    
+    <h1 class="heading"><i class="fas fa-graduation-cap"></i><span><?=__('my_education')?></span></h1>
     <div class="box-container">
         <div class="box">
             <div class="image">
                 <img draggable="false" src="<?= assets('images/college.jpg') ?>" alt="">
             </div>
             <div class="content">
-                <h3>Bachelor of Science: Computer Science and Information Technology</h3>
-                <p>College of Engineering and Computer Science, IBB University
-                </p>
-                <h4>2017-2022 | Pursuing</h4>
+               <?=setting('education_'.locale())?>
             </div>
         </div>
 
@@ -109,12 +113,12 @@
 
 <!-- education section starts -->
 <section class="education exp" id="experience">
-    <h1 class="heading"><i class="fas fa-award"></i> My <span>Experience</span></h1>
+    <h1 class="heading"><i class="fas fa-award"></i><span><?=__('experience')?></span></h1>
     <div class="box-container">
         <div class="box">
 
             <div class="content">
-                <?php echo setting('experience') ?>
+                <?=setting('experience_'.locale())?>
             </div>
         </div>
 
@@ -122,10 +126,11 @@
 </section>
 <!-- education section ends -->
 
+<?php if(count($skills)>0):?>
 <!-- experience section starts -->
 <section class="skill bg1" id="skill">
 
-    <h2 class="heading"><i class="fas fa-laptop-code"></i> Skills & <span>Abilities</span></h2>
+    <h2 class="heading"><i class="fas fa-laptop-code"></i><span><?=__('skills_abilities')?></span></h2>
 
     <div class="timeline">
         <?php /** @var array $skills */
@@ -147,16 +152,17 @@
 
 </section>
 <!-- experience section ends -->
+<?php endif; ?>
 
 <!-- contact section starts -->
 <section class="contact" id="contact">
 
-    <h2 class="heading"><i class="fas fa-headset"></i> Get in <span>Touch</span></h2>
+    <h2 class="heading"><i class="fas fa-headset"></i><span><?=__('get_in_touch')?></span></h2>
 
     <div class="container">
         <div class="content">
             <div class="image-box">
-                <img draggable="false" src="<?= assets('images/contact1.png') ?>" alt="">
+                <img draggable="false" src="<?= assets(setting('contact_image'),'images/contact1.png') ?>" alt="">
             </div>
             <form action="<?= route('sendEmail') ?>" id="contact-form" method="post">
                 <?php echo setCsrf() ?>
@@ -179,7 +185,7 @@
                     </div>
                 </div>
                 <div class="button-area">
-                    <button type="submit" name="send"> Submit <i class="fa fa-paper-plane"></i></button>
+                    <button type="submit" name="send"> <?=__('submit')?> <i class="fa fa-paper-plane"></i></button>
                 </div>
             </form>
         </div>
@@ -204,12 +210,16 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     // <!-- typed js effect starts -->
+    var strings = "<?=setting('site_keywords_'.locale())?>";
+    strings = strings.replace(/،/g, ',');
+    strings = strings.split(',');
     var typed = new Typed(".typing-text", {
-        strings: ["frontend development", "backend development", "web designing", "android development", "web development"],
+        strings: strings,
         loop: true,
         typeSpeed: 50,
         backSpeed: 25,
         backDelay: 500,
+        showCursor: false, // Hide cursor
     });
     // <!-- typed js effect ends -->
 </script>

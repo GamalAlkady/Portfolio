@@ -4,7 +4,8 @@ namespace Devamirul\PhpMicro\core\Foundation\Application\Request;
 
 use Devamirul\PhpMicro\core\Foundation\Application\Traits\Singleton;
 
-class Request {
+class Request
+{
     use Singleton;
 
     private array $params;
@@ -14,7 +15,8 @@ class Request {
     /**
      * Get requested url.
      */
-    public function path(): string {
+    public function path(): string
+    {
         $url = parse_url($_SERVER['REQUEST_URI']);
         return trim($url['path']) ?? '';
     }
@@ -22,7 +24,8 @@ class Request {
     /**
      * Get requested query params.
      */
-    public function query(string $param = ''): string | array | null {
+    public function query(string $param = ''): string | array | null
+    {
         $url   = parse_url($_SERVER['REQUEST_URI']);
         $query = $url['query'] ?? null;
         parse_str($query, $params);
@@ -36,7 +39,8 @@ class Request {
     /**
      * Get requested method.
      */
-    public function method(): string {
+    public function method(): string
+    {
         $method = isset($_POST['_method']) ? $_POST['_method'] : $_SERVER['REQUEST_METHOD'];
         return strtolower($method);
     }
@@ -44,35 +48,40 @@ class Request {
     /**
      * Checks and returns boolean whether the method is GET.
      */
-    public function isGet(): string {
+    public function isGet(): string
+    {
         return $this->method() === 'get';
     }
 
     /**
      * Checks and returns boolean whether the method is POST.
      */
-    public function isPost(): string {
+    public function isPost(): string
+    {
         return $this->method() === 'post';
     }
 
     /**
      * Checks and returns boolean whether the method is DELETE.
      */
-    public function isDelete(): string {
+    public function isDelete(): string
+    {
         return $this->method() === 'delete';
     }
 
     /**
      * Checks and returns boolean whether the method is PUT.
      */
-    public function isPut(): string {
+    public function isPut(): string
+    {
         return $this->method() === 'put';
     }
 
     /**
      * Checks and returns boolean whether the method is PATCH.
      */
-    public function isPatch(): string {
+    public function isPatch(): string
+    {
         return $this->method() === 'patch';
     }
 
@@ -84,13 +93,25 @@ class Request {
     {
         if ($key) {
             if (isset($_REQUEST[$key])) {
+                if (is_array($_REQUEST[$key])) {
+                    foreach ($_REQUEST[$key] as $index => $value) {
+                        $_REQUEST[$key][$index] = strip_tags($value);
+                    }
+                    return $_REQUEST[$key];
+                }
                 return strip_tags($_REQUEST[$key]);
             }
         } else {
             $input = [];
 
             foreach ($_REQUEST as $index => $value) {
-                $input[$index] = strip_tags($value);
+                if (is_array($value)) {
+                    foreach ($value as $i => $v) {
+                        $value[$i] = strip_tags($v);
+                    }
+                    $input[$index] = $value;
+                } else
+                    $input[$index] = strip_tags($value);
             }
             return $input;
         }
@@ -135,7 +156,7 @@ class Request {
         $args = func_get_args();
 
         foreach ($_REQUEST as $key => $value) {
-            if (!in_array($key,$args))
+            if (!in_array($key, $args))
                 $all[$key] = strip_tags($value);
         }
         return $all;

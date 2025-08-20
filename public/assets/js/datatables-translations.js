@@ -83,13 +83,14 @@ function initDataTableWithLanguage(selector, options = {}, locale = 'en') {
         responsive: true,
         autoWidth: false,
         processing: true,
-        serverSide: false,
+        serverSide: true,
+        paging: true,
         pageLength: 10,
         lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
+        // dom: 'Bfrtip',
+        // buttons: [
+        //     'copy', 'csv', 'excel', 'pdf', 'print'
+        // ]
     };
     
     // Merge user options with default options

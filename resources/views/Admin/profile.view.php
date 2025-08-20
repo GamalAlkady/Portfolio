@@ -1,4 +1,34 @@
 <?= setTitle(__('profile')) ?>
+
+<!-- إضافة الترجمات للـ JavaScript -->
+<?= renderTranslations(locale(), [
+    'name',
+    'email',
+    'phone',
+    'save',
+    'edit',
+    'cancel',
+    'delete',
+    'upload',
+    'description',
+    'education',
+    'experience',
+    'specialization',
+    'location',
+    'arabic',
+    'english',
+    'uploading',
+    'upload_error',
+    'delete_error',
+    'confirm_delete_pdf',
+    'choose_file',
+    'please_select_file',
+    'only_pdf_allowed',
+    'file_too_large',
+    'success',
+    'error'
+]) ?>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -35,34 +65,103 @@
 
                         </div>
 
-
                         <!-- /.col -->
                         <div class="col-md-9">
 
-                            <div class="tab-content">
 
-                                <div class="active tab-pane" id="settings">
-                                    <?php
+                            <div class="active tab-pane" id="settings">
+                                <!-- Language Tabs -->
+                                <?php
+                                renderLangTabs('general', function ($lang) {
                                     $form = new FormHelper();
                                     echo $form->openForm(['action' => route('updateSetting'), 'method' => 'post', 'enctype' => "multipart/form-data", 'class' => 'row needs-validation form-horizontal', 'novalidate' => ''])->render();
                                     echo setCsrf();
                                     echo setMethod("PUT");
                                     $form->formGroupClass('row');
 
-                                    echo $form->input('name', __('name'), old('name', setting('name')))
-                                        ->labelClass('col-sm-2 col-form-label')->controlsClass('col-sm-10')->render();
+                                    echo $form->input('name_' . $lang, __('name') . ' (' . __($lang) . ')', old('name_' . $lang, setting('name_' . $lang)))
+                                        ->labelClass('col-sm-3 col-form-label')->controlsClass('col-sm-9')
+                                        ->attrs(['placeholder' => __('enter_name_ar')])
+                                        ->render();
 
-                                    echo $form->input('email', __('name'), old('email', setting('email')))
-                                        ->labelClass('col-sm-2 col-form-label')->controlsClass('col-sm-10')->render();
+                                    echo $form->input('specialization_' . $lang, __('specialization') . ' (' . __($lang) . ')', old('specialization_' . $lang, setting('specialization_' . $lang)))
+                                        ->labelClass('col-sm-3 col-form-label')->controlsClass('col-sm-9')
+                                        ->attrs(['placeholder' => __('enter_specialization_ar')])
+                                        ->render();
 
-                                    echo $form->input('phone', __('phone'), old('phone', setting('phone')))
-                                        ->labelClass('col-sm-2 col-form-label')->controlsClass('col-sm-10')->render();
-                                    echo $form->button(['type' => 'submit', 'class' => 'btn btn-primary'], __('save'), '<i class ="fas fa-save mr-2"></i>', 'col-md-11 offset-sm-1 col-sm-10 d-flex justify-content-end')->render();
+                                    echo $form->input('location_' . $lang, __('location') . ' (' . __($lang) . ')', old('location_' . $lang, setting('location_' . $lang)))
+                                        ->labelClass('col-sm-3 col-form-label')->controlsClass('col-sm-9')
+                                        ->attrs(['placeholder' => __('enter_location_ar')])
+                                        ->render();
+
+                                    echo $form->button(['type' => 'submit', 'class' => 'btn btn-primary'], __('save'), '<i class ="fas fa-save mr-2"></i>', 'col-md-12 d-flex justify-content-end')->render();
                                     echo $form->closeForm()->render();
+                                });
+                                ?>
+                                
+                                <ul class="nav nav-tabs mb-3" id="languageTabs" role="tablist">
+
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="english-tab" data-bs-toggle="tab"
+                                            data-bs-target="#en-profile" type="button" role="tab">
+                                            <i class="fas fa-globe me-2"></i><?= __("english") ?>
+                                        </button>
+                                    </li>
+
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link " id="arabic-tab" data-bs-toggle="tab"
+                                            data-bs-target="#ar-profile" type="button" role="tab">
+                                            <i class="fas fa-globe me-2"></i><?= __("arabic") ?>
+                                        </button>
+                                    </li>
+
+                                </ul>
+
+                                <div class="tab-content" id="languageTabsContent">
+                                    <!-- Arabic Profile -->
+                                    <?php
+                                    $langs = ['en', 'ar'];
+                                    foreach ($langs as $lang) {
+                                        $active = $lang == locale() ? true : false;
                                     ?>
+
+                                        <div class="tab-pane fade <?= ($active ? '  show active' : '') ?>" id="<?= $lang ?>-profile" role="tabpanel">
+                                            <?php
+                                            $form = new FormHelper();
+                                            echo $form->openForm(['action' => route('updateSetting'), 'method' => 'post', 'enctype' => "multipart/form-data", 'class' => 'row needs-validation form-horizontal', 'novalidate' => ''])->render();
+                                            echo setCsrf();
+                                            echo setMethod("PUT");
+                                            $form->formGroupClass('row');
+
+                                            echo $form->input('name_' . $lang, __('name') . ' (' . __($lang) . ')', old('name_' . $lang, setting('name_' . $lang)))
+                                                ->labelClass('col-sm-3 col-form-label')->controlsClass('col-sm-9')
+                                                ->attrs(['placeholder' => __('enter_name_ar')])
+                                                ->render();
+
+                                            echo $form->input('specialization_' . $lang, __('specialization') . ' (' . __($lang) . ')', old('specialization_' . $lang, setting('specialization_' . $lang)))
+                                                ->labelClass('col-sm-3 col-form-label')->controlsClass('col-sm-9')
+                                                ->attrs(['placeholder' => __('enter_specialization_ar')])
+                                                ->render();
+
+                                            echo $form->input('location_' . $lang, __('location') . ' (' . __($lang) . ')', old('location_' . $lang, setting('location_' . $lang)))
+                                                ->labelClass('col-sm-3 col-form-label')->controlsClass('col-sm-9')
+                                                ->attrs(['placeholder' => __('enter_location_ar')])
+                                                ->render();
+
+                                            echo $form->button(['type' => 'submit', 'class' => 'btn btn-primary'], __('save'), '<i class ="fas fa-save mr-2"></i>', 'col-md-12 d-flex justify-content-end')->render();
+                                            echo $form->closeForm()->render();
+
+                                            ?>
+                                        </div>
+
+                                    <?php } ?>
+
                                 </div>
-                                <!-- /.tab-pane -->
+
+
                             </div>
+                            <!-- /.tab-pane -->
+
                             <!-- /.tab-content -->
                         </div><!-- /.card-body -->
                         <!-- /.card -->
@@ -76,67 +175,71 @@
                     <!-- About Me Box -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title"><?=__('about_me')?></h3>
+                            <h3 class="card-title"><?= __('about_me') ?></h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <?php
-                            echo $form->openForm(['action' => route('updateSetting'), 'method' => 'post', 'enctype' => "multipart/form-data", 'class' => 'row needs-validation form-horizontal', 'novalidate' => ''])->render();
-                            echo setCsrf();
-                            echo setMethod("PUT");
-                            $form->formGroupClass('row col-md-11');
+                            <!-- Language Tabs for About Me -->
+                            <ul class="nav nav-tabs mb-3" id="aboutLanguageTabs" role="tablist">
 
-                            echo $form->input('specialization', __('specialization'), old('specialization', setting('specialization')))
-                                ->placeHolder(__('specialization'))
-                                ->labelClass('col-sm-2 col-form-label')->controlsClass('col-sm-10')->render();
-                            echo $form->button(['type' => 'submit', 'class' => 'btn btn-primary'], __('save'), '<i class ="fas fa-save mr-2"></i>', 'col-md-1 text-right')->render();
-                            echo $form->closeForm()->render();
-                            ?>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="about-english-tab" data-bs-toggle="tab"
+                                        data-bs-target="#about-en" type="button" role="tab">
+                                        <i class="fas fa-globe me-2"></i><?= __("english") ?>
+                                    </button>
+                                </li>
+
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link " id="about-arabic-tab" data-bs-toggle="tab"
+                                        data-bs-target="#about-ar" type="button" role="tab">
+                                        <i class="fas fa-globe me-2"></i><?= __("arabic") ?>
+                                    </button>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content" id="aboutLanguageTabsContent">
+                                <?php
+                                $langs = ['en', 'ar'];
+                                foreach ($langs as $lang) {
+                                    $active = $lang == locale() ? true : false;
+                                ?>
+                                    <!-- Arabic About -->
+                                    <div class="tab-pane fade <?= ($active ? '  show active' : '') ?>" id="about-<?= $lang ?>" role="tabpanel">
+                                        <strong><i class="fas fa-book mr-1"></i> <?= __('description') ?> (<?= __($lang) ?>)</strong>
+                                        <div class="mt-3">
+                                            <div id="description_<?= $lang ?>"><?php echo setting('description_' . $lang) ?></div>
+                                        </div>
+                                        <div class="d-flex justify-content-end">
+                                            <button id="description_<?= $lang ?>Edit" class="btn btn-info" type="button"><?= __('edit') ?></button>
+                                            <button id="description_<?= $lang ?>Save" class="btn btn-primary" type="button"><?= __('save') ?></button>
+                                        </div>
+                                        <hr>
+
+                                        <strong><i class="fas fa-book mr-1"></i> <?= __('education') ?> (<?= __($lang) ?>)</strong>
+                                        <div class="mt-3">
+                                            <div id="education_<?= $lang ?>"><?php echo setting('education_' . $lang) ?></div>
+                                        </div>
+                                        <div class="d-flex justify-content-end">
+                                            <button id="education_<?= $lang ?>Edit" class="btn btn-info" type="button"><?= __('edit') ?></button>
+                                            <button id="education_<?= $lang ?>Save" class="btn btn-primary" type="button"><?= __('save') ?></button>
+                                        </div>
+                                        <hr>
+
+                                        <strong><i class="fas fa-pencil-alt mr-1"></i> <?= __('experience') ?> (<?= __($lang) ?>)</strong>
+                                        <div class="mt-3">
+                                            <div id="experience_<?= $lang ?>"><?php echo setting('experience_' . $lang) ?></div>
+                                        </div>
+                                        <div class="d-flex justify-content-end">
+                                            <button id="experience_<?= $lang ?>Edit" class="btn btn-info" type="button"><?= __('edit') ?></button>
+                                            <button id="experience_<?= $lang ?>Save" class="btn btn-primary" type="button"><?= __('save') ?></button>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+
+
+                            </div>
                             <hr>
 
-                            <?php
-                            echo $form->openForm(['action' => route('updateSetting'), 'method' => 'post', 'enctype' => "multipart/form-data", 'class' => 'row needs-validation form-horizontal', 'novalidate' => ''])->render();
-                            echo setCsrf();
-                            echo setMethod("PUT");
-                            $form->formGroupClass('row col-md-11');
-
-                            echo $form->input('location', __('location'), old('location', setting('location')))
-                                ->placeHolder(__('location'))
-                                ->labelClass('col-sm-2 col-form-label')->controlsClass('col-sm-10')->render();
-                            echo $form->button(['type' => 'submit', 'class' => 'btn btn-primary'], __('save'), '<i class ="fas fa-save mr-2"></i>', 'col-md-1 text-right')->render();
-                            echo $form->closeForm()->render();
-                            ?>
-                            <hr>
-                            <strong><i class="fas fa-book mr-1"></i> <?= __('description') ?></strong>
-                            <div class="mt-3">
-                                <div id="description"><?php echo setting('description') ?></div>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button id="descriptionEdit" class="btn btn-info" type="button"><?=__('edit')?></button>
-                                <button id="descriptionSave" class="btn btn-primary" type="button"><?=__('save')?></button>
-                            </div>
-                            <hr>
-
-                            <strong><i class="fas fa-book mr-1"></i> <?=__('education')?></strong>
-                            <div class="mt-3">
-                                <div id="education"><?php echo setting('education') ?></div>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button id="educationEdit" class="btn btn-info" type="button"><?=__('edit')?></button>
-                                <button id="educationSave" class="btn btn-primary" type="button"><?=__('save')?></button>
-                            </div>
-                            <hr>
-
-                            <strong><i class="fas fa-pencil-alt mr-1"></i> <?= __('experience') ?></strong>
-
-                            <div class="mt-3">
-                                <div id="experience"><?= setting('experience') ?></div>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button id="experienceEdit" class="btn btn-info" type="button"><?=__('edit')?></button>
-                                <button id="experienceSave" class="btn btn-primary" type="button"><?=__('save')?></button>
-                            </div>
-                            <hr>
 
                             <!-- CV/Resume PDF Section -->
                             <strong><i class="fas fa-file-pdf mr-1"></i> <?= __('cv_resume') ?></strong>
@@ -242,106 +345,25 @@
 </div>
 <!-- /.content-wrapper -->
 
-<!-- Custom CSS for PDF Section -->
+<!-- Custom CSS for Profile and PDF Section -->
 <style>
-    .pdf-viewer-container {
-        /* background: #f8f9fa; */
-        padding: 20px;
-        border-radius: 10px;
-        border: 1px solid #e9ecef;
-    }
-
-    .pdf-info {
-        background: white;
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .pdf-details {
-        display: flex;
-        align-items: center;
-    }
-
-    .pdf-actions .btn {
-        margin-left: 5px;
-    }
-
-    .pdf-viewer iframe {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-    }
-
-    .no-pdf-message {
-        background: white;
-        border: 2px dashed #dee2e6;
-        border-radius: 10px;
-        margin: 20px 0;
-    }
-
-    #pdfUploadForm .card {
-        border: 1px solid #007bff;
-        border-radius: 10px;
-    }
-
-    #pdfUploadForm .card-body {
-        /* background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%); */
-    }
-
-    .custom-file-label::after {
-        background: #007bff;
-        color: white;
-        border-color: #007bff;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .pdf-actions {
-            margin-top: 10px;
-        }
-
-        .pdf-actions .btn {
-            margin: 2px;
-            font-size: 12px;
-            padding: 5px 10px;
-        }
-
-        .pdf-viewer iframe {
-            height: 400px !important;
-        }
-
-        .pdf-details {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-    }
-
-    /* Loading animation */
-    .btn:disabled {
-        opacity: 0.7;
-    }
-
-    .fa-spinner {
-        animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
+    /* Language Tabs Styling */
 </style>
 
 <!-- Summernote -->
 <script src="<?= assets('plugins/summernote/summernote-bs4.min.js') ?>"></script>
 <script>
     $(function() {
-        // Summernote
-        // $('.summernote').summernote()
+        // تفعيل Bootstrap tabs
+        var triggerTabList = [].slice.call(document.querySelectorAll('#languageTabs button, #aboutLanguageTabs button'))
+        triggerTabList.forEach(function(triggerEl) {
+            var tabTrigger = new bootstrap.Tab(triggerEl)
+
+            triggerEl.addEventListener('click', function(event) {
+                event.preventDefault()
+                tabTrigger.show()
+            })
+        });
 
         const myImage = document.getElementById('myImage');
         const fileInput = document.getElementById('fileInput');
@@ -361,9 +383,13 @@
             }
         });
 
-        editSave('description');
-        editSave('education');
-        editSave('experience');
+        // إعداد محررات النصوص للغتين
+        editSave('description_ar');
+        editSave('education_ar');
+        editSave('experience_ar');
+        editSave('description_en');
+        editSave('education_en');
+        editSave('experience_en');
 
         // PDF file input change handler
         $('#cv_pdf').on('change', function() {

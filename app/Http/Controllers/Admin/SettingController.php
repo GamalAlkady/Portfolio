@@ -7,6 +7,9 @@ use Devamirul\PhpMicro\core\Foundation\Application\Request\Request;
 use HTMLPurifier;
 use HTMLPurifier_Config;
 
+// Include the EnvHelper
+require_once APP_ROOT . '/app/Helpers/EnvHelper.php';
+
 class SettingController
 {
     // private $settingsModel;
@@ -24,8 +27,9 @@ class SettingController
     {
         $config = HTMLPurifier_Config::createDefault();
         $purifier = new HTMLPurifier($config);
-        $settings = (new Settings());
 
+        // var_dump($_SERVER['HTTP_REFERER']);
+        // die;
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
             $isAjax = true;
         }
@@ -46,11 +50,30 @@ class SettingController
             if ($cv_pdf) $data['cv_pdf'] = $cv_pdf;
         }
 
-        // dd($_POST);
+        // Handle email settings separately (save to .env file)
+        $emailSettings = [];
+        $emailFields = ['mail_host', 'mail_port', 'mail_username', 'mail_password'];
+
+        foreach ($emailFields as $field) {
+            if (isset($data[$field])) {
+                $emailSettings[strtoupper($field)] = $data[$field];
+                unset($data[$field]); // Remove from regular settings
+            }
+        }
+
+        // Update .env file with email settings
+        if (!empty($emailSettings)) {
+            if (!updateEnvFile($emailSettings)) {
+                if (isset($isAjax))
+                    return json_encode(['success' => false, 'message' => __('error_updating_email_settings')]);
+                return back()->withError(__('error_updating_email_settings'));
+            }
+        }
+
         $data['maintenance_mode'] = $request->input('maintenance_mode',0);
         $data['allow_registration'] = $request->input('allow_registration',0);
         foreach ($data as $name => $value) {
-            $val = $purifier->purify($value);   
+            $val = $purifier->purify($value);
             $p = Settings::setSetting($name, $val);
             if ($p->error() != null) {
                 if (isset($isAjax))
@@ -95,6 +118,19 @@ class SettingController
                 Settings::setSetting($name, $value);
             }
 
+
+              // reset file .env
+            $envData = [
+                'MAIL_HOST' => 'smtp.gmail.com',
+                'MAIL_PORT' => '587',
+                'MAIL_USERNAME' => 'your-email@gmail.com',
+                'MAIL_PASSWORD' => 'your-email-password',
+                'MAIL_FROM_ADDRESS' => 'example@yoursite.com',
+                'MAIL_FROM_NAME' => 'Your Site Name'
+            ];
+
+            updateEnvFile($envData);
+            
             flushMessage()->set('success', __('settings_reset_successfully'));
 
             return back();

@@ -3,7 +3,9 @@
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Api\TranslationController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
 use Devamirul\PhpMicro\core\Foundation\Application\Facade\Facades\Router;
 
 /**
@@ -12,8 +14,11 @@ use Devamirul\PhpMicro\core\Foundation\Application\Facade\Facades\Router;
 
 Router::get('/', [HomeController::class, 'index'])->name('home')->middleware('maintenance');
 Router::get('/maintenance', [HomeController::class, 'maintenance'])->name('maintenance');
-Router::post('/sendEmail', [HomeController::class, 'sendEmail'])->name('sendEmail');
-Router::get('/projects', [HomeController::class, 'showProjects'])->name('showProjects')->middleware('maintenance');;
+Router::post('/sendEmail', [NotificationController::class, 'sendEmail'])->name('sendEmail');
+Router::get('/projects', [HomeController::class, 'showProjects'])->name('showProjects')->middleware('maintenance');
+
+// API Routes for translations
+Router::get('/api/translations/:locale', [TranslationController::class, 'getTranslations'])->name('api.translations');
 
 Router::get('/login', [AuthController::class, 'create'])->name('login')->middleware('guest');
 Router::post('/login', [AuthController::class, 'login']);
@@ -46,14 +51,14 @@ Router::get('/admin/skills/datatable', [Admin\SkillController::class, 'dataTable
 Router::get("/admin/skills/add", [Admin\SkillController::class,'create'])->name("addSkill")->middleware('auth');
 Router::post("/admin/skills/store", [Admin\SkillController::class,'store'])->name("storeSkill")->middleware('auth');
 Router::get("/admin/skills/:id/edit", [Admin\SkillController::class,'edit'])->name("editSkill")->middleware('auth');
-Router::put("/admin/skills/:id/update", [Admin\SkillController::class,'update'])->name("updateSkill")->middleware('auth');
+Router::put("/admin/skills/:id/update", [Admin\SkillController::class,'update'])->name("skill.update")->middleware('auth');
 Router::delete("/admin/skills/:id/delete", [Admin\SkillController::class,'destroy'])->name('deleteSkill')->middleware('auth');
 
 
 Router::get("/admin/profile", [Admin\ProfileController::class,'index'])->name('profile')->middleware('auth');
 Router::put("/admin/profile", [Admin\ProfileController::class,'update'])->name('updateProfile')->middleware('auth');
 
-Router::get("/admin/settings", [Admin\SettingController::class,'index'])->name('admin.settings')->middleware('auth');
+Router::get("/admin/settings", [Admin\SettingController::class,'index'])->name('settings')->middleware('auth');
 Router::put("/admin/setting", [Admin\SettingController::class,'update'])->name('updateSetting')->middleware('auth');
 Router::put("/admin/setting/reset", [Admin\SettingController::class,'reset'])->name('resetSetting')->middleware('auth');
 

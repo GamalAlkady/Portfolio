@@ -22,7 +22,6 @@ if (!function_exists('html_purify')) {
 class Textarea extends Field
 {
     protected string $value = '';
-    protected array $textarea_attrs = [];
     protected string $textarea_class = '';
 
     public function __construct(string $name, string $label = '', string $value = '')
@@ -43,17 +42,6 @@ class Textarea extends Field
     }
 
     /**
-     * Set HTML attributes for the <textarea> tag.
-     * @param array $attributes
-     * @return static
-     */
-    public function attrs(array $attributes): static
-    {
-        $this->textarea_attrs = $attributes;
-        return $this;
-    }
-
-    /**
      * Set additional CSS class for the <textarea> tag.
      * @param string $class
      * @return static
@@ -70,17 +58,17 @@ class Textarea extends Field
      */
     public function render(): string
     {
-        if (!isset($this->textarea_attrs['rows'])) {
-            $this->textarea_attrs['rows'] = 4;
+        if (!isset($this->attrs['rows'])) {
+            $this->attrs['rows'] = 4;
         }
 
         $original_textarea_class = $this->textarea_class;
-        if (isset($this->textarea_attrs['class'])) {
-            $original_textarea_class .= ' ' . $this->textarea_attrs['class'];
-            unset($this->textarea_attrs['class']);
+        if (isset($this->attrs['class'])) {
+            $original_textarea_class .= ' ' . $this->attrs['class'];
+            unset($this->attrs['class']);
         }
 
-        $_textarea_attrs_str = $this->buildAttributes($this->textarea_attrs);
+        $_textarea_attrs_str = $this->buildAttributes($this->attrs);
         $textarea_class_final = !empty($original_textarea_class) ? trim($original_textarea_class) : '';
         $textarea_class_final = !empty($textarea_class_final) ? ' ' . $textarea_class_final : '';
 
@@ -89,13 +77,13 @@ class Textarea extends Field
             $v = html_purify($this->value);
         }
 
-        $textarea_html = '<textarea id="' . htmlspecialchars($this->name) . '" name="' . htmlspecialchars($this->name) . '" class="form-control' . htmlspecialchars($textarea_class_final) . '" ' . $_textarea_attrs_str . '>' . htmlspecialchars($this->value) . '</textarea>';
+        $textarea_html = '<textarea id="' . htmlspecialchars($this->name) . '" name="' . htmlspecialchars($this->name) . '" class="form-control' . htmlspecialchars($textarea_class_final) . '" ' . $_textarea_attrs_str . ' placeholder="' . htmlspecialchars(_(ucfirst($this->placeHolder))) . '">' . htmlspecialchars($this->value) . '</textarea>';
 
         // Handle required indicator in label
         $label_html = '';
         if ($this->label !== '') {
-            $label_html .= '<label for="' . htmlspecialchars($this->name) . '" class="control-label">' . htmlspecialchars(_($this->label));
-            if (isset($this->textarea_attrs['required']) && $this->textarea_attrs['required']) {
+            $label_html .= '<label for="' . htmlspecialchars($this->name) . '" class="control-label">' . (_($this->label));
+            if (isset($this->attrs['required']) && $this->attrs['required']) {
                 $label_html .= '<span class="required text-danger" style="margin-left:5px">*</span>';
             }
             $label_html .= '</label>';

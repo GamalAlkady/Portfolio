@@ -3,16 +3,182 @@ return [
     // General translations
     'welcome' => 'Welcome',
     'home' => 'Home',
-    'projects' => 'Projects',
     'contact' => 'Contact',
     'about' => 'About',
-    
+
     // Dashboard translations
     'dashboard' => 'Dashboard',
     'settings' => 'Settings',
     'profile' => 'Profile',
     'logout' => 'Logout',
-    
+
+    // Email settings
+    'email_settings' => 'Email Settings',
+    'email_settings_note' => 'Configure SMTP settings to send emails from your website',
+    'smtp_host' => 'SMTP Host',
+    'smtp_host_help' => 'Example: smtp.gmail.com, smtp.outlook.com',
+    'smtp_port' => 'SMTP Port',
+    'smtp_port_help' => '587 for TLS, 465 for SSL, 25 for unencrypted',
+    'smtp_username' => 'SMTP Username',
+    'smtp_username_help' => 'Usually your email address',
+    'smtp_password' => 'SMTP Password',
+    'smtp_password_help' => 'Your email password or App Password',
+    'from_email' => 'From Email',
+    'from_email_help' => 'Email address that emails will be sent from',
+    'from_name' => 'From Name',
+    'from_name_help' => 'Name that will appear as sender',
+    'test_email' => 'Test Email',
+    'enter_test_email' => 'Enter test email address',
+    'send_test_email' => 'Send Test Email',
+    'test_email_help' => 'A test email will be sent to verify settings',
+    'enter_password' => 'Enter password',
+    'sending' => 'Sending',
+    'please_enter_test_email' => 'Please enter a test email address',
+    'error_occurred' => 'An error occurred',
+    'error_updating_email_settings' => 'Error updating email settings',
+    'smtp_host_required' => 'SMTP host is required',
+    'smtp_port_invalid' => 'Invalid SMTP port',
+    'smtp_username_invalid' => 'Invalid SMTP username',
+    'from_email_invalid' => 'Invalid from email address',
+    'invalid_email_address' => 'Invalid email address',
+    'test_email_subject' => 'Test Email',
+    'test_email_title' => 'Email Settings Test',
+    'test_email_message' => 'This is a test email to verify that your email settings are working correctly.',
+    'test_time' => 'Test Time',
+    'test_email_footer' => 'This is a test message sent from your website management system.',
+    'test_email_sent_successfully' => 'Test email sent successfully',
+    'test_email_failed' => 'Failed to send test email',
+    'message_sent_successfully' => 'Message sent successfully',
+    'error_sending_message' => 'Error sending message',
+
+    // Multilingual projects translations
+    'arabic' => 'Arabic',
+    'ar' => 'Arabic',
+    'english' => 'English',
+    'en' => 'English',
+    'common_fields' => 'Common Fields',
+    'enter_title' => 'Enter title',
+    'enter_name' => 'Enter name',
+    'enter_description' => 'Enter description',
+    'tech_placeholder_ar' => 'Example: PHP, Laravel, MySQL, JavaScript',
+    'tech_placeholder_en' => 'Example: PHP, Laravel, MySQL, JavaScript',
+    'enter_host_url' => 'Enter live website URL',
+    'enter_github_url' => 'Enter GitHub repository URL',
+    'multilingual_note' => 'You can enter content in one or both languages',
+    'at_least_one_language' => 'Content must be entered in at least one language',
+
+    // Project validation messages
+    'validation_errors' => 'Validation errors occurred',
+    'min_number' => 'This field must be at least :number characters',
+    'max_number' => 'This field must not exceed :number characters',
+
+    // Category messages
+    'category_required' => 'Project category is required',
+    'category_invalid' => 'Selected project category is invalid',
+
+    // Technologies messages
+    'technologies_required' => 'Technologies used are required',
+    'technologies_min' => 'Technologies used must be at least 3 characters',
+
+    // Images messages
+    'images_required' => 'Project images are required',
+    'images_invalid_format' => 'Invalid image format. Supported types: PNG, JPEG, JPG, GIF, WEBP',
+    'images_too_large' => 'Image size is too large. Maximum size is 2MB',
+    'images_upload_error' => 'Error uploading image',
+
+    // URL messages
+    'host_url_invalid' => 'Live website URL is invalid',
+    'github_url_invalid' => 'GitHub repository URL is invalid',
+
+    // General messages
+    'at_least_one_language_required' => 'Project content must be entered in at least one language',
+    'project_saved_successfully' => 'Project saved successfully',
+    'project_updated_successfully' => 'Project updated successfully',
+    'project_deleted_successfully' => 'Project deleted successfully',
+    'project_not_found' => 'Project not found',
+
+    // Additional messages
+    'invalid_file_type' => 'Invalid file type',
+    'file_too_large' => 'File size is too large',
+    'upload_failed' => 'File upload failed',
+    'required_field' => 'This field is required',
+    'invalid_url' => 'Invalid URL format',
+    'invalid_email' => 'Invalid email format',
+
+    // Additional JavaScript translations
+    'loading' => 'Loading...',
+    'please_wait' => 'Please wait...',
+    'processing' => 'Processing...',
+    'completed' => 'Completed successfully',
+    'failed' => 'Failed',
+    'try_again' => 'Try again',
+    'confirm_action' => 'Confirm Action',
+    'are_you_sure' => 'Are you sure?',
+    'cannot_be_undone' => 'This action cannot be undone',
+    'yes_continue' => 'Yes, continue',
+    'no_cancel' => 'No, cancel',
+    'delete_permanent' => 'This item will be permanently deleted',
+    'item_deleted' => 'Item deleted',
+    'delete_failed' => 'Failed to delete item',
+    'warning' => 'Warning',
+    'info' => 'Information',
+    'operation_failed' => 'Operation failed',
+    'unexpected_error' => 'An unexpected error occurred',
+    'form_validation_failed' => 'Form validation failed',
+    'required_fields_missing' => 'Required fields are missing',
+    'invalid_data' => 'Invalid data',
+    'please_check_inputs' => 'Please check your inputs',
+    'network_error' => 'Network error',
+    'connection_failed' => 'Connection failed',
+    'timeout_error' => 'Connection timeout',
+    'server_error' => 'Server error',
+    'submit' => 'Submit',
+    'reset' => 'Reset',
+    'close' => 'Close',
+    'back' => 'Back',
+    'next' => 'Next',
+    'previous' => 'Previous',
+    'finish' => 'Finish',
+    'uploading' => 'Uploading...',
+    'upload_complete' => 'Upload completed',
+    'upload_failed' => 'Upload failed',
+    'searching' => 'Searching...',
+    'no_results' => 'No results found',
+    'search_placeholder' => 'Search here...',
+    'page_not_found' => 'Page not found',
+    'access_denied' => 'Access denied',
+    'session_expired' => 'Session expired',
+    'please_login' => 'Please login',
+
+    // Additional project messages
+    'no_projects_found' => 'No projects found',
+    'add_first_project' => 'Add your first project',
+    'network_error' => 'Network error',
+
+    // Profile translations
+    'enter_name_ar' => 'Enter name in Arabic',
+    'enter_name_en' => 'Enter name in English',
+    'enter_specialization_ar' => 'Enter specialization in Arabic',
+    'enter_specialization_en' => 'Enter specialization in English',
+    'enter_location_ar' => 'Enter location in Arabic',
+    'enter_location_en' => 'Enter location in English',
+    'enter_email' => 'Enter email address',
+    'enter_phone' => 'Enter phone number',
+    'common_fields' => 'Common Fields',
+
+    // Site settings translations
+    'enter_site_name_ar' => 'Enter site name in Arabic',
+    'enter_site_name_en' => 'Enter site name in English',
+    'enter_site_description_ar' => 'Enter site description in Arabic',
+    'enter_site_description_en' => 'Enter site description in English',
+    'keywords_placeholder_ar' => 'Example: تطوير، برمجة، مواقع، تطبيقات',
+    'keywords_placeholder_en' => 'Example: development, programming, websites, apps',
+    'common_settings' => 'Common Settings',
+    'legacy' => 'Legacy',
+    'legacy_field_note' => 'This field is for backward compatibility',
+    'legacy_field_help' => 'It is recommended to use the multilingual fields above',
+    'enter_app_password' => 'Enter App Password',
+
     // System messages
     'success' => 'Operation completed successfully',
     'error' => 'An error occurred',
@@ -48,7 +214,7 @@ return [
     'images' => 'Images',
     'choose_images' => 'Choose Images',
     'choose_files' => 'Choose Files',
-        
+
     // Additional common translations
     'details' => 'Details',
     'view' => 'View',
@@ -104,10 +270,15 @@ return [
     'completed' => 'Completed',
     'in_progress' => 'In Progress',
     'cancelled' => 'Cancelled',
-    'about_me' => 'About Me',
+    'about_me' => 'About me',
+    'me'=>'Me',
     'copyright' => 'Copyright',
     'all_rights_reserved' => 'All rights reserved',
-    
+    'my_education' => 'My Education',
+    'my_experience' => 'My Experience',
+    'skills_abilities' => 'Skills & Abilities',
+    'get_in_touch' => 'Get in Touch',
+
     // Project translations
     'project_details' => 'Project Details',
     'latest_projects' => 'Latest Projects',
@@ -126,9 +297,21 @@ return [
     'select_images' => 'Select Images',
     'supported_formats_info' => 'Supported formats: JPG, PNG, GIF, WebP (Max size: 5MB per image)',
     'save_images' => 'Save Images',
+    'live_demo' => 'Live Demo',
+    'code' => 'Code',
+    'projects' => 'Projects',
+    'projects_will_appear_here_once_they_are_added' => 'Projects will appear here once they are added.',
 
     // Skills translations
     'latest_skills' => 'Latest Skills',
+    'add_skill' => 'Add Skill',
+    'edit_skill' => 'Edit Skill',
+    'skill_details' => 'Skill Details',
+
+    // Skills categories translations
+    'technical_skills' => 'Technical Skills',
+    'design_skills' => 'Design Skills',
+    'personal_skills' => 'Personal Skills',
 
     // PDF/CV translations
     'cv_resume' => 'CV/Resume',
@@ -158,11 +341,17 @@ return [
     'page_not_found_message' => 'The page you are looking for does not exist',
     'something_went_wrong' => 'Something went wrong',
     'go_home' => 'Go Home',
+    'view_portfolio' => 'View Portfolio',
+    'view_resume' => 'View Resume',
 
     // Login translations
     'login' => 'Login',
     'remember_me' => 'Remember Me',
     'sign_in' => 'Sign In',
+    'forgot_password' => 'Forgot Password',
+    'register' => 'Register',
+    'sign_in_using_facebook' => 'Sign in using Facebook',
+    'sign_in_using_google' => 'Sign in using Google',
 
     // Settings page translations
     'site_settings' => 'Site Settings',
@@ -222,4 +411,8 @@ return [
     'english' => 'English',
     'switch_to_arabic' => 'Switch to Arabic',
     'switch_to_english' => 'Switch to English',
+
+    // Footer translation
+    'thanks_message'=>'Thank you for visiting my personal portfolio website. Connect with me over socials.',
+    'designed_by'=>'Designed By'
 ];

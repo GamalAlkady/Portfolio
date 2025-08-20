@@ -13,7 +13,7 @@ use function view;
 class AuthController extends BaseController {
 
     public function create(){
-        return layout('loginLayout')-> view('login');
+        return layout('blankLayout')-> view('login');
     }
     /**
      * View welcome page.

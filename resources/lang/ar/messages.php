@@ -3,11 +3,10 @@ return [
     // الترجمات العامة
     'welcome' => 'مرحباً بك',
     'home' => 'الرئيسية',
-    'about' => 'عنا',
+    'about' => 'عن',
     'education' => 'التعليم',
     'experience' => 'الخبرات',
     'skills' => 'المهارات',
-    'projects' => 'المشاريع',
     'contact' => 'اتصل بنا',
     
     // ترجمات لوحة التحكم
@@ -17,7 +16,184 @@ return [
     'search' => 'بحث',
     'copyright' => 'جميع الحقوق محفوظة',
     'all_rights_reserved' => 'جميع الحقوق محفوظة',
-    
+
+    // إعدادات الإيميل
+    'email_settings' => 'إعدادات البريد الإلكتروني',
+    'email_settings_note' => 'قم بتكوين إعدادات SMTP لإرسال رسائل البريد الإلكتروني من الموقع',
+    'smtp_host' => 'خادم SMTP',
+    'smtp_host_help' => 'مثال: smtp.gmail.com, smtp.outlook.com',
+    'smtp_port' => 'منفذ SMTP',
+    'smtp_port_help' => '587 للـ TLS، 465 للـ SSL، 25 غير مشفر',
+    'smtp_username' => 'اسم المستخدم',
+    'smtp_username_help' => 'عادة ما يكون عنوان البريد الإلكتروني',
+    'smtp_password' => 'كلمة المرور',
+    'smtp_password_help' => 'كلمة مرور البريد الإلكتروني أو App Password',
+    'from_email' => 'البريد المرسل',
+    'from_email_help' => 'عنوان البريد الذي ستظهر منه الرسائل',
+    'from_name' => 'اسم المرسل',
+    'from_name_help' => 'الاسم الذي سيظهر كمرسل للرسائل',
+    'test_email' => 'اختبار البريد الإلكتروني',
+    'enter_test_email' => 'أدخل بريد إلكتروني للاختبار',
+    'send_test_email' => 'إرسال رسالة تجريبية',
+    'test_email_help' => 'سيتم إرسال رسالة تجريبية للتأكد من صحة الإعدادات',
+    'enter_password' => 'أدخل كلمة المرور',
+    'sending' => 'جاري الإرسال',
+    'please_enter_test_email' => 'يرجى إدخال بريد إلكتروني للاختبار',
+    'error_occurred' => 'حدث خطأ',
+    'error_updating_email_settings' => 'خطأ في تحديث إعدادات البريد الإلكتروني',
+    'smtp_host_required' => 'خادم SMTP مطلوب',
+    'smtp_port_invalid' => 'منفذ SMTP غير صحيح',
+    'smtp_username_invalid' => 'اسم المستخدم غير صحيح',
+    'from_email_invalid' => 'البريد المرسل غير صحيح',
+    'invalid_email_address' => 'عنوان بريد إلكتروني غير صحيح',
+    'test_email_subject' => 'رسالة اختبار',
+    'test_email_title' => 'اختبار إعدادات البريد الإلكتروني',
+    'test_email_message' => 'هذه رسالة اختبار للتأكد من أن إعدادات البريد الإلكتروني تعمل بشكل صحيح.',
+    'test_time' => 'وقت الاختبار',
+    'test_email_footer' => 'هذه رسالة تجريبية تم إرسالها من نظام إدارة الموقع.',
+    'test_email_sent_successfully' => 'تم إرسال الرسالة التجريبية بنجاح',
+    'test_email_failed' => 'فشل في إرسال الرسالة التجريبية',
+    'message_sent_successfully' => 'تم إرسال الرسالة بنجاح',
+    'error_sending_message' => 'خطأ في إرسال الرسالة',
+
+    // ترجمات المشاريع متعددة اللغات
+    'arabic' => 'العربية',
+    'ar' => 'العربية',
+    'english' => 'الإنجليزية',
+    'en' => 'الإنجليزية',
+    'common_fields' => 'الحقول المشتركة',
+    'enter_title' => 'أدخل العنوان',
+    'enter_name'=>'أدخل الاسم',
+    'enter_description' => 'أدخل الوصف',
+    'tech_placeholder_ar' => 'مثال: PHP, Laravel, MySQL, JavaScript',
+    'tech_placeholder_en' => 'Example: PHP, Laravel, MySQL, JavaScript',
+    'enter_host_url' => 'أدخل رابط الموقع المباشر',
+    'enter_github_url' => 'أدخل رابط GitHub',
+    'multilingual_note' => 'يمكنك إدخال المحتوى بإحدى اللغتين أو كلاهما',
+    'at_least_one_language' => 'يجب إدخال المحتوى بلغة واحدة على الأقل',
+
+    // رسائل التحقق للمشاريع
+    'validation_errors' => 'أخطاء في التحقق من البيانات',
+
+    // رسائل العنوان
+    'min_number' => 'هذا الحقل يجب أن يكون :number أحرف على الأقل',
+    'max_number' => 'هذا الحقل يجب ألا يتجاوز :number حرف',
+
+    // رسائل الوصف
+    'description_min' => 'الوصف يجب أن يكون :number أحرف على الأقل',
+    'description_max' => 'الوصف  يجب ألا يتجاوز :number حرف',
+
+    // رسائل التصنيف
+    'category_required' => 'تصنيف المشروع مطلوب',
+    'category_invalid' => 'تصنيف المشروع غير صحيح',
+
+    // رسائل التقنيات
+    'technologies_required' => 'التقنيات المستخدمة مطلوبة',
+    'technologies_min' => 'التقنيات المستخدمة يجب أن تكون 3 أحرف على الأقل',
+
+    // رسائل الصور
+    'images_required' => 'صور المشروع مطلوبة',
+    'images_invalid_format' => 'تنسيق الصورة غير مدعوم. الأنواع المدعومة: PNG, JPEG, JPG, GIF, WEBP',
+    'images_too_large' => 'حجم الصورة كبير جداً. الحد الأقصى 2 ميجابايت',
+    'images_upload_error' => 'خطأ في رفع الصورة',
+
+    // رسائل الروابط
+    'host_url_invalid' => 'رابط الموقع المباشر غير صحيح',
+    'github_url_invalid' => 'رابط GitHub غير صحيح',
+
+    // رسائل عامة
+    'at_least_one_language_required' => 'يجب إدخال محتوى المشروع بلغة واحدة على الأقل',
+    'project_saved_successfully' => 'تم حفظ المشروع بنجاح',
+    'project_updated_successfully' => 'تم تحديث المشروع بنجاح',
+    'project_deleted_successfully' => 'تم حذف المشروع بنجاح',
+    'project_not_found' => 'المشروع غير موجود',
+
+    // رسائل إضافية
+    'invalid_file_type' => 'نوع الملف غير مدعوم',
+    'file_too_large' => 'حجم الملف كبير للغاية',
+    'upload_failed' => 'فشل في رفع الملف',
+    'required_field' => 'هذا الحقل مطلوب',
+    'invalid_url' => 'الرابط غير صحيح',
+    'invalid_email' => 'البريد الإلكتروني غير صحيح',
+
+    // ترجمات JavaScript الإضافية
+    'loading' => 'جاري التحميل...',
+    'please_wait' => 'يرجى الانتظار...',
+    'processing' => 'جاري المعالجة...',
+    'completed' => 'تم بنجاح',
+    'failed' => 'فشل',
+    'try_again' => 'حاول مرة أخرى',
+    'confirm_action' => 'تأكيد الإجراء',
+    'are_you_sure' => 'هل أنت متأكد؟',
+    'cannot_be_undone' => 'لا يمكن التراجع عن هذا الإجراء',
+    'yes_continue' => 'نعم، متابعة',
+    'no_cancel' => 'لا، إلغاء',
+    'delete_permanent' => 'سيتم حذف العنصر نهائياً',
+    'item_deleted' => 'تم حذف العنصر',
+    'delete_failed' => 'فشل في حذف العنصر',
+    'warning' => 'تحذير',
+    'info' => 'معلومات',
+    'operation_failed' => 'فشلت العملية',
+    'unexpected_error' => 'حدث خطأ غير متوقع',
+    'form_validation_failed' => 'فشل في التحقق من صحة البيانات',
+    'required_fields_missing' => 'حقول مطلوبة مفقودة',
+    'invalid_data' => 'بيانات غير صحيحة',
+    'please_check_inputs' => 'يرجى مراجعة المدخلات',
+    'network_error' => 'خطأ في الشبكة',
+    'connection_failed' => 'فشل في الاتصال',
+    'timeout_error' => 'انتهت مهلة الاتصال',
+    'server_error' => 'خطأ في الخادم',
+    'submit' => 'إرسال',
+    'reset' => 'إعادة تعيين',
+    'close' => 'إغلاق',
+    'back' => 'رجوع',
+    'next' => 'التالي',
+    'previous' => 'السابق',
+    'finish' => 'إنهاء',
+    'uploading' => 'جاري الرفع...',
+    'upload_complete' => 'تم الرفع بنجاح',
+    'upload_failed' => 'فشل في الرفع',
+    'searching' => 'جاري البحث...',
+    'no_results' => 'لا توجد نتائج',
+    'search_placeholder' => 'ابحث هنا...',
+    'page_not_found' => 'الصفحة غير موجودة',
+    'access_denied' => 'الوصول مرفوض',
+    'session_expired' => 'انتهت جلسة العمل',
+    'please_login' => 'يرجى تسجيل الدخول',
+    'profolio' => 'بروفوليو',
+
+    // رسائل إضافية للمشاريع
+    'no_projects_found' => 'لا توجد مشاريع',
+    'add_first_project' => 'أضف مشروعك الأول',
+    'network_error' => 'خطأ في الشبكة',
+    'live_demo' => 'عرض مباشر',
+    'code' => 'الكود',
+    'projects_will_appear_here_once_they_are_added' => 'سيظهر المشاريع هنا بمجرد إضافتها.',
+    'projects' => 'المشاريع',
+
+    // ترجمات الملف الشخصي
+    'enter_name_ar' => 'أدخل الاسم بالعربية',
+    'enter_name_en' => 'أدخل الاسم بالإنجليزية',
+    'enter_specialization_ar' => 'أدخل التخصص بالعربية',
+    'enter_specialization_en' => 'أدخل التخصص بالإنجليزية',
+    'enter_location_ar' => 'أدخل الموقع بالعربية',
+    'enter_location_en' => 'أدخل الموقع بالإنجليزية',
+    'enter_email' => 'أدخل البريد الإلكتروني',
+    'enter_phone' => 'أدخل رقم الهاتف',
+    'common_fields' => 'الحقول المشتركة',
+
+    // ترجمات إعدادات الموقع
+    'enter_site_name_ar' => 'أدخل اسم الموقع بالعربية',
+    'enter_site_name_en' => 'أدخل اسم الموقع بالإنجليزية',
+    'enter_site_description_ar' => 'أدخل وصف الموقع بالعربية',
+    'enter_site_description_en' => 'أدخل وصف الموقع بالإنجليزية',
+    'keywords_placeholder_ar' => 'مثال: تطوير، برمجة، مواقع، تطبيقات',
+    'keywords_placeholder_en' => 'Example: development, programming, websites, apps',
+    'common_settings' => 'الإعدادات المشتركة',
+    'legacy' => 'قديم',
+    'legacy_field_note' => 'هذا الحقل للتوافق مع النسخة القديمة',
+    'legacy_field_help' => 'يُنصح باستخدام الحقول متعددة اللغات أعلاه',
+    'enter_app_password' => 'أدخل كلمة المرور التطبيق (App Password)',
     // عناوين المشاريع
     'add_project' => 'إضافة مشروع',
     'edit_project' => 'تعديل مشروع',
@@ -39,10 +215,10 @@ return [
     'enter_project_title' => 'أدخل عنوان المشروع',
     'category' => 'التصنيف',
     'choose_category' => 'اختر التصنيف',
-    'Web Development' => 'تطوير الويب',
-    'Mobile App' => 'تطبيق جوال',
-    'Desktop App' => 'تطبيق سطح المكتب',
-    'Ui_ux_design' => 'تصميم واجهات المستخدم',
+    'web_development' => 'تطوير الويب',
+    'mobile_app' => 'تطبيق جوال',
+    'desktop_app' => 'تطبيق سطح المكتب',
+    'ui_ux_design' => 'تصميم واجهات المستخدم',
     'other' => 'أخرى',
     'description' => 'الوصف',
     'host_url' => 'رابط الاستضافة',
@@ -121,6 +297,11 @@ return [
     'logout' => 'تسجيل الخروج',
     'setting' => 'الإعدادات',
     'about_me' => 'عني',
+    'me'=>'ي',
+    'my_education' => 'تعليمي',
+    'my_experience' => 'خبرتي',
+    'skills_abilities' => 'المهارات والقدرات',
+    'get_in_touch' => 'تواصل معنا',
 
     // ترجمات خاصة بتفاصيل المشروع
     'project_details' => 'تفاصيل المشروع',
@@ -148,7 +329,15 @@ return [
 
     // ترجمات المهارات
     'latest_skills' => 'أحدث المهارات',
-
+    'add_skill' => 'إضافة مهارة',
+    'edit_skill' => 'تعديل مهارة',
+    'skill_details' => 'تفاصيل المهارة',
+    
+    // تصنيفات المهارات
+    'technical_skills'=> 'مهارات تقنية',
+    'design_skills' => 'مهارات التصميم',
+    'personal_skills' => 'مهارات شخصية',
+    
     // ترجمات ملف PDF / السيرة الذاتية
     'cv_resume' => 'السيرة الذاتية',
     'uploaded_on' => 'تم الرفع في',
@@ -178,13 +367,16 @@ return [
     'page_not_found_message' => 'الصفحة التي تبحث عنها غير موجودة',
     'something_went_wrong' => 'حدث خطأ ما',
     'go_home' => 'العودة للرئيسية',
-
+    'view_portfolio' => 'عرض المعرض',
+    'view_resume' => 'عرض السيرة الذاتية',
     // ترجمات تسجيل الدخول
     'login' => 'تسجيل الدخول',
     'remember_me' => 'تذكرني',
     'sign_in' => 'دخول',
     'forgot_password' => 'هل نسيت كلمة المرور؟',
     'register' => 'تسجيل',
+    'sign_in_using_facebook' => 'تسجيل الدخول باستخدام فيسبوك',
+    'sign_in_using_google' => 'تسجيل الدخول باستخدام جوجل',
 
 
     // ترجمات المتصفحات
@@ -257,6 +449,9 @@ return [
     'arabic' => 'العربية',
     'english' => 'الإنجليزية',
     'switch_to_arabic' => 'التبديل إلى العربية',
-    'switch_to_english' => 'التبديل إلى الإنجليزية'
+    'switch_to_english' => 'التبديل إلى الإنجليزية',
 
+    // ترجمات الفوتر
+    'designed_by'=>'تم التصميم بواسطة',
+    'thanks_message'=>'شكراً على زيارتك لموقع بروفيولي الخاص بي. اتصل بي عبر وسائل التواصل.'
 ];

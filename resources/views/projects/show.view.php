@@ -1,4 +1,4 @@
-<?php setTitle($project['title'] ?? 'Project Details'); ?>
+<!-- <?php setTitle($project['title'] ?? 'Project Details'); ?>
 <div class="container py-5">
     <div class="row mb-4">
         <div class="col-md-6">
@@ -69,4 +69,4 @@
     box-shadow: 0 0 0 2px #0d6efd;
     transition: box-shadow 0.2s;
 }
-</style> 
+</style>  -->

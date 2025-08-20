@@ -18,7 +18,7 @@ echo $form->input('username', 'اسم المستخدم')
           ->type('text')
           ->attrs(['required' => true, 'placeholder' => 'أدخل اسم المستخدم'])
           ->formGroupClass('col-md-6')
-          ->inputClass('custom-input')
+          ->class('custom-input')
           ->render();
 
 // استخدام كلاس Input لحقل كلمة مرور

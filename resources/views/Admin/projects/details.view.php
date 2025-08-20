@@ -30,9 +30,9 @@
                         <div>
                         <span class="badge bg-primary text-white rounded-pill mb-2">
                             <?= /** @var array $project */
-                            $project['category'] ?>
+                            __($project['category']) ?>
                         </span>
-                            <h1 class="h2 fw-bold"><?= $project['title'] ?></h1>
+                            <h1 class="h2 fw-bold"><?= $project['title_'.locale()] ?></h1>
                         </div>
 
                         <div>
@@ -62,7 +62,7 @@
                       <div class="flex-grow-1">
                           <div class=" p-4 rounded">
                               <h2 class="h4 fw-semibold mb-3"><?=__('project_details')?></h2>
-                              <p class="text-muted mb-4"><?= $project['description'] ?></p>
+                              <p class="text-muted mb-4"><?= $project['description_'.locale()] ?></p>
 
                               <div class="mb-4">
                                   <h3 class="fw-medium  mb-2"><?=__('technologies_used')?></h3>

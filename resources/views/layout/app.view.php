@@ -1,20 +1,23 @@
 <!doctype html>
-<html lang="en">
+<html lang="<?=locale()?>" dir="<?=(locale()=='en'?'ltr':'rtl')?>">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?=assets('css/style2.css')?>">
+    <title><?=getTitle()?></title>  
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
+    
     <!-- Favicon -->
     <link id='favicon' rel="shortcut icon" href="<?=assets('images/logo.svg')?>" type="image/x-png">
+    
+    <link rel="stylesheet" href="<?=assets('css/home.css')?>">
+    <link rel="stylesheet" href="<?=assets('plugins/summernote/summernote-bs4.min.css')?>">
 
-    <title><?=getTitle()?></title>  
+    <script src="<?=assets('js/utils.js')?>"></script>
 </head>
 <body>
       <?php

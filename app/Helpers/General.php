@@ -2,8 +2,12 @@
 
 use Devamirul\PhpMicro\core\Foundation\Session\Session;
 
+// تحميل مساعد الترجمة
+require_once __DIR__ . '/TranslationHelper.php';
+
 if (!function_exists('getCsrf')) {
-    function getCsrf(): string {
+    function getCsrf(): string
+    {
         if (!Session::singleton()->has('csrf')) {
             Session::singleton()->set('csrf', bin2hex(random_bytes(50)));
         }
@@ -43,27 +47,53 @@ if (!function_exists('includeView')) {
     }
 }
 
-if (!function_exists('old')){
-    function old($key,$default=''){
-//            dd(flushMessage()->get('old'));
+if (!function_exists('array_get')) {
+
+    function array_get($array, $key)
+    {
+        // أولاً: لو المفتاح موجود مباشرة (بدون دوت) رجّع قيمته
+        if (isset($array[$key])) {
+            return $array[$key];
+        }
+
+        // ثانياً: لو المفتاح يحتوي على دوت (nested)
+        if (strpos($key, '.') !== false) {
+            foreach (explode('.', $key) as $segment) {
+                if (is_array($array) && isset($array[$segment])) {
+                    $array = $array[$segment];
+                } else {
+                    return null;
+                }
+            }
+            return $array;
+        }
+
+        return null;
+    }
+}
+if (!function_exists('old')) {
+    function old($key, $default = '')
+    {
+        //    dd(flushMessage()->get('old'));
         if (flushMessage()->has('old')) {
-            $value = flushMessage()->get('old')[$key];
+            $value = array_get(flushMessage()->get('old'), $key);
             if (!empty($value)) return $value;
         }
-        return $default??'';
+        return $default ?? '';
     }
 }
 
-if (!function_exists('destroy_old')){
-    function destroy_old(){
+if (!function_exists('destroy_old')) {
+    function destroy_old()
+    {
         session()->delete('old');
         session()->delete('old_files');
     }
 }
 
-function assets($path,$default='')
+function assets($path, $default = '')
 {
-    if (empty($path) and !empty($default)) $path=$default;
+    if (empty($path) and !empty($default)) $path = $default;
     $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
     $scheme = $isSecure ? 'https' : 'http';
 
@@ -75,17 +105,17 @@ function assets($path,$default='')
     return $baseUrl . '/assets/' . $path;
 }
 
-function uploadFile($name, $folder = 'files',$oldFile='')
+function uploadFile($name, $folder = 'files', $oldFile = '')
 {
     if (!isset($_FILES[$name]) || $_FILES[$name]['error'] !== UPLOAD_ERR_OK) {
         return null; // لا يوجد ملف أو خطأ في الرفع
     }
 
     // المسار الكامل داخل السيرفر
-//    $uploadDir = __DIR__ . '/../../public/assets/images/' . $folder . '/';
-    $uploadDir = public_path('assets/' . $folder.'/');
+    //    $uploadDir = __DIR__ . '/../../public/assets/images/' . $folder . '/';
+    $uploadDir = public_path('assets/' . $folder . '/');
 
-//    dd([$uploadDir,public_path('')]);
+    //    dd([$uploadDir,public_path('')]);
     // أنشئ المجلد إذا لم يكن موجودًا
     if (!file_exists($uploadDir)) {
         mkdir($uploadDir, 0777, true);
@@ -95,7 +125,7 @@ function uploadFile($name, $folder = 'files',$oldFile='')
     // $extension = pathinfo($_FILES[$name]['name'], PATHINFO_EXTENSION);
 
     // أنشئ اسم فريد للملف
-    $fileName = uniqid() .$_FILES[$name]['name'];
+    $fileName = uniqid() . $_FILES[$name]['name'];
 
     // المسار الفعلي للحفظ
     $targetPath = $uploadDir . $fileName;
@@ -104,10 +134,10 @@ function uploadFile($name, $folder = 'files',$oldFile='')
     if (move_uploaded_file($_FILES[$name]['tmp_name'], $targetPath)) {
         if (!empty($oldFile)) {
             $oldFileRelativePath = trim($oldFile, '/\\');
-                $oldFileFullPath = public_path('assets/'.$oldFileRelativePath);
-                if (file_exists($oldFileFullPath)) {
-                    unlink($oldFileFullPath);
-                }
+            $oldFileFullPath = public_path('assets/' . $oldFileRelativePath);
+            if (file_exists($oldFileFullPath)) {
+                unlink($oldFileFullPath);
+            }
         }
         // المسار النسبي داخل public لاستخدامه في العرض أو قاعدة البيانات
         return $folder . '/' . $fileName;
@@ -116,16 +146,17 @@ function uploadFile($name, $folder = 'files',$oldFile='')
     return null; // فشل النقل
 }
 
-function uploadImage($name, $folder = 'projects',$oldImagePath='')
+function uploadImage($name, $folder = 'projects', $oldImagePath = '')
 {
-   return uploadFile($name,'images/'. $folder,$oldImagePath);
+    return uploadFile($name, 'images/' . $folder, $oldImagePath);
 }
 
 
 
-if (!function_exists('removeFile')){
-    function removeFile($filePath){
-        $filePathFullPath = public_path('assets/'.$filePath);
+if (!function_exists('removeFile')) {
+    function removeFile($filePath)
+    {
+        $filePathFullPath = public_path('assets/' . $filePath);
         if (file_exists($filePathFullPath)) {
             unlink($filePathFullPath);
         }
@@ -133,7 +164,7 @@ if (!function_exists('removeFile')){
 }
 
 
-    function uploadMultipleImages($inputName, $folder = 'projects'): array
+function uploadMultipleImages($inputName, $folder = 'projects'): array
 {
     $uploaded = [];
     if (!isset($_FILES[$inputName]) || !is_array($_FILES[$inputName]['name'])) {
@@ -150,7 +181,7 @@ if (!function_exists('removeFile')){
         if ($_FILES[$inputName]['error'][$key] === UPLOAD_ERR_OK) {
             // $extension = pathinfo($_FILES[$inputName]['name'][$key], PATHINFO_EXTENSION);
             // $fileName = uniqid('img_', true) . '.' . $extension;
-           $fileName = uniqid() . '_' . $_FILES[$inputName]['name'][$key];
+            $fileName = uniqid() . '_' . $_FILES[$inputName]['name'][$key];
             $targetPath = $uploadDir . $fileName;
 
             if (move_uploaded_file($tmp_name, $targetPath)) {
@@ -164,29 +195,31 @@ if (!function_exists('removeFile')){
 
 
 
-if (!function_exists('locale')){
-    function locale(){
-        return session()->get('locale');
+if (!function_exists('locale')) {
+    function locale()
+    {
+        return session()->get('locale') ?? 'en';
     }
 }
 
 if (!function_exists('__')) {
 
-    function __(string $key, array $replace = []) {
-        if(!session()->has('locale')){
+    function __(string $key, array $replace = [])
+    {
+        if (!session()->has('locale')) {
             session()->set('locale', config('app', 'locale'));
         }
         $locale = session()->get('locale');
         // die(config('app', 'locale'));
 
         $path = resource_path("lang/{$locale}/messages.php");
-        
+
         // var_dump(file_exists($path));
         // die();
         if (!file_exists($path)) {
             return $key;
         }
-        
+
         $messages = require $path;
         $translation = $messages[$key] ?? $key;
         if (!empty($replace)) {
@@ -194,7 +227,47 @@ if (!function_exists('__')) {
                 $translation = str_replace(":$key", $value, $translation);
             }
         }
-        
+
         return $translation;
+    }
+}
+
+if (!function_exists('renderLangTabs')) {
+    function renderLangTabs(string $prefix, callable $callback)
+    {
+        $langs = ['en', 'ar'];
+?>
+        <!-- Tabs -->
+        <div class="tab-pane fade show active" id="<?=$prefix?>" role="tabpanel">
+            <ul class="nav nav-tabs mb-3" id="<?= $prefix ?>LanguageTabs" role="tablist">
+                <?php foreach ($langs as $i => $lang): ?>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link <?= $i === 0 ? 'active' : '' ?>"
+                            id="<?= $prefix ?>-<?= $lang ?>-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#<?= $prefix ?>-<?= $lang ?>"
+                            type="button" role="tab">
+                            <i class="fas fa-globe me-2"></i><?= __($lang) ?>
+                        </button>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+
+            <!-- Tab Content -->
+            <div class="tab-content" id="<?= $prefix ?>LanguageTabsContent">
+                <?php foreach ($langs as $i => $lang): ?>
+                    <div class="tab-pane fade <?= $i === 0 ? 'show active' : '' ?>"
+                        id="<?= $prefix ?>-<?= $lang ?>" role="tabpanel">
+                        <div class="row">
+                            <?php
+                            // هنا نستدعي الكولباك ونمرر له اللغة
+                            $callback($lang);
+                            ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+<?php
     }
 }

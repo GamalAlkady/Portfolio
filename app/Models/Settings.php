@@ -9,9 +9,7 @@ class Settings extends BaseModel {
 
     protected $fillable = [
         'name',
-        'value',
-        'created_at',
-        'updated_at'
+        'value'
     ];
 
     /**

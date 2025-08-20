@@ -12,7 +12,6 @@ class Select extends Field
     protected array $options = [];
     protected array $option_attrs = []; // Keys for value, text, subtext
     protected string|array $selected = '';
-    protected array $select_attrs = [];
     protected string $select_class = '';
     protected bool $include_blank = true;
     protected ?string $input_group_contents = null; // For selectWithInputGroup
@@ -104,17 +103,6 @@ class Select extends Field
     }
 
     /**
-     * Set HTML attributes for the <select> tag.
-     * @param array $attributes
-     * @return static
-     */
-    public function selectAttrs(array $attributes): static
-    {
-        $this->select_attrs = $attributes;
-        return $this;
-    }
-
-    /**
      * Set additional CSS class for the <select> tag.
      * @param string $class
      * @return static
@@ -164,7 +152,7 @@ class Select extends Field
             unset($options_data['callback_translate']);
         }
 
-        $_select_attrs = $this->select_attrs;
+        $_select_attrs = $this->attrs;
         if (!isset($_select_attrs['data-width'])) {
             $_select_attrs['data-width'] = '100%';
         }
@@ -293,7 +281,7 @@ class Select extends Field
         $label_html = '';
         if ($this->label !== '') {
             $label_html .= '<label for="' . htmlspecialchars($this->name) . '" class="control-label">' . htmlspecialchars(_($this->label));
-            if (isset($this->select_attrs['required']) && $this->select_attrs['required']) {
+            if (isset($this->attrs['required']) && $this->attrs['required']) {
                 $label_html .= '<span class="required text-danger" style="margin-left:5px">*</span>';
             }
             $label_html .= '</label>';

@@ -11,7 +11,6 @@ class Input extends Field
 {
     protected string $value = '';
     protected string $type = 'text';
-    protected array $input_attrs = [];
     protected string $input_class = '';
     protected string $controls_class = ''; // For the div.controls wrapper
 
@@ -45,17 +44,6 @@ class Input extends Field
     }
 
     /**
-     * Set HTML attributes for the <input> tag.
-     * @param array $attributes
-     * @return static
-     */
-    public function attrs(array $attributes): static
-    {
-        $this->input_attrs = $attributes;
-        return $this;
-    }
-
-    /**
      * Set additional CSS class for the <input> tag.
      * @param string $class
      * @return static
@@ -83,7 +71,7 @@ class Input extends Field
      */
     public function render(): string
     {
-        $_input_attrs_str = $this->buildAttributes($this->input_attrs);
+        $_input_attrs_str = $this->buildAttributes($this->attrs);
         $input_class_final = !empty($this->input_class) ? ' ' . $this->input_class : '';
         $controls_class_final = !empty($this->controls_class) ? ' ' . $this->controls_class : '';
         $this->placeHolder=(!empty($this->placeHolder)?$this->placeHolder:$this->label);
@@ -116,8 +104,8 @@ class Input extends Field
         $label_html = '';
         if ($this->label !== '') {
             $label_class=$this->label_class??'control-label';
-            $label_html .= '<label for="' . htmlspecialchars($this->name) . '" class="'.$label_class.'">' . htmlspecialchars(_($this->label));
-            if (isset($this->input_attrs['required']) && $this->input_attrs['required']) {
+            $label_html .= '<label for="' . htmlspecialchars($this->name) . '" class="'.$label_class.'">' . (_($this->label));
+            if (isset($this->attrs['required']) && $this->attrs['required']) {
                 $label_html .= '<span class="required text-danger" style="margin-left:5px">*</span>';
             }
             $label_html .= '</label>';

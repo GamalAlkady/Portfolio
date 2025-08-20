@@ -42,11 +42,14 @@ class Redirect {
     /**
      * When redirecting you can save any data as flush session.
      */
-    public function withData(mixed $data): static {
-        FlushMessage::singleton()->set('data', $data);
+    public function withData(string $key, mixed $data): static {
+        FlushMessage::singleton()->set($key, $data);
         return $this;
     }
 
+    /**
+     * Redirect to the provided link.
+     */
     public function __destruct() {
         header('Location: ' . $this->redirectLink);
         exit;

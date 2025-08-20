@@ -76,7 +76,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link <?php echo $current_page == 'setting' ? 'active' : ''; ?>" href="<?=route('admin.settings')?>">
+                    <a class="nav-link <?php echo $current_page == 'settings' ? 'active' : ''; ?>" href="<?=route('settings')?>">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                             <?= __("setting") ?>

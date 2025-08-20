@@ -11,11 +11,13 @@ class DashboardController
 {
     public function index(){
         $data = [];
-        $data['countProjects'] = (new Projects())->count()->getData();
+        $projects = new Projects();
+        
+        $data['countProjects'] = $projects->count()->getData();
         $data['countOrders'] =(new Orders())->count()->getData();
         $data['countSkills'] =(new Skills())->count()->getData();
 
-        $data['projects'] = DB::db()->query("SELECT * FROM projects order by created_at DESC LIMIT 4")->fetchAll();
+        $data['projects'] = $projects->getAll('order by created_at DESC LIMIT 4');
         $data['skills'] = DB::db()->query("SELECT * FROM skills order by id DESC LIMIT 4")->fetchAll();
 
     //    var_dump($data);

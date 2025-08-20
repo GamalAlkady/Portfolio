@@ -1,7 +1,7 @@
 <?php
 setTitle(__('maintenance_mode'));
 // استخدام layout خاص بصفحة الصيانة
-layout('maintenanceLayout');
+layout('blankLayout');
 ?>
 
 <!-- جميع الأنماط موجودة في ملف CSS منفصل -->

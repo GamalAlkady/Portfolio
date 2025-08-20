@@ -64,19 +64,19 @@ html::-webkit-scrollbar-thumb {
 }
 
 [lang="ar"] {
-    direction: rtl;
-    text-align: right;
+    direction: ltr;
+    text-align: left;
 }
 
 [lang="en"] {
-    direction: ltr;
-    text-align: left;
+    direction: rtl;
+    text-align: right;
 }
 /* pre loader start */
 .loader-container {
   position: fixed;
   top: 0;
-  left: 0;
+  right: 0;
   z-index: 10000;
   background: #e6eff1;
   display: flex;
@@ -96,8 +96,8 @@ html::-webkit-scrollbar-thumb {
 header {
   position: fixed;
   top: 0;
-  left: 0;
   right: 0;
+  left: 0;
   z-index: 1000;
   display: flex;
   align-items: center;
@@ -147,7 +147,7 @@ header .navbar ul {
 }
 
 header .navbar li {
-  margin-left: 2.5rem;
+  margin-right: 2.5rem;
 }
 
 header .navbar ul li a {
@@ -184,10 +184,10 @@ header .navbar ul li a:hover {
   header .navbar {
     position: fixed;
     top: 6.5rem;
-    right: -120%;
+    left: -120%;
     width: 75%;
     height: 100%;
-    text-align: left;
+    text-align: right;
     align-items: flex-start;
     background-color: #0e0f31;
   }
@@ -208,7 +208,7 @@ header .navbar ul li a:hover {
   header .navbar ul li a {
     display: block;
     padding: 1rem;
-    text-align: left;
+    text-align: right;
     color: #fff;
     font-size: 2rem;
   }
@@ -222,11 +222,11 @@ header .navbar ul li a:hover {
   }
 
   .fa-times {
-    transform: rotate(180deg);
+    transform: rotate(-180deg);
   }
 
   header .navbar.nav-toggle {
-    right: 0;
+    left: 0;
   }
 }
 
@@ -245,7 +245,7 @@ header .navbar ul li a:hover {
 .home #particles-js {
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   height: 100%;
   width: 100%;
 }
@@ -254,7 +254,7 @@ header .navbar ul li a:hover {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
+  right: 0;
   height: 100%;
   width: 100%;
 }
@@ -272,7 +272,7 @@ header .navbar ul li a:hover {
 
 .home .image img {
   width: 50%;
-  margin-left: 30rem;
+  margin-right: 30rem;
   cursor: pointer;
 }
 
@@ -324,7 +324,7 @@ header .navbar ul li a:hover {
 }
 
 .home .btn i {
-  margin-left: 0.3rem;
+  margin-right: 0.3rem;
   font-size: 1.5rem;
   transition: 0.3s;
 }
@@ -334,7 +334,7 @@ header .navbar ul li a:hover {
 }
 
 .home .btn:hover i {
-  transform: translateX(5px);
+  transform: translateX(-5px);
 }
 
 /* social icons start */
@@ -344,7 +344,7 @@ header .navbar ul li a:hover {
 }
 
 .socials .social-icons {
-  padding-left: 0;
+  padding-right: 0;
   margin-bottom: 0;
   list-style: none;
 }
@@ -363,7 +363,7 @@ header .navbar ul li a:hover {
   width: 44px;
   height: 44px;
   text-align: center;
-  margin-right: 8px;
+  margin-left: 8px;
   border-radius: 100%;
   -webkit-transition: all 0.2s linear;
   -o-transition: all 0.2s linear;
@@ -415,7 +415,7 @@ header .navbar ul li a:hover {
 
   .home .image img {
 
-    margin-left: 15rem;
+    margin-right: 15rem;
 
   }
 
@@ -525,7 +525,7 @@ header .navbar ul li a:hover {
 }
 
 .resumebtn .btn i {
-  margin-left: 0.3rem;
+  margin-right: 0.3rem;
   font-size: 1.2rem;
   transition: 0.3s;
 }
@@ -535,7 +535,7 @@ header .navbar ul li a:hover {
 }
 
 .resumebtn .btn:hover i {
-  transform: translateX(5px);
+  transform: translateX(-5px);
 }
 
 /* about media queries starts*/
@@ -569,7 +569,7 @@ header .navbar ul li a:hover {
 
   .home .image img {
 
-    margin-left: 15rem;
+    margin-right: 15rem;
 
   }
 }
@@ -638,7 +638,7 @@ header .navbar ul li a:hover {
   font-size: 2rem;
   font-weight: 500;
   font-family: "Poppins";
-  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 /* skills media queries starts*/
@@ -654,7 +654,7 @@ header .navbar ul li a:hover {
 
   .home .image img {
 
-    margin-left: 15rem;
+    margin-right: 15rem;
 
   }
 
@@ -703,7 +703,7 @@ header .navbar ul li a:hover {
   display: flex;
   width: 80%;
   border-radius: 0.5rem;
-  box-shadow: 0.2rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  box-shadow: -0.2rem 0.5rem 1rem rgba(0, 0, 0, 0.2);
   text-align: center;
   position: relative;
   margin-top: 2rem;
@@ -714,7 +714,7 @@ header .navbar ul li a:hover {
 
 .education .box-container .box:hover {
   transform: scale(1.03);
-  box-shadow: 1rem 0.5rem 1.2rem rgba(0, 0, 0, 0.3);
+  box-shadow: -1rem 0.5rem 1.2rem rgba(0, 0, 0, 0.3);
 }
 
 .education .box-container .box .image {
@@ -743,20 +743,20 @@ header .navbar ul li a:hover {
   color: #012970;
   padding: 0.5rem 0;
   font-weight: 600;
-  text-align: left;
-  margin-left: 1rem;
+  text-align: right;
+  margin-right: 1rem;
 }
 
 .education .box-container .box .content p {
   font-size: 1.5rem;
-  margin-left: 1rem;
-  text-align: left;
+  margin-right: 1rem;
+  text-align: right;
 }
 
 .education h4 {
   font-size: 2rem;
   color: rgb(34, 109, 0);
-  text-align: left;
+  text-align: right;
   margin: 1rem;
   font-family: "Nunito", sans-serif;
   font-weight: 700;
@@ -784,7 +784,7 @@ header .navbar ul li a:hover {
 
   .home .image img {
 
-    margin-left: 15rem;
+    margin-right: 15rem;
 
   }
 
@@ -799,8 +799,8 @@ header .navbar ul li a:hover {
 
   .education .btns {
     margin-top: 2rem;
-    margin-left: 1rem;
     margin-right: 1rem;
+    margin-left: 1rem;
     flex-wrap: wrap;
   }
 }
@@ -853,7 +853,7 @@ header .navbar ul li a:hover {
   width: 100%;
   position: absolute;
   top: 85%;
-  left: 0;
+  right: 0;
   background: rgba(255, 255, 255, 0.9);
   display: flex;
   flex-direction: column;
@@ -866,7 +866,7 @@ header .navbar ul li a:hover {
   align-items: center;
   height: 4.5rem;
   width: 100%;
-  padding-left: 1rem;
+  padding-right: 1rem;
   background: #ffd900;
 }
 
@@ -904,7 +904,7 @@ header .navbar ul li a:hover {
   font-size: 1.5rem;
   color: #fff;
   background: rgb(12, 12, 12);
-  margin-right: 2rem;
+  margin-left: 2rem;
 }
 
 .work .desc .btns .btn:hover {
@@ -936,7 +936,7 @@ header .navbar ul li a:hover {
 }
 
 .work .viewall .btn i {
-  margin-left: 0.3rem;
+  margin-right: 0.3rem;
   font-size: 1.5rem;
   transition: 0.3s;
 }
@@ -947,7 +947,7 @@ header .navbar ul li a:hover {
 }
 
 .work .viewall .btn:hover i {
-  transform: translateX(5px);
+  transform: translateX(-5px);
 }
 
 /* work section ends */
@@ -966,8 +966,8 @@ header .navbar ul li a:hover {
   background: #020133;
   top: 0;
   bottom: 0;
-  left: 50%;
-  margin-left: -3px;
+  right: 50%;
+  margin-right: -3px;
   z-index: -2;
 }
 
@@ -984,7 +984,7 @@ header .navbar ul li a:hover {
   position: absolute;
   width: 25px;
   height: 25px;
-  right: -17px;
+  left: -17px;
   background-color: rgb(255, 255, 255);
   border: 4px solid #ff9f55;
   top: 15px;
@@ -998,29 +998,15 @@ header .navbar ul li a:hover {
 }
 
 .skill .left {
-  left: 0;
+  right: 0;
 }
 
 .skill .right {
-  left: 50%;
+  right: 50%;
 }
 
 /* arrows pointing right */
 .skill .left::before {
-  content: " ";
-  height: 0;
-  position: absolute;
-  top: 22px;
-  width: 0;
-  z-index: 1;
-  right: 30px;
-  border: medium solid #f68c09;
-  border-width: 10px 0 10px 10px;
-  border-color: transparent transparent transparent #f68c09;
-}
-
-/* arrows pointing left  */
-.skill .right::before {
   content: " ";
   height: 0;
   position: absolute;
@@ -1033,8 +1019,22 @@ header .navbar ul li a:hover {
   border-color: transparent #f68c09 transparent transparent;
 }
 
+/* arrows pointing left  */
+.skill .right::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 1;
+  right: 30px;
+  border: medium solid #f68c09;
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent #f68c09;
+}
+
 .skill .right::after {
-  left: -16px;
+  right: -16px;
 }
 
 .skill .content {
@@ -1046,11 +1046,11 @@ header .navbar ul li a:hover {
 .skill .content .tag {
   font-size: 1.3rem;
   padding-top: 1.5rem;
-  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .skill .content .desc {
-  margin-left: 1.5rem;
+  margin-right: 1.5rem;
   padding-bottom: 1rem;
 }
 
@@ -1088,7 +1088,7 @@ header .navbar ul li a:hover {
 }
 
 .morebtn .btn i {
-  margin-left: 0.3rem;
+  margin-right: 0.3rem;
   font-size: 1.5rem;
   transition: 0.3s;
 }
@@ -1098,7 +1098,7 @@ header .navbar ul li a:hover {
 }
 
 .morebtn .btn:hover i {
-  transform: translateX(5px);
+  transform: translateX(-5px);
 }
 
 /* Media queries - Responsive timeline on screens less than 600px wide */
@@ -1116,18 +1116,18 @@ header .navbar ul li a:hover {
   }
 
   .skill .timeline::after {
-    left: 31px;
+    right: 31px;
   }
 
   .skill .container {
     width: 100%;
-    padding-left: 8rem;
-    padding-right: 2rem;
+    padding-right: 8rem;
+    padding-left: 2rem;
   }
 
   .home .image img {
 
-    margin-left: 15rem;
+    margin-right: 15rem;
 
   }
 
@@ -1136,22 +1136,22 @@ header .navbar ul li a:hover {
   }
 
   .skill .container::before {
-    left: 61px;
+    right: 61px;
     border: medium solid #f68c09;
-    border-width: 10px 10px 10px 0;
-    border-color: transparent #f68c09 transparent transparent;
+    border-width: 10px 0 10px 10px;
+    border-color: transparent transparent transparent #f68c09;
   }
 
   .skill .left::after {
-    left: 15px;
+    right: 15px;
   }
 
   .skill .right::after {
-    left: 15px;
+    right: 15px;
   }
 
   .skill .right {
-    left: 0%;
+    right: 0%;
   }
 
   .morebtn {
@@ -1186,7 +1186,7 @@ header .navbar ul li a:hover {
 
 .contact .content .image-box {
   max-width: 60%;
-  margin-left: 4rem;
+  margin-right: 4rem;
 }
 
 .contact .content .image-box img {
@@ -1197,7 +1197,7 @@ header .navbar ul li a:hover {
 
 .contact .content form {
   width: 45%;
-  margin-right: 3.5rem;
+  margin-left: 3.5rem;
 }
 
 form .form-group {
@@ -1217,7 +1217,7 @@ form .form-group {
 form i {
   position: absolute;
   top: 50%;
-  left: 18px;
+  right: 18px;
   color: rgb(51, 51, 51);
   font-size: 17px;
   pointer-events: none;
@@ -1229,7 +1229,7 @@ form .message textarea {
   width: 100%;
   height: 100%;
   outline: none;
-  padding: 0 16px 0 48px;
+  padding: 0 48px 0 16px;
   font-size: 16px;
   font-family: "Poppins", sans-serif;
   border-radius: 5px;
@@ -1244,7 +1244,7 @@ form .message textarea {
 
 .field input:focus,
 .message textarea:focus {
-  padding-left: 47px;
+  padding-right: 47px;
   border: 2px solid rgb(115, 3, 167);
 }
 
@@ -1262,7 +1262,7 @@ form .message {
 form .message i {
   top: 25px;
   font-size: 20px;
-  left: 15px;
+  right: 15px;
 }
 
 form .message textarea {
@@ -1270,7 +1270,7 @@ form .message textarea {
   max-height: 230px;
   max-width: 100%;
   min-width: 100%;
-  padding: 12px 20px 0 48px;
+  padding: 12px 48px 0 20px;
 }
 
 form .message textarea::-webkit-scrollbar {
@@ -1279,7 +1279,7 @@ form .message textarea::-webkit-scrollbar {
 
 form .button-area {
   display: flex;
-  float: right;
+  float: left;
   flex-direction: row-reverse;
 }
 
@@ -1310,14 +1310,14 @@ form .button-area {
 .button-area button i {
   position: relative;
   top: 6px;
-  left: 2px;
+  right: 2px;
   font-size: 1.5rem;
   transition: 0.3s;
   color: #fff;
 }
 
 .button-area button:hover i {
-  left: 8px;
+  right: 8px;
 }
 
 /* contact section media queries starts */
@@ -1344,13 +1344,13 @@ form .button-area {
 
   .home .image img {
 
-    margin-left: 10rem;
+    margin-right: 10rem;
 
   }
 
   .contact .content form {
     width: 100%;
-    margin-right: 2rem;
+    margin-left: 2rem;
   }
 }
 
@@ -1390,7 +1390,7 @@ form .button-area {
 }
 
 .footer .box-container .box p i {
-  padding-right: 1rem;
+  padding-left: 1rem;
   color: #ffae00;
 }
 
@@ -1418,7 +1418,7 @@ form .button-area {
   text-align: center;
   border-radius: 5rem;
   font-size: 1.7rem;
-  margin-right: 1rem;
+  margin-left: 1rem;
   transition: 0.2s;
   background: rgb(230, 230, 230);
   color: #02094b;
@@ -1492,7 +1492,7 @@ form .button-area {
   }
 
   body {
-    padding-right: 0;
+    padding-left: 0;
   }
 
   section {
@@ -1507,7 +1507,7 @@ form .button-area {
 #scroll-top {
   position: fixed;
   top: -140%;
-  right: 2rem;
+  left: 2rem;
   padding: 1rem;
   font-size: 2rem;
   background: #ffae00;
@@ -1522,7 +1522,7 @@ form .button-area {
 }
 
 /* bootstrap */
-.row{--bs-gutter-x:1.5rem;--bs-gutter-y:0;display:flex;flex-wrap:wrap;margin-top:calc(var(--bs-gutter-y) * -1);margin-left:calc(var(--bs-gutter-x) * -.5);margin-right:calc(var(--bs-gutter-x) * -.5)}.row>*{flex-shrink:0;width:100%;max-width:100%;padding-left:calc(var(--bs-gutter-x) * .5);padding-right:calc(var(--bs-gutter-x) * .5);margin-top:var(--bs-gutter-y)}
+.row{--bs-gutter-x:1.5rem;--bs-gutter-y:0;display:flex;flex-wrap:wrap;margin-top:calc(var(--bs-gutter-y) * -1);margin-right:calc(var(--bs-gutter-x) * -.5);margin-left:calc(var(--bs-gutter-x) * -.5)}.row>*{flex-shrink:0;width:100%;max-width:100%;padding-right:calc(var(--bs-gutter-x) * .5);padding-left:calc(var(--bs-gutter-x) * .5);margin-top:var(--bs-gutter-y)}
 
 .col-auto{flex:0 0 auto;width:auto}.col-1{flex:0 0 auto;width:8.33333333%}.col-2{flex:0 0 auto;width:16.66666667%}.col-3{flex:0 0 auto;width:25%}.col-4{flex:0 0 auto;width:33.33333333%}.col-5{flex:0 0 auto;width:41.66666667%}.col-6{flex:0 0 auto;width:50%}.col-7{flex:0 0 auto;width:58.33333333%}.col-8{flex:0 0 auto;width:66.66666667%}.col-9{flex:0 0 auto;width:75%}.col-10{flex:0 0 auto;width:83.33333333%}.col-11{flex:0 0 auto;width:91.66666667%}.col-12{flex:0 0 auto;width:100%}
 
@@ -1530,15 +1530,15 @@ form .button-area {
         .language-switcher {
             position: fixed;
             top: 12px;
-            right: 20px;
+            left: 20px;
             z-index: 1000;
             display: flex;
             gap: 10px;
         }
 
         [dir="rtl"] .language-switcher {
-            right: auto;
-            left: 20px;
+            left: auto;
+            right: 20px;
         }
 
         .language-switcher a {
@@ -1575,12 +1575,12 @@ form .button-area {
         @media (max-width: 768px) {
             .language-switcher {
                 top: 10px;
-                right: 10px;
+                left: 10px;
             }
 
             [dir="rtl"] .language-switcher {
-                right: auto;
-                left: 10px;
+                left: auto;
+                right: 10px;
             }
 
             .language-switcher a {

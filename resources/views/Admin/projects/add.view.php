@@ -1,5 +1,12 @@
 <?php setTitle(__("add_project")); ?>
 
+<!-- إضافة الترجمات للـ JavaScript -->
+<?= renderTranslations(locale(), [
+    'at_least_one_language_required', 'validation_errors', 'loading',
+    'save', 'cancel', 'error', 'success', 'warning', 'confirm_delete',
+    'delete_warning', 'yes_delete', 'deleted_successfully', 'delete_failed'
+]) ?>
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -26,73 +33,195 @@
                 <div class="col-12">
                     <div class="card p-5">
                         <div class="form-container">
+                            <!-- عرض الأخطاء -->
+                            <?php
+
+                            // var_dump(hasError());
+
+                            if (flushMessage()->has('error')): ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <h5><i class="fas fa-exclamation-triangle me-2"></i><?= __('validation_errors') ?></h5>
+                                    <?php
+                                    $errors = flushMessage()->get('errors');
+                                    if (is_array($errors)):
+                                        echo '<ul class="mb-0">';
+                                        foreach ($errors as $error):
+                                            if (is_array($error)):
+                                                foreach ($error as $msg):
+                                                    echo '<li>' . htmlspecialchars($msg) . '</li>';
+                                                endforeach;
+                                            else:
+                                                echo '<li>' . htmlspecialchars($error) . '</li>';
+                                            endif;
+                                        endforeach;
+                                        echo '</ul>';
+                                    else:
+                                        echo '<p class="mb-0">' . htmlspecialchars($errors) . '</p>';
+                                    endif;
+                                    ?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            <?php endif; ?>
+
+                            <!-- ملاحظة متعددة اللغات -->
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <?= __('multilingual_note') ?>
+                            </div>
+
                             <?php
                             $form = new FormHelper();
                             echo $form->openForm(['action' => route('storeProject'), 'method' => 'post', 'enctype' => "multipart/form-data", 'class' => 'row needs-validation', 'novalidate' => ''])->render();
                             $form->formGroupClass('col-md-6 mb-2');
                             echo setCsrf();
-                            echo $form->input('title', __("title"), old('title'))->attrs(['required' => true, 'placeholder' => __("enter_project_title")])->render();
+                            ?>
 
-                            $categories = [__("web_development"), __("mobile_app"), __("desktop_app"), __("ui_ux_design"), __("other")];
-                            echo $form->select(
-                                'category',
-                                $categories,
-                                [],
-                                __("choose_category")
-                            )->selected(old('category'))
-                                ->selectAttrs(['required' => 'true'])
-                                ->selectClass('form-control mb-3')
-                                ->render();
+                            <!-- Language Tabs -->
+                            <div class="col-12 mb-4">
+                                <ul class="nav nav-tabs" id="languageTabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="english-tab" data-bs-toggle="tab"
+                                            data-bs-target="#english" type="button" role="tab">
+                                            <i class="fas fa-globe me-2"></i><?= __("english") ?>
+                                        </button>
+                                    </li>
 
-                            echo $form->textarea('description', __("Description"))
-                                ->value(old('description'))
-                                ->attrs(['rows' => 5])
-                                ->formGroupClass('col-md-12 mb-3')
-                                ->textareaClass('tinymce')
-                                ->render();
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link " id="arabic-tab" data-bs-toggle="tab"
+                                            data-bs-target="#arabic" type="button" role="tab">
+                                            <i class="fas fa-globe me-2"></i><?= __("arabic") ?>
+                                        </button>
+                                    </li>
+                                </ul>
 
-                            echo $form->input('host_url', __("host_url"))
-                                ->type('url')
-                                ->value(old('host_url'))
-                                ->formGroupClass('col-md-6')
-                                ->render();
+                                <div class="tab-content border border-top-0 p-3" id="languageTabsContent">
+                                    <!-- English Content -->
+                                    <div class="tab-pane fade show active" id="english" role="tabpanel">
+                                        <div class="row">
+                                            <?php
+                                            // var_dump(errors('title.en'));
+                                            $input = $form->input('title[en]', __("title") . ' (' . __("english") . ')', old('title.en'))
+                                                ->attrs(['placeholder' => __("enter_project_title_en")])
+                                                ->errorMessage(errors('title.en'))
+                                                ->formGroupClass('col-md-6 mb-3');
+                                            if (locale() == 'en')    $input->required();
+                                            echo  $input->render();
 
-                            echo $form->input('github_url', __("github_url"))
-                                ->type('url')
-                                ->value(old('github_url'))
-                                ->formGroupClass('col-md-6')
-                                ->class('form-control')
-                                ->render();
+                                            $description = $form->textarea('description[en]', __("description") . ' (' . __("english") . ')')
+                                                ->value(old('description.en'))
+                                                ->attrs(['rows' => 5, 'placeholder' => __("enter_project_description_en")])
+                                                ->errorMessage(errors('description.en'))
+                                                ->formGroupClass('col-md-12 mb-3')
+                                                ->textareaClass('tinymce-en');
+                                            if (locale() == 'en')    $description->required();
 
-                            echo $form->input('technologies', __("technologies_used"))
-                                ->type('text')
-                                ->value(old('technologies'))
-                                ->attrs([
-                                    'placeholder' => __("tech_placeholder"),
-                                    'required' => true
-                                ])
-                                ->formGroupClass('col-12')
-                                ->class('form-control')
-                                ->render();
+                                            echo $description->render();
+                                            ?>
+                                        </div>
+                                    </div>
 
+                                    <!-- Arabic Content -->
+                                    <div class="tab-pane fade" id="arabic" role="tabpanel">
+                                        <div class="row">
+                                            <?php
+                                            echo $form->input('title[ar]', __("title") . ' (' . __("arabic") . ')', old('title[ar]'))
+                                                ->attrs(['placeholder' => __("enter_project_title_ar")])
+                                                ->formGroupClass('col-md-6 mb-3')
+                                                ->errorMessage(errors('title.ar'))
+                                                ->render();
+
+                                            echo $form->textarea('description[ar]', __("description") . ' (' . __("arabic") . ')')
+                                                ->value(old('description[ar]'))
+                                                ->attrs(['rows' => 5, 'placeholder' => __("enter_project_description_ar")])
+                                                ->errorMessage(errors('description.ar'))
+                                                ->formGroupClass('col-md-12 mb-3')
+                                                ->textareaClass('tinymce-ar')
+                                                ->render();
+                                            ?>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <!-- Common Fields -->
+                            <div class="col-12">
+                                <h5 class="mb-3"><?= __("common_fields") ?></h5>
+                                <div class="row">
+                                    <?php
+
+                                 
+
+                                    echo $form->select(
+                                        'category',
+                                        $categories,
+                                        ['id', 'name'],
+                                        __("choose_category")
+                                    )
+                                        ->selected(old('category'))
+                                        ->selectClass('form-control mb-3')
+                                        ->formGroupClass('col-md-6 mb-3')
+                                        ->attrs(['required' => true])
+                                        ->render();
+
+                                    echo $form->input('technologies', __("technologies_used"))
+                                        ->type('text')
+                                        ->attrs(['placeholder' => __("tech_placeholder")])
+                                        // ->required()
+                                        ->value(old('technologies'))
+                                        ->formGroupClass('col-md-6 mb-3')
+                                        ->class('form-control')
+                                        ->render();
+
+                                    echo $form->input('host_url', __("host_url"))
+                                        ->type('url')
+                                        ->value(old('host_url'))
+                                        ->formGroupClass('col-md-6 mb-3')
+                                        ->attrs(['placeholder' => __("enter_host_url")])
+                                        ->render();
+
+                                    echo $form->input('github_url', __("github_url"))
+                                        ->type('url')
+                                        ->value(old('github_url'))
+                                        ->formGroupClass('col-md-6 mb-3')
+                                        ->attrs(['placeholder' => __("enter_github_url")])
+                                        ->class('form-control')
+                                        ->render();
+                                    ?>
+                                </div>
+                            </div>
+
+                            <?php
                             echo $form->fileInput('images[]', __("images"))->placeHolder(__("choose_files"))
                                 ->class('custom-file-input')
                                 ->attrs([
                                     'placeholder' => __("choose_image"),
                                     'multiple' => '',
                                     'accept' => "image/*",
-                                    'required' => true // إضافة سمة required هنا
                                 ])
+                                ->errorMessage(errors('images'))
                                 ->render();
                             ?>
                             <div id="otherImagesPreview" class="mt-2 d-flex flex-wrap gap-2">
                                 <?php
-                                // Display previously uploaded images if form submission failed
-                                if (isset($_FILES['images']) && !empty($images)) {
-                                    foreach ($images as $img) {
-                                        echo '<img src="../' . $img . '" class="preview-image" style="display:block;">';
+                                if (isset($_FILES['images']) && !empty($_FILES['images']['tmp_name'][0])) {
+                                    foreach ($_FILES['images']['tmp_name'] as $index => $tmpName) {
+                                        if (is_uploaded_file($tmpName)) {
+                                            $mimeType = mime_content_type($tmpName);
+                                            if (strpos($mimeType, 'image/') === 0) {
+                                                $base64 = base64_encode(file_get_contents($tmpName));
+                                                echo '<img src="data:' . $mimeType . ';base64,' . $base64 . '" class="preview-image" style="display:block;">';
+                                            }
+                                        }
                                     }
                                 }
+                                // Display previously uploaded images if form submission failed
+                                // if (isset($_FILES['images']) && !empty($images)) {
+                                //     foreach ($images as $img) {
+                                //         echo '<img src="../' . $img . '" class="preview-image" style="display:block;">';
+                                //     }
+                                // }
                                 ?>
                             </div>
                             <?php
@@ -115,12 +244,64 @@
         var forms = document.querySelectorAll('.needs-validation')
         Array.prototype.slice.call(forms).forEach(function(form) {
             form.addEventListener('submit', function(event) {
-                if (!form.checkValidity()) {
+                if (!form.checkValidity() || !validateLanguageContent()) {
                     event.preventDefault()
                     event.stopPropagation()
                 }
                 form.classList.add('was-validated')
             }, false)
+        });
+
+        // التحقق من وجود محتوى بلغة واحدة على الأقل
+        function validateLanguageContent() {
+            const titleAr = document.querySelector('input[name="title[ar]"]');
+            const titleEn = document.querySelector('input[name="title[en]"]');
+            const descAr = document.querySelector('textarea[name="description[ar]"]');
+            const descEn = document.querySelector('textarea[name="description[en]"]');
+
+            const hasArabic = (titleAr && titleAr.value.trim()) || (descAr && descAr.value.trim());
+            const hasEnglish = (titleEn && titleEn.value.trim()) || (descEn && descEn.value.trim());
+
+            if (!hasArabic && !hasEnglish) {
+                showLanguageError();
+                return false;
+            }
+
+            hideLanguageError();
+            return true;
+        }
+
+        function showLanguageError() {
+            let errorDiv = document.querySelector('.language-error');
+            if (!errorDiv) {
+                errorDiv = document.createElement('div');
+                errorDiv.className = 'alert alert-warning language-error';
+                errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i>' +
+                    '<?= __("at_least_one_language_required") ?>';
+                const form = document.querySelector('.needs-validation');
+                form.insertBefore(errorDiv, form.firstChild);
+            }
+        }
+
+        function hideLanguageError() {
+            const errorDiv = document.querySelector('.language-error');
+            if (errorDiv) {
+                errorDiv.remove();
+            }
+        }
+
+        // التحقق عند تغيير المحتوى
+        document.addEventListener('DOMContentLoaded', function() {
+            const titleAr = document.querySelector('input[name="title[ar]"]');
+            const titleEn = document.querySelector('input[name="title[en]"]');
+            const descAr = document.querySelector('textarea[name="description[ar]"]');
+            const descEn = document.querySelector('textarea[name="description[en]"]');
+
+            [titleAr, titleEn, descAr, descEn].forEach(field => {
+                if (field) {
+                    field.addEventListener('input', validateLanguageContent);
+                }
+            });
         });
 
         var fileInput = document.querySelector('.custom-file-input');

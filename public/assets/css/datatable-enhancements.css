@@ -1,0 +1,244 @@
+/* تحسينات DataTable للحذف والتأثيرات البصرية */
+
+/* تأثير hover للصفوف */
+#projectsTable tbody tr:hover {
+    background-color: #f8f9fa !important;
+    transition: background-color 0.3s ease;
+}
+
+/* تأثير الأزرار */
+.btn-sm {
+    transition: all 0.3s ease;
+    margin: 0 2px;
+}
+
+.btn-sm:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* تأثير زر الحذف */
+.btn-danger:hover {
+    background-color: #c82333 !important;
+    border-color: #bd2130 !important;
+}
+
+/* تأثير زر التعديل */
+.btn-info:hover {
+    background-color: #138496 !important;
+    border-color: #117a8b !important;
+}
+
+/* تأثير التحميل للزر */
+.btn-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.btn-loading .fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* تأثير الصف المحذوف */
+.row-deleting {
+    background-color: #f8d7da !important;
+    transition: all 0.4s ease;
+}
+
+.row-deleted {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: all 0.4s ease;
+}
+
+/* تحسين عرض الرسائل الفارغة */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.empty-state i {
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+.empty-state h4 {
+    color: #495057;
+    margin-bottom: 15px;
+}
+
+.empty-state p {
+    color: #6c757d;
+    margin-bottom: 25px;
+}
+
+/* تحسين DataTable */
+.dataTables_wrapper {
+    padding: 20px 0;
+}
+
+.dataTables_length,
+.dataTables_filter {
+    margin-bottom: 20px;
+}
+
+.dataTables_info,
+.dataTables_paginate {
+    margin-top: 20px;
+}
+
+/* تحسين pagination */
+.dataTables_paginate .paginate_button {
+    transition: all 0.3s ease;
+}
+
+.dataTables_paginate .paginate_button:hover {
+    background: #007bff !important;
+    color: white !important;
+    border-color: #007bff !important;
+}
+
+/* تحسين البحث */
+.dataTables_filter input {
+    border-radius: 20px;
+    padding: 8px 15px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.dataTables_filter input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    outline: none;
+}
+
+/* تحسين عرض العدد */
+.dataTables_length select {
+    border-radius: 4px;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+}
+
+/* تأثيرات الـ SweetAlert */
+.swal2-popup {
+    border-radius: 10px;
+    font-family: inherit;
+}
+
+.swal2-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.swal2-content {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* تحسين الأزرار في SweetAlert */
+.swal2-confirm {
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+.swal2-cancel {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+}
+
+/* تأثير النجاح */
+.swal2-success .swal2-success-ring {
+    border-color: #28a745;
+}
+
+/* تحسين responsive */
+@media (max-width: 768px) {
+    .btn-sm {
+        margin: 2px 1px;
+        padding: 4px 8px;
+    }
+    
+    .empty-state {
+        padding: 40px 15px;
+    }
+    
+    .empty-state i {
+        font-size: 2rem;
+    }
+    
+    .dataTables_wrapper {
+        padding: 10px 0;
+    }
+    
+    .dataTables_length,
+    .dataTables_filter {
+        margin-bottom: 15px;
+    }
+}
+
+/* تحسين الجدول على الشاشات الصغيرة */
+@media (max-width: 576px) {
+    #projectsTable {
+        font-size: 0.875rem;
+    }
+    
+    .btn-sm {
+        padding: 3px 6px;
+        font-size: 0.75rem;
+    }
+    
+    .btn-sm i {
+        font-size: 0.75rem;
+    }
+}
+
+/* تأثير التحميل العام */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* تحسين عرض الأخطاء */
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: 1px solid #f5c6cb;
+    margin: 10px 0;
+}
+
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: 1px solid #c3e6cb;
+    margin: 10px 0;
+}

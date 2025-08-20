@@ -39,7 +39,16 @@
     <!-- Maintenance Styles -->
     <link rel="stylesheet" href="<?= assets('css/maintenance.css') ?>">
 
-    <!-- Additional Inline Styles for Layout Only -->
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="<?=assets('plugins/icheck-bootstrap/icheck-bootstrap.min.css')?>">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="<?=assets('css/adminlte.css')?>">
+     <!-- Additional Inline Styles for Layout Only -->
     <style>
         /* Language Switcher */
         .language-switcher {
@@ -62,8 +71,9 @@
             justify-content: center;
             width: 40px;
             height: 40px;
-            background: rgba(255, 255, 255, 0.9);
-            color: #667eea;
+                 background: #667eea;
+            color: white;
+   
             text-decoration: none;
             border-radius: 50%;
             font-weight: 600;
@@ -75,8 +85,8 @@
 
         .language-switcher a:hover,
         .language-switcher a.active {
-            background: #667eea;
-            color: white;
+                background: rgba(255, 255, 255, 0.9);
+            color: #667eea;
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
@@ -106,29 +116,41 @@
         }
     </style>
 </head>
-<body>
+<body class="hold-transition login-page">
     <!-- Language Switcher -->
     <div class="language-switcher">
+        <?php if(locale()=='en'):?>
         <a href="<?= route('language.switch', ['locale' => 'ar']) ?>" 
            class="<?= locale() === 'ar' ? 'active' : '' ?>"
            title="<?= __('arabic') ?>"
            aria-label="<?= __('switch_to_arabic') ?>">
             ع
         </a>
+        <?php else:?>
         <a href="<?= route('language.switch', ['locale' => 'en']) ?>" 
            class="<?= locale() === 'en' ? 'active' : '' ?>"
            title="<?= __('english') ?>"
            aria-label="<?= __('switch_to_english') ?>">
             EN
         </a>
+        <?php endif; ?>
     </div>
 
     <!-- Main Content -->
     <main class="fade-in">
-        {{content}}
-    </main>
+    {{content}}
+</main>
 
-    <!-- JavaScript -->
+
+
+<!-- jQuery -->
+<script src="<?=assets('plugins/jquery/jquery.min.js')?>"></script>
+<!-- Bootstrap 4 -->
+<script src="<?=assets('plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
+<!-- AdminLTE App -->
+<script src="<?=assets('js/adminlte.js')?>"></script>
+
+   <!-- JavaScript -->
     <script>
         // Add smooth scrolling and animations
         document.addEventListener('DOMContentLoaded', function() {

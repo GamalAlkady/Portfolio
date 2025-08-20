@@ -124,17 +124,13 @@
                 <i class="fa fa-moon" id="darkMode"></i>
             </a>
         </li>
-        <!-- switch language -->
-        <li class="nav-item dropdown user-menu">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                <span class="d-none d-md-inline"><i class="fas fa-language"></i></span>
+        <!-- switch language with EN/AR icon, no dropdown -->
+        <li class="nav-item">
+            <a href="<?= route('language.switch', ['locale' => session()->get('locale') === 'ar' ? 'en' : 'ar']) ?>" class="nav-link" title="<?= session()->get('locale') === 'ar' ? __('english') : __('arabic') ?>">
+            <span class="d-none d-md-inline font-weight-bold">
+                <?= session()->get('locale') === 'ar' ? 'EN' : 'AR' ?>
+            </span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right w-auto" style="min-width: 100px;">
-                <li class="p-1 text-center border-bottom"> <a href="<?= route('language.switch', ['locale' => 'ar']) ?>" class="<?= session()->get('locale') === 'ar' ? 'active' : '' ?>"> <?=__('arabic') ?> </a></li>
-                <li class="p-1 text-center"> <a href="<?= route('language.switch', ['locale' => 'en']) ?>" class="<?= session()->get('locale') === 'en' ? 'active' : '' ?>">
-                <?=__('english') ?>
-                    </a></li>
-            </ul>
         </li>
 
         <!-- User menu -->
