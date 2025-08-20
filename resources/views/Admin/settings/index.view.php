@@ -29,10 +29,7 @@
                     <h1 class="m-0"><?= __("site_settings") ?></h1>
                 </div>
                 <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="<?= route('dashboard') ?>"><?= __("dashboard") ?></a></li>
-                        <li class="breadcrumb-item active"><?= __("settings") ?></li>
-                    </ol>
+            
                 </div>
             </div>
         </div>
@@ -66,32 +63,32 @@
                         <div class="card-header p-0 pt-1">
                             <ul class="nav nav-tabs" id="settings-tabs" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="general-tab" data-bs-toggle="tab"
-                                        data-bs-target="#general" type="button" role="tab" aria-controls="general" aria-selected="true">
+                                    <button class="nav-link active" id="general-tab" data-toggle="tab"
+                                        data-target="#general" type="button" role="tab" aria-controls="general" aria-selected="true">
                                         <i class="fas fa-cog me-2"></i><?= __("general_settings") ?>
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
-                                        data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="true">
+                                    <button class="nav-link" id="contact-tab" data-toggle="tab"
+                                        data-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="true">
                                         <i class="fas fa-address-book me-2"></i><?= __("contact_info") ?>
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="social-tab" data-bs-toggle="tab"
-                                        data-bs-target="#social" type="button" role="tab" aria-controls="social" aria-selected="true">
+                                    <button class="nav-link" id="social-tab" data-toggle="tab"
+                                        data-target="#social" type="button" role="tab" aria-controls="social" aria-selected="true">
                                         <i class="fas fa-share-alt me-2"></i><?= __("social_media") ?>
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="email-tab" data-bs-toggle="tab"
-                                        data-bs-target="#email" type="button" role="tab" aria-controls="email" aria-selected="true">
+                                    <button class="nav-link" id="email-tab" data-toggle="tab"
+                                        data-target="#email" type="button" role="tab" aria-controls="email" aria-selected="true">
                                         <i class="fas fa-envelope-open me-2"></i><?= __("email_settings") ?>
                                     </button>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="system-tab" data-bs-toggle="tab"
-                                        data-bs-target="#system" type="button" role="tab" aria-controls="system" aria-selected="true">
+                                    <button class="nav-link" id="system-tab" data-toggle="tab"
+                                        data-target="#system" type="button" role="tab" aria-controls="system" aria-selected="true">
                                         <i class="fas fa-server me-2"></i><?= __("system_settings") ?>
                                     </button>
                                 </li>
@@ -99,30 +96,31 @@
                         </div>
 
                         <div class="card-body">
-                            <form action="<?= route('updateSetting') ?>" id="settings-form" method="POST" enctype="multipart/form-data">
+                            <form action="<?= route('updateSetting') ?>" id="settings-form" class="settings-form" method="POST" enctype="multipart/form-data">
                                 <?= setCsrf() ?>
                                 <?= setMethod('PUT') ?>
 
-                                <div class="tab-content" id="settings   -tabs-content">
+                                <div class="tab-content" id="settings-tabs-content">
 
                                     <!-- General Settings Tab -->
-                                     <?php
-                                     renderLangTabs('general',function($lang){
-                                            $form = new FormHelper();
-                                           echo $form->input('site_name_' . $lang, '  <i class="fas fa-globe me-1"></i>'. __("site_name").' ('.__($lang).')' , old('site_name_' . $lang, setting('site_name_' . $lang)))
-                                                ->labelClass('col-sm-3 col-form-label')->controlsClass('col-sm-6')
-                                                ->attrs(['placeholder' => __('enter_site_name_' . $lang)])
-                                                ->render();
-                                                echo $form->textarea('site_description_' . $lang, '  <i class="fas fa-align-left me-1"></i>'. __("site_description").' ('.__($lang).')' , old('site_description_' . $lang, setting('site_description_' . $lang)))
-                                                ->placeHolder(__('enter_site_description_' . $lang))
-                                                ->render();
+                                    <?php
+                                    renderLangTabs('general', function ($lang) {
+                                        $form = new FormHelper();
+                                        echo $form->input('site_name_' . $lang, '  <i class="fas fa-globe me-1"></i>' . __("site_name", [], $lang) . ' (' . __($lang, [], $lang) . ')', old('site_name_' . $lang, setting('site_name_' . $lang)))
+                                            ->labelClass('col-sm-3 col-form-label')->controlsClass('col-sm-6')
+                                            ->attrs(['placeholder' => __('enter_site_name_' . $lang)])
+                                            ->render();
 
-                                                echo $form->input('site_keywords_' . $lang, '  <i class="fas fa-tags me-1"></i>'. __("site_keywords").' ('.__($lang).')' , old('site_keywords_' . $lang, setting('site_keywords_' . $lang)))
-                                                ->placeHolder(__('keywords_placeholder_' . $lang))
-                                                ->render();
-                                     })
-                                     ?>
-                             
+                                        echo $form->textarea('site_description_' . $lang, '  <i class="fas fa-align-left me-1"></i>' . __("site_description", [], $lang) . ' (' . __($lang, [], $lang) . ')', old('site_description_' . $lang, setting('site_description_' . $lang)))
+                                            ->placeHolder(__('enter_site_description_' . $lang))
+                                            ->render();
+
+                                        echo $form->input('site_keywords_' . $lang, '  <i class="fas fa-tags me-1"></i>' . __("site_keywords", [], $lang) . ' (' . __($lang, [], $lang) . ')', old('site_keywords_' . $lang, setting('site_keywords_' . $lang)))
+                                            ->placeHolder(__('keywords_placeholder_' . $lang))
+                                            ->render();
+                                    })
+                                    ?>
+
 
                                     <!-- Contact Information Tab -->
                                     <div class="tab-pane fade " id="contact" role="tabpanel">
@@ -434,93 +432,17 @@
     </div>
 </div>
 
-<!-- Custom CSS for Multilingual Settings -->
-<style>
-    /* Summernote RTL/LTR Support */
-    .note-editor.rtl-editor {
-        direction: rtl;
-        text-align: right;
-    }
-
-    .note-editor.rtl-editor .note-editable {
-        direction: rtl;
-        text-align: right;
-        font-family: 'Cairo', 'Tajawal', 'Amiri', 'Noto Sans Arabic', Arial, sans-serif;
-    }
-
-    .note-editor.ltr-editor {
-        direction: ltr;
-        text-align: left;
-    }
-
-    .note-editor.ltr-editor .note-editable {
-        direction: ltr;
-        text-align: left;
-        font-family: 'Roboto', 'Open Sans', 'Lato', Arial, sans-serif;
-    }
-
-    /* Arabic fonts support */
-    .note-editor.rtl-editor .note-editable h1,
-    .note-editor.rtl-editor .note-editable h2,
-    .note-editor.rtl-editor .note-editable h3,
-    .note-editor.rtl-editor .note-editable h4,
-    .note-editor.rtl-editor .note-editable h5,
-    .note-editor.rtl-editor .note-editable h6 {
-        font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
-        font-weight: bold;
-    }
-
-    /* Toolbar adjustments for RTL */
-    .note-editor.rtl-editor .note-toolbar {
-        direction: ltr; /* Keep toolbar LTR for better UX */
-    }
-
-    /* Dropdown adjustments */
-    .note-editor.rtl-editor .note-dropdown-menu {
-        direction: rtl;
-        text-align: right;
-    }
-
-    /* Nested Language Tabs Styling */
-</style>
-<script src="<?= assets('plugins/summernote/summernote-bs4.min.js') ?>"></script>
-<script src="<?= assets('plugins/summernote/lang/summernote-ar-AR.min.js') ?>"></script>
-
 <script>
-
-
-    $(function(){
+    $(function() {
         // إعدادات Summernote للنص العربي (RTL)
         summerNote('site_description_ar', 'rtl');
         summerNote('site_description_en', 'ltr');
-      
+
     });
 
     $(document).ready(function() {
-        var hash = window.location.hash;
-        if (hash) {
-            var tabId = hash.substring(1);
-            var tabButton = document.getElementById(tabId + '-tab');
-
-            if (tabButton) {
-                var tab = new bootstrap.Tab(tabButton);
-                tab.show();
-                tabId0 = tabId.split('-');
-                $('.tab-pane.show').removeClass('show active');
-                $('#' + tabId0[0]).addClass('show active');
-
-                if(tabId=='general' && tabId0.length==1) tabId =tabId+'-'+getLocale();
-                    console.log(tabId);
-                $('#' + tabId).addClass('show active');
-                $('#settings-form').attr('action', '<?= route('updateSetting') ?>#' + tabId);
-            }
-        }
-
-        $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function(e) {
-            const tabId = e.target.id.replace('-tab', '');
-            history.replaceState(null, '', window.location.pathname + '#' + tabId);
-            $('#settings-form').attr('action', '<?= route('updateSetting') ?>#' + tabId);
-        });
+   
+        ChangeTabs("<?= route('updateSetting') ?>");
 
         // تفعيل التبويبات المتداخلة للغات
         var generalLanguageTabList = [].slice.call(document.querySelectorAll('#generalLanguageTabs button'))

@@ -759,6 +759,11 @@ html[lang="ar"] .home .image img {
   text-align: left;
 }
 
+[dir="rtl"] .education .box-container .box .content p {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  text-align: right;
+}
 .education h4 {
   font-size: 2rem;
   color: rgb(34, 109, 0);
@@ -1007,8 +1012,16 @@ html[lang="ar"] .home .image img {
   left: 0;
 }
 
+[dir="rtl"] .skill .left {
+  right: 0;
+}
+
 .skill .right {
   left: 50%;
+}
+
+[dir="rtl"] .skill .right {
+  right: 50%;
 }
 
 /* arrows pointing right */

@@ -13,6 +13,12 @@ use function view;
 class AuthController extends BaseController {
 
     public function create(){
+        // Check if user has remember cookie and auto-login
+        $authAttempt = new AuthAttempt();
+        if ($authAttempt->checkRememberCookie()) {
+            return redirect('/admin/dashboard');
+        }
+        
         return layout('blankLayout')-> view('login');
     }
     /**
@@ -21,7 +27,12 @@ class AuthController extends BaseController {
     public function login(Request $request) {
         $email = $request->input('email');
         $password = $request->input('password');
-        (new AuthAttempt())->attempt(['email' => $email, 'password' => $password],'/admin/dashboard');
+        $remember = $request->input('remember', false);
+        
+        (new AuthAttempt())->attempt([
+            'email' => $email,
+            'password' => $password
+        ], '/admin/dashboard', (bool)$remember);
     }
 
     public function destroy() {

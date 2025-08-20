@@ -226,3 +226,56 @@ function renderSocialLinks($class = 'social-link') {
     
     return $html;
 }
+
+/**
+ * عرض عداد الزوار
+ * @return string
+ */
+function renderVisitorCounter() {
+    if (setting('show_visitor_counter', '1') !== '1') {
+        return '';
+    }
+    
+    try {
+        $visitors = new \App\Models\Visitors();
+        $todayStats = $visitors->getTodayStats();
+        $totalStats = $visitors->getTotalStats();
+        
+        $html = '<div class="visitor-counter">';
+        $html .= '<div class="counter-item">';
+        $html .= '<i class="fas fa-eye"></i> ';
+        $html .= '<span>' . (__('visitors_today') ?: 'زوار اليوم') . ': <strong>' . ($todayStats['total_visits'] ?? 0) . '</strong></span>';
+        $html .= '</div>';
+        $html .= '<div class="counter-item">';
+        $html .= '<i class="fas fa-users"></i> ';
+        $html .= '<span>' . (__('total_visitors') ?: 'إجمالي الزوار') . ': <strong>' . ($totalStats['total_visits'] ?? 0) . '</strong></span>';
+        $html .= '</div>';
+        $html .= '</div>';
+        
+        return $html;
+    } catch (\Exception $e) {
+        // في حالة الخطأ، لا نعرض شيئاً
+        return '';
+    }
+}
+
+/**
+ * الحصول على إحصائيات الزوار للواجهة الأمامية
+ * @return array
+ */
+function getVisitorStats() {
+    try {
+        $visitors = new \App\Models\Visitors();
+        return [
+            'today' => $visitors->getTodayStats(),
+            'total' => $visitors->getTotalStats(),
+            'online' => $visitors->getCurrentVisitors()
+        ];
+    } catch (\Exception $e) {
+        return [
+            'today' => ['total_visits' => 0, 'unique_visitors' => 0],
+            'total' => ['total_visits' => 0, 'unique_visitors' => 0],
+            'online' => 0
+        ];
+    }
+}

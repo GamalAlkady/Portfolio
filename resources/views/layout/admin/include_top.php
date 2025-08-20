@@ -19,7 +19,7 @@
 <!-- Theme style -->
 <!-- <link rel="stylesheet" href="<?=assets('plugins/select2/css/select2.min.css')?>">
 <link rel="stylesheet" href="<?=assets('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')?>"> -->
-<link rel="stylesheet" href="<?=assets('plugins/dropzone/min/dropzone.min.css')?>">
+<!-- <link rel="stylesheet" href="<?=assets('plugins/dropzone/min/dropzone.min.css')?>"> -->
 <link rel="stylesheet" href="<?=assets('css/'.(locale()=='en'?'adminlte.css':'adminlte.rtl.css'))?>">
 <link rel="stylesheet" href="<?=assets("css/style.css")?>">
 
@@ -36,5 +36,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.all.min.js"></script>
 
+
+<script src="<?= assets('plugins/summernote/summernote-bs4.min.js') ?>"></script>
+<script src="<?= assets('plugins/summernote/lang/summernote-ar-AR.min.js') ?>"></script>
 
 <script src="<?=assets("js/utils.js")?>"></script>

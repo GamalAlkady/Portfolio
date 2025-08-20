@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Skills;
 use App\Templates\EmailTemplates;
+use App\Helpers\VisitorTracker;
 use Devamirul\PhpMicro\core\Foundation\Application\Facade\Facades\DB;
 use Devamirul\PhpMicro\core\Foundation\Application\Request\Request;
 use Devamirul\PhpMicro\core\Foundation\Controller\BaseController;
@@ -16,6 +17,9 @@ class HomeController extends BaseController
      */
     public function index()
     {
+        // تتبع زيارة الصفحة الرئيسية
+        VisitorTracker::run();
+        
         $data = new Skills();
         $skills = $data->getAll();
 
@@ -24,18 +28,21 @@ class HomeController extends BaseController
 
     public function showProjects()
     {
+        // تتبع زيارة صفحة المشاريع
+        VisitorTracker::run();
+        
         $projects = DB::db()->query("
-            SELECT    p.id,  
+            SELECT    p.id,
                             JSON_UNQUOTE(JSON_EXTRACT(p.title, '$." . locale() . "')) AS title,
                             JSON_UNQUOTE(JSON_EXTRACT(p.description, '$." . locale() . "')) AS description,
                             p.technologies,
                             p.category,
                             p.host_url,
                             p.github_url,
-                            p.created_at, 
+                            p.created_at,
                    GROUP_CONCAT(pi.path ORDER BY pi.is_main DESC, pi.id ASC) as all_images,
                    GROUP_CONCAT(pi.is_main ORDER BY pi.is_main DESC, pi.id ASC) as image_main_flags
-            FROM projects p 
+            FROM projects p
             LEFT JOIN project_images pi ON p.id = pi.project_id
             GROUP BY p.id
             ORDER BY p.created_at DESC

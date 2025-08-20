@@ -57,7 +57,7 @@ html[lang='ar'] div.dt-container div.dt-layout-row div.dt-layout-cell.dt-layout-
     margin-left: 0;
 }
 
-html[lang='ar'] .form-check-input{
+html[lang='ar'] .form-check-input {
     margin-left: 0.5rem;
     margin-right: -2.5rem;
 }
@@ -69,19 +69,20 @@ html[lang='ar'] .form-check-input{
     color: #495057;
     background-color: #f8f9fa;
     margin-right: 2px;
+
 }
 
 .nav-tabs .nav-link:hover {
     border-color: #e9ecef #e9ecef #dee2e6;
     background-color: #e9ecef;
-}
+    color: #495057 !important;
 
+}
 .nav-tabs .nav-link.active {
     color: #495057;
     /* background-color: #fff; */
     border-color: #dee2e6 #dee2e6 #fff;
 }
-
 .tab-content {
     border: 1px solid #dee2e6;
     border-top: none;
@@ -210,49 +211,70 @@ html[lang='ar'] .form-check-input{
 }
 
 
-   /* Summernote RTL/LTR Support */
-    .note-editor.rtl-editor {
-        direction: rtl;
-        text-align: right;
-    }
+/* Summernote RTL/LTR Support */
+.note-editor.rtl-editor {
+    direction: rtl;
+    text-align: right;
+}
 
-    .note-editor.rtl-editor .note-editable {
-        direction: rtl;
-        text-align: right;
-        font-family: 'Cairo', 'Tajawal', 'Amiri', 'Noto Sans Arabic', Arial, sans-serif;
-    }
+.note-editor.rtl-editor .note-editable {
+    direction: rtl;
+    text-align: right;
+    font-family: 'Cairo', 'Tajawal', 'Amiri', 'Noto Sans Arabic', Arial, sans-serif;
+}
 
-    .note-editor.ltr-editor {
-        direction: ltr;
-        text-align: left;
-    }
+.note-editor.ltr-editor {
+    direction: ltr;
+    text-align: left;
+}
 
-    .note-editor.ltr-editor .note-editable {
-        direction: ltr;
-        text-align: left;
-        font-family: 'Roboto', 'Open Sans', 'Lato', Arial, sans-serif;
-    }
+.note-editor.ltr-editor .note-editable {
+    direction: ltr;
+    text-align: left;
+    font-family: 'Roboto', 'Open Sans', 'Lato', Arial, sans-serif;
+}
 
-    /* Arabic fonts support */
-    .note-editor.rtl-editor .note-editable h1,
-    .note-editor.rtl-editor .note-editable h2,
-    .note-editor.rtl-editor .note-editable h3,
-    .note-editor.rtl-editor .note-editable h4,
-    .note-editor.rtl-editor .note-editable h5,
-    .note-editor.rtl-editor .note-editable h6 {
-        font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
-        font-weight: bold;
-    }
+/* Arabic fonts support */
+.note-editor.rtl-editor .note-editable h1,
+.note-editor.rtl-editor .note-editable h2,
+.note-editor.rtl-editor .note-editable h3,
+.note-editor.rtl-editor .note-editable h4,
+.note-editor.rtl-editor .note-editable h5,
+.note-editor.rtl-editor .note-editable h6 {
+    font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
+    font-weight: bold;
+}
 
-    /* Toolbar adjustments for RTL */
-    .note-editor.rtl-editor .note-toolbar {
-        direction: ltr; /* Keep toolbar LTR for better UX */
-    }
+/* Toolbar adjustments for RTL */
+.note-editor.rtl-editor .note-toolbar {
+    direction: ltr;
+    /* Keep toolbar LTR for better UX */
+}
 
-    /* Dropdown adjustments */
-    .note-editor.rtl-editor .note-dropdown-menu {
-        direction: rtl;
-        text-align: right;
-    }
+/* Dropdown adjustments */
+.note-editor.rtl-editor .note-dropdown-menu {
+    direction: rtl;
+    text-align: right;
+}
 
-    /* Nested Language Tabs Styling */
+/* Nested Language Tabs Styling */
+
+.ar{
+    direction: rtl;
+    text-align: right;
+}
+.ar input{
+    text-align: right;
+}
+
+.en{
+    direction: ltr;
+    text-align: left;
+}
+.en input{
+    text-align: left;
+}
+.dark-mode .table-striped>tbody>tr:nth-of-type(odd)>* {
+    background-color: #343a40 !important;
+    color: #f8f9fa !important;
+}

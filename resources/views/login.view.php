@@ -30,7 +30,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="">
                         <div class="icheck-primary">
-                            <input type="checkbox" id="remember">
+                            <input type="checkbox" name="remember" id="remember" value="1">
                             <label for="remember">
                                 <?= __("remember_me") ?>
                             </label>

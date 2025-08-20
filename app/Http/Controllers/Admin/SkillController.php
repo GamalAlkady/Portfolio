@@ -104,7 +104,7 @@ class SkillController
 
         $skill = (new Skills())->getSkill($request->getParam('id'), false);
         // dd($skill);
-        return viewAdmin('skills/edit', compact('skill', 'categories'));
+        return viewAdmin('skills/add', compact('skill', 'categories'));
     }
 
     public function update(Request $request)

@@ -462,21 +462,19 @@ function showEmptyState(tableId) {
 }
 
 function summerNote(id, dir = 'ltr') {
-    $('#' + id).summernote(dir == 'rtl' ? 'justifyRight' : 'justifyLeft', { // تعيين التراجع إلى اليمين كافتراضي
+    $('#' + id).summernote({ // تعيين التراجع إلى اليمين كافتراضي
         height: 200,
-        direction: dir,
-        lang: dir == 'rtl' ? 'ar-AR' : 'en-US',
+  
         fontSizeUnits: ['px', 'pt'],
         // fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Helvetica', 'Impact', 'Tahoma', 'Times New Roman', 'Verdana', 'Amiri', 'Cairo', 'Noto Sans Arabic', 'Tajawal'],
         fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Helvetica', 'Impact', 'Tahoma', 'Times New Roman', 'Verdana', 'Roboto', 'Open Sans', 'Lato'],
-        toolbar: [
+      toolbar: [
             ['style', ['style']],
             ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
             ['fontname', ['fontname']],
             ['fontsize', ['fontsize']],
             ['color', ['forecolor', 'backcolor']],
             ['para', ['ul', 'ol', 'paragraph']],
-            ['insert', ['link']],
             ['view', ['fullscreen', 'codeview', 'help']],
             ['height', ['height']]
         ],
@@ -491,11 +489,40 @@ function summerNote(id, dir = 'ltr') {
         placeholder: __('write_content_here'),
         callbacks: {
             onInit: function () {
-
-                $('.note-editor').addClass(`${dir}-editor`);
-                $('.note-editable').attr('dir', dir);
+                $(`#${id}`).siblings('.note-editor').addClass(`${dir}-editor`);
+                $(`#${id} .note-editable`).attr('dir', dir);
 
             }
         }
     });
+
+    // $('#'+id).summernote(dir=='rtl'?'justifyRight':'justifyLeft');
+
+}
+
+function ChangeTabs(url){
+         var hash = window.location.hash;
+        if (hash) {
+            var tabId = hash.substring(1);
+            var tabButton = document.getElementById(tabId + '-tab');
+
+            if (tabButton) {
+                var tab = new bootstrap.Tab(tabButton);
+                tab.show();
+                tabId0 = tabId.split('-');
+                $(`#${tabId0[0]}LanguageTabsContent .tab-pane.show`).removeClass('show active');
+                $('#' + tabId0[0]).addClass('show active');
+
+                if (tabId == 'general' && tabId0.length == 1) tabId = tabId + '-' + getLocale();
+                console.log(tabId);
+                $('#' + tabId).addClass('show active');
+                $('.settings-form').attr('action', url+'#' + tabId);
+            }
+        }
+
+        $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function(e) {
+            const tabId = e.target.id.replace('-tab', '');
+            history.replaceState(null, '', window.location.pathname + '#' + tabId);
+            $('.settings-form').attr('action', url+'#' + tabId);
+        });
 }

@@ -5,8 +5,8 @@
         <div class="container-fluid">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
                 <h1 class="h2"><?= __("skills") ?></h1>
-                <a href="<?= route('addSkill') ?>" class="btn btn-primary">
-                    <i class="fas fa-plus-circle me-2"></i><?= __("add_skill") ?>
+                <a href="<?= route('skill.add') ?>" class="btn btn-primary">
+                    <i class="fas fa-plus-circle mx-2"></i><?= __("add_skill") ?>
                 </a>
             </div>
         </div>

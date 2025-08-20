@@ -1,4 +1,7 @@
-<?php setTitle(__('add_skill')); ?>
+<?php
+$isEdit = isset($skill);
+setTitle(__(($isEdit ? 'edit_skill' : 'add_skill')));
+?>
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -6,12 +9,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0"><?= __('add_skill') ?></h1>
+                    <h1 class="m-0"><?= __($isEdit ? 'edit_skill' : 'add_skill') ?></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= route('dashboard') ?>"><?= __('dashboard') ?></a></li>
-                        <li class="breadcrumb-item active"><?= __('add_skill') ?></li>
+                        <li class="breadcrumb-item active"><?= __($isEdit ? 'edit_skill' : 'add_skill') ?></li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -28,82 +31,37 @@
 
                     <?php
                     $form = new FormHelper();
-                    echo $form->openForm(['action' => route('storeSkill'), 'method' => 'post', 'enctype' => "multipart/form-data", 'class' => 'row needs-validation', 'novalidate' => ''])->render();
-                    $form->formGroupClass('col-md-6 mb-2');
+                    echo $form->openForm(['action' => ($isEdit ? route('skill.update', ['id' => $skill['id']]) : route('skill.store')), 'method' => 'post', 'enctype' => "multipart/form-data", 'class' => 'row needs-validation', 'novalidate' => ''])->render();
                     echo setCsrf();
-                        $activeEn=session()->get('activeEn')??true;
+                    if ($isEdit) {
+                        echo setMethod('PUT');
+                    }
                     ?>
                     <!-- Language Tabs -->
-                    <div class="col-12 mb-4">
-                        <ul class="nav nav-tabs" id="languageTabs" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link <?=($activeEn?'active':'')?>" id="english-tab" data-bs-toggle="tab"
-                                    data-bs-target="#english" type="button" role="tab">
-                                    <i class="fas fa-globe me-2"></i><?= __("english") ?>
-                                </button>
-                            </li>
+                    <?php
+                    renderLangTabs('skill', function ($lang,$data) {
+                        $form = new FormHelper();
+                        $form->formGroupClass('col-md-6 mb-2');
+                        $activeEn = session()->get('activeEn') ?? true;
+                        $input = $form->input('name[' . $lang . ']', __("name", [], $lang), old('name.' . $lang, isset($data) ? $data['name_' . $lang] : ''))
+                            ->attrs(['placeholder' => __("enter_name", [], $lang)])
+                            ->errorMessage(errors('name.' . $lang))
+                            ->formGroupClass('col-md-6 mb-3');
+                        if (locale() == $lang)    $input->required();
+                        echo  $input->render();
 
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link <?=($activeEn?'':'active')?>" id="arabic-tab" data-bs-toggle="tab"
-                                    data-bs-target="#arabic" type="button" role="tab">
-                                    <i class="fas fa-globe me-2"></i><?= __("arabic") ?>
-                                </button>
-                            </li>
-                        </ul>
-
-                        <div class="tab-content border border-top-0 p-3" id="languageTabsContent">
-                            <!-- English Content -->
-                            <div class="tab-pane fade <?=($activeEn?' show active':'')?>" id="english" role="tabpanel">
-                                <div class="row">
-                                    <?php
-                                    // var_dump(errors('name.en'));
-                                    $input = $form->input('name[en]', __("name") . ' (' . __("english") . ')', old('name.en'))
-                                        ->attrs(['placeholder' => __("enter_name")])
-                                        ->errorMessage(errors('name.en'))
-                                        ->formGroupClass('col-md-6 mb-3');
-                                    if (locale() == 'en')    $input->required();
-                                    echo  $input->render();
-
-                                    $description = $form->textarea('description[en]', __("description") . ' (' . __("english") . ')')
-                                        ->value(old('description.en'))
-                                        ->attrs(['rows' => 5, 'placeholder' => __("enter_description")])
-                                        ->errorMessage(errors('description.en'))
-                                        ->formGroupClass('col-md-12 mb-3')
-                                        ->textareaClass('tinymce-en');
-                                    if (locale() == 'en')    $description->required();
-                                    echo $description->render();
-                                    ?>
-                                </div>
-                            </div>
-
-                            <!-- Arabic Content -->
-                            <div class="tab-pane fade <?=($activeEn?'':' show active')?>" id="arabic" role="tabpanel">
-                                <div class="row">
-                                    <?php
-                                    $input = $form->input('name[ar]', __("name") . ' (' . __("arabic") . ')', old('name[ar]'))
-                                        ->attrs(['placeholder' => __("enter_name")])
-                                        ->formGroupClass('col-md-6 mb-3')
-                                        ->errorMessage(errors('name.ar'));
-                                    if (locale() == 'ar')    $input->required();
-                                    echo  $input->render();
-
-                                    $description =  $form->textarea('description[ar]', __("description") . ' (' . __("arabic") . ')')
-                                        ->value(old('description[ar]'))
-                                        ->attrs(['rows' => 5, 'placeholder' => __("enter_description")])
-                                        ->errorMessage(errors('description.ar'))
-                                        ->formGroupClass('col-md-12 mb-3')
-                                        ->textareaClass('tinymce-ar');
-                                    if (locale() == 'ar')    $description->required();
-                                    echo $description->render();
-                                    ?>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
+                        $description = $form->textarea('description[' . $lang . ']', __("description", [], $lang))
+                            ->value(old('description.' . $lang, isset($data) ? $data['description_' . $lang] : ''))
+                            ->attrs(['rows' => 5, 'placeholder' => __("enter_description", [], $lang)])
+                            ->errorMessage(errors('description.' . $lang))
+                            ->formGroupClass('col-md-12 mb-3')
+                            ->textareaClass('tinymce-' . $lang);
+                        if (locale() == $lang)    $description->required();
+                        echo $description->render();
+                    },$skill??null);
+                    ?>
                     <!-- Common Fields -->
-                    <div class="col-12">
+                    <div class="col-12 mt-3">
                         <h5 class="mb-3"><?= __("common_fields") ?></h5>
                         <div class="row">
                             <?php
@@ -114,7 +72,7 @@
                                 ['id', 'name'],
                                 __("choose_category")
                             )
-                                ->selected(old('category'))
+                                ->selected(old('category', isset($skill) ? $skill['category'] : ''))
                                 ->selectClass('form-control mb-3')
                                 ->formGroupClass('col-md-12 mb-3')
                                 ->attrs(['required' => true])
@@ -127,7 +85,7 @@
                     <div class="col-12 mt-4 d-flex justify-content-between">
                         <div>
                             <button onclick="history.back()" class="btn btn-secondary">
-                                <i class="fas fa-arrow-left me-2"></i><?= __('back') ?>
+                                <i class="fas fa-arrow-<?= locale() == 'ar' ? 'right' : 'left' ?> mx-2"></i><?= __('back') ?>
                             </button>
                         </div>
                         <?php echo $form->button(['type' => 'submit', 'class' => 'btn btn-primary mt-3'], __('save'), '<i class="fas fa-save mr-2"></i>')->render(); ?>
@@ -145,17 +103,6 @@
     // Form validation
     (function() {
         'use strict'
-        var forms = document.querySelectorAll('.needs-validation')
-        Array.prototype.slice.call(forms).forEach(function(form) {
-            form.addEventListener('submit', function(event) {
-                if (!form.checkValidity() || !validateLanguageContent()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                }
-                form.classList.add('was-validated')
-            }, false)
-        });
-
 
         // التحقق من وجود محتوى بلغة واحدة على الأقل
         function validateLanguageContent() {

@@ -125,8 +125,8 @@ class ProjectController
 
     public function edit(Request $request)
     {
-        $project = (new Projects())->get('*', ["id" => $request->getParam('id')])->getData();
-        $images = DB::db()->select("project_images", "*", ['project_id' => $project['id']]);
+        $project = (new Projects())->getProject($request->getParam('id'),false);
+        // $images = DB::db()->select("project_images", "*", ['project_id' => $project['id']]);
 
         $categories = [
             ['id' => 'web_development', 'name' => __("web_development")],
@@ -135,17 +135,17 @@ class ProjectController
             ['id' => 'ui_ux_design', 'name' => __("ui_ux_design")],
             ['id' => 'other', 'name' => __("other")]
         ];
-        $title=json_decode($project['title']);
-        $project['title_en']=$title->en;
-        $project['title_ar']=$title->ar;
+        // $title=json_decode($project['title']);
+        // $project['title_en']=$title->en;
+        // $project['title_ar']=$title->ar;
 
-        $description = json_decode($project['description']);
-        $project['description_en']=$description->en;
-        $project['description_ar']=$description->ar;
+        // $description = json_decode($project['description']);
+        // $project['description_en']=$description->en;
+        // $project['description_ar']=$description->ar;
 
         // dd(($project));
         // $project['description']=json_decode($project['description']);
-        return viewAdmin('projects/edit', compact('project', 'images', 'categories'));
+        return viewAdmin('projects/add', compact('project', 'categories'));
         //        return layout('admin/app')->view('/admin/edit_project', compact('project'));
     }
 

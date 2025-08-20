@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
                 <h1 class="h2"><?= __("projects") ?></h1>
-                <a href="<?= route('addProject') ?>" class="btn btn-primary">
+                <a href="<?= route('project.add') ?>" class="btn btn-primary">
                     <i class="fas fa-plus-circle me-2"></i><?= __("add_project") ?>
                 </a>
             </div>

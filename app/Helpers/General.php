@@ -198,18 +198,21 @@ function uploadMultipleImages($inputName, $folder = 'projects'): array
 if (!function_exists('locale')) {
     function locale()
     {
-        return session()->get('locale') ?? 'en';
+        if (!session()->has('locale')) {
+            session()->set('locale', config('app', 'locale'));
+        }
+        return session()->get('locale');
     }
 }
 
 if (!function_exists('__')) {
 
-    function __(string $key, array $replace = [])
+    function __(string $key, array $replace = [], $locale = '')
     {
-        if (!session()->has('locale')) {
-            session()->set('locale', config('app', 'locale'));
+        if (empty($locale)) {
+            $locale = locale();
         }
-        $locale = session()->get('locale');
+
         // die(config('app', 'locale'));
 
         $path = resource_path("lang/{$locale}/messages.php");
@@ -233,19 +236,22 @@ if (!function_exists('__')) {
 }
 
 if (!function_exists('renderLangTabs')) {
-    function renderLangTabs(string $prefix, callable $callback)
+    function renderLangTabs(string $prefix, callable $callback,$data=null)
     {
         $langs = ['en', 'ar'];
+        if (locale() == 'ar') {
+            $langs = array_reverse($langs);
+        }
 ?>
         <!-- Tabs -->
-        <div class="tab-pane fade show active" id="<?=$prefix?>" role="tabpanel">
+        <div class="tab-pane fade show active" id="<?= $prefix ?>" role="tabpanel">
             <ul class="nav nav-tabs mb-3" id="<?= $prefix ?>LanguageTabs" role="tablist">
                 <?php foreach ($langs as $i => $lang): ?>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link <?= $i === 0 ? 'active' : '' ?>"
                             id="<?= $prefix ?>-<?= $lang ?>-tab"
-                            data-bs-toggle="tab"
-                            data-bs-target="#<?= $prefix ?>-<?= $lang ?>"
+                            data-toggle="tab"
+                            data-target="#<?= $prefix ?>-<?= $lang ?>"
                             type="button" role="tab">
                             <i class="fas fa-globe me-2"></i><?= __($lang) ?>
                         </button>
@@ -256,12 +262,12 @@ if (!function_exists('renderLangTabs')) {
             <!-- Tab Content -->
             <div class="tab-content" id="<?= $prefix ?>LanguageTabsContent">
                 <?php foreach ($langs as $i => $lang): ?>
-                    <div class="tab-pane fade <?= $i === 0 ? 'show active' : '' ?>"
+                    <div class="<?= $lang ?> tab-pane fade <?= $i === 0 ? 'show active' : '' ?>"
                         id="<?= $prefix ?>-<?= $lang ?>" role="tabpanel">
                         <div class="row">
                             <?php
                             // هنا نستدعي الكولباك ونمرر له اللغة
-                            $callback($lang);
+                            $callback($lang,$data);
                             ?>
                         </div>
                     </div>

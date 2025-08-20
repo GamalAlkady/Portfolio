@@ -41,15 +41,35 @@
 
                         <div class="info-box-content">
                             <span class="info-box-text"><?= __("skills") ?></span>
-                            <span class="info-box-number"><?=
-                                                            /** @var numeric $countSkills */
-                                                            $countSkills ?></span>
+                            <span class="info-box-number"><?=/** @var numeric $countSkills */ $countSkills ?></span>
                         </div>
                         <!-- /.info-box-content -->
                     </div>
                     <!-- /.info-box -->
                 </div>
                 <!-- /.col -->
+                
+                <!-- Visitors Statistics Cards -->
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-eye"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text"><?= __("visitors_today") ?> <?= $visitorsToday['total_visits'] ?? 0 ?></span>
+                            <small class="text-muted"><?= __('unique_visitors').' '. ($visitorsToday['unique_visitors'] ?? 0) ?></small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                        <div class="info-box-content">
+
+                            <span class="info-box-text"><?= __("total_visitors") ?> <?= $visitorsTotal['total_visits'] ?? 0 ?></span>
+                            <small class="text-muted"><?= __('unique_visitors').' '. ($visitorsTotal['unique_visitors'] ?? 0) ?></small>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- fix for small devices only -->
                 <!--                <div class="clearfix hidden-md-up"></div>-->
@@ -84,6 +104,62 @@
                 <!-- /.col -->
             </div>
             <!-- /.row -->
+            
+            <!-- Visitors Summary Row -->
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title"><i class="fas fa-chart-line mr-2"></i><?= __("visitors_overview") ?? "نظرة عامة على الزوار" ?></h3>
+                            <div class="card-tools">
+                                <a href="<?= route('visitors') ?>" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-eye mr-1"></i><?= __("view_details") ?? "عرض التفاصيل" ?>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3 text-center">
+                                    <div class="description-block border-right">
+                                        <span class="description-percentage text-success">
+                                            <i class="fas fa-caret-up"></i> <?= __("today") ?? "اليوم" ?>
+                                        </span>
+                                        <h5 class="description-header"><?= $visitorsToday['total_visits'] ?? 0 ?></h5>
+                                        <span class="description-text"><?= __("visits") ?? "زيارة" ?></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 text-center">
+                                    <div class="description-block border-right">
+                                        <span class="description-percentage text-info">
+                                            <i class="fas fa-caret-up"></i> <?= __("this_week") ?? "هذا الأسبوع" ?>
+                                        </span>
+                                        <h5 class="description-header"><?= $visitorsWeek['total_visits'] ?? 0 ?></h5>
+                                        <span class="description-text"><?= __("visits") ?? "زيارة" ?></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 text-center">
+                                    <div class="description-block border-right">
+                                        <span class="description-percentage text-warning">
+                                            <i class="fas fa-caret-up"></i> <?= __("this_month") ?? "هذا الشهر" ?>
+                                        </span>
+                                        <h5 class="description-header"><?= $visitorsMonth['total_visits'] ?? 0 ?></h5>
+                                        <span class="description-text"><?= __("visits") ?? "زيارة" ?></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 text-center">
+                                    <div class="description-block">
+                                        <span class="description-percentage text-success">
+                                            <i class="fas fa-users"></i> <?= __("online_now") ?? "متصل الآن" ?>
+                                        </span>
+                                        <h5 class="description-header"><?= $currentVisitors ?? 0 ?></h5>
+                                        <span class="description-text"><?= __("visitors") ?? "زائر" ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col-md-12">

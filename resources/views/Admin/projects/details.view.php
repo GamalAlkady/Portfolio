@@ -43,7 +43,7 @@
                                 </a>
                                 <button
                                    class="btn btn-outline-danger"
-                                   onclick="confirmDelete('<?=getCsrf()?>','<?= route('deleteProject',['id'=>$project['id']]) ?>','<?=route('projects')?>')">
+                                   onclick="confirmDelete('<?=getCsrf()?>','<?= route('project.delete',['id'=>$project['id']]) ?>','<?=route('projects')?>')">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
@@ -158,7 +158,7 @@
                                                                 <?php if (!$img['is_main']): ?>
                                                                     <button type="button"
                                                                             class="btn btn-danger btn-sm"
-                                                                            onclick="confirmDelete('<?=getCsrf()?>','<?= route('deleteImage',['id'=>$img['id']]) ?>')"
+                                                                            onclick="confirmDelete('<?=getCsrf()?>','<?= route('project.deleteImage',['id'=>$img['id']]) ?>')"
                                                                             title="<?= __("delete_image") ?>">
                                                                         <i class="fas fa-trash"></i>
                                                                     </button>

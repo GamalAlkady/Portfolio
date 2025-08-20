@@ -28,7 +28,33 @@
         }
     });
 
+         var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms).forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity() || !validateLanguageContent()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            });
 
+                 
+            var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+            console.log(toastElList);
+            
+            var toastList = toastElList.map(function (toastEl) {
+              return new bootstrap.Toast(toastEl, {
+                autohide: true,
+                delay: 5000
+            })
+          });
+
+            // $('#toast').toast('show')
+
+     
+         
+    
 })(jQuery);
 
 /* -----------------------------------------------

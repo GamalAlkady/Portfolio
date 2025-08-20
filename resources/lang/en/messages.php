@@ -353,6 +353,41 @@ return [
     'sign_in_using_facebook' => 'Sign in using Facebook',
     'sign_in_using_google' => 'Sign in using Google',
 
+    // Dashboard translations
+    'dashboard' => 'Dashboard',
+    'visitors_today' => 'Visitors Today',
+    'visitors_week' => 'Visitors This Week',
+    'visitors_month' => 'Visitors This Month',
+    'total_visitors' => 'Total Visitors',
+    'current_visitors' => 'Current Visitors',
+    'unique_visitors' => 'Unique Visitors',
+    'online_now' => 'Online Now',
+    'this_week' => 'This Week',
+    'this_month' => 'This Month',
+    'view_details' => 'View Details',
+    'visitors_overview' => 'Visitors Overview',
+
+    // Visitors translations
+    'visitors_by_country' => 'Visitors by Country',
+    'country' => 'Country',
+    'visits' => 'Visits',
+    'unknown' => 'Unknown',
+    'online_visitors' => 'Online Visitors',
+    'visitors_in_last_30_minutes' => 'Visitors in Last 30 Minutes',
+    'daily_visits_chart' => 'Daily Visits Chart',
+    'top_pages' => 'Top Pages',
+    'no_data_available' => 'No Data Available',
+    'visitors_this_month' => 'Visitors This Month',
+    'visitors_this_week' => 'Visitors This Week',
+    'visitors_this_month' => 'Visitors This Month',
+    'unique'=>'Unique',
+    'top_referrers' => 'Top Referrers',
+    'referrer' => 'Referrer',
+    'referrals' => 'Referrals',
+    'direct' => 'Direct',
+    'daily_visits_trend' => 'Daily Visits Trend',
+
+
     // Settings page translations
     'site_settings' => 'Site Settings',
     'general_settings' => 'General Settings',

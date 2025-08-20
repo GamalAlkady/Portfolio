@@ -56,9 +56,9 @@ use App\Models\Skills;
                     <p><span> phone : </span> +91 XXX-XXX-XXXX</p>
                   </div> -->
                 <div class="box">
-                    <p><span> email : </span> <?php echo setting('email') ?></p>
-                    <p><span> place : </span> <?php echo setting('location_'.locale()) ?></p>
-                    <p><span> Phone : </span> <?php echo setting('phone') ?></p>
+                    <p><span> <?=__('email')?> : </span> <?php echo setting('email') ?></p>
+                    <p><span> <?=__('address')?> : </span> <?php echo setting('location_'.locale()) ?></p>
+                    <p><span> <?=__('phone')?> : </span> <?php echo setting('phone') ?></p>
 
                 </div>
             </div>
@@ -99,7 +99,7 @@ use App\Models\Skills;
     <h1 class="heading"><i class="fas fa-graduation-cap"></i><span><?=__('my_education')?></span></h1>
     <div class="box-container">
         <div class="box">
-            <div class="image">
+            <div class="image" style="max-height: 176px;max-width: 172px;">
                 <img draggable="false" src="<?= assets('images/college.jpg') ?>" alt="">
             </div>
             <div class="content">
@@ -107,7 +107,7 @@ use App\Models\Skills;
             </div>
         </div>
 
-    </div>
+    </div>  
 </section>
 <!-- education section ends -->
 
