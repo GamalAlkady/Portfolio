@@ -70,6 +70,7 @@ setTitle(__($isEdit ? "edit_project" : "add_project")); ?>
                             if ($isEdit) {
                                 echo setMethod('PUT');
                             } else $project = null;
+                            
                             renderLangTabs('project', function ($lang) use ($form, $project) {
                                 // var_dump($project);
                                 $input = $form->input('title[' . $lang . ']', __("title", [], $lang), old('title.' . $lang, $project['title_' . $lang] ?? ''))
@@ -256,7 +257,6 @@ setTitle(__($isEdit ? "edit_project" : "add_project")); ?>
         fileInput.addEventListener('change', function({
             target
         }) {
-            console.log(target.files)
             const label = document.querySelector('.custom-file-label');
             label.innerHTML = target.files.length + " " + "<?= __("files") ?>";
 

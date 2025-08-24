@@ -2,6 +2,7 @@
 // Get singleton route instance.
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Api\TranslationController;
 use App\Http\Controllers\HomeController;
@@ -16,6 +17,7 @@ Router::get('/', [HomeController::class, 'index'])->name('home')->middleware('ma
 Router::get('/maintenance', [HomeController::class, 'maintenance'])->name('maintenance');
 Router::post('/sendEmail', [NotificationController::class, 'sendEmail'])->name('sendEmail');
 Router::get('/projects', [HomeController::class, 'showProjects'])->name('showProjects')->middleware('maintenance');
+Router::get('/certificates', [HomeController::class, 'showCertificates'])->name('certificates.view')->middleware('maintenance');
 
 // API Routes for translations
 Router::get('/api/translations/:locale', [TranslationController::class, 'getTranslations'])->name('api.translations');
@@ -65,5 +67,20 @@ Router::put("/admin/setting/reset", [Admin\SettingController::class,'reset'])->n
 
 Router::get('/language/:locale', [Admin\LanguageController::class, 'switch'])->name('language.switch');
 
+/**  Certificates & Achievements  */
+Router::get("/admin/certificates", [CertificateController::class,'index'])->name("certificates")->middleware('auth');
+Router::get("/admin/certificates/datatable", [CertificateController::class,'dataTable'])->name("certificates.datatable")->middleware('auth');
+Router::get("/admin/certificates/search", [CertificateController::class,'search'])->name("certificates.search")->middleware('auth');
+Router::get("/admin/certificate/details/:id", [CertificateController::class,'show'])->name("certificate.details")->middleware('auth');
+Router::get("/admin/certificates/add", [CertificateController::class,'create'])->name("certificate.add")->middleware('auth');
+Router::post("/admin/certificates/store", [CertificateController::class,'store'])->name("certificate.store")->middleware('auth');
+Router::get("/admin/certificates/:id/edit", [CertificateController::class,'edit'])->name("certificate.edit")->middleware('auth');
+Router::put("/admin/certificates/:id/update", [CertificateController::class,'update'])->name("certificate.update")->middleware('auth');
+Router::delete("/admin/certificates/:id/delete", [CertificateController::class,'destroy'])->name("certificate.delete")->middleware('auth');
+Router::post("/admin/certificates/:id/toggle-featured", [CertificateController::class,'toggleFeatured'])->name("certificate.toggleFeatured")->middleware('auth');
+Router::post("/admin/certificates/:id/toggle-status", [CertificateController::class,'toggleStatus'])->name("certificate.toggleStatus")->middleware('auth');
 
 
+
+
+// Router::get('/admin/certificates/{id}', [App\Http\Controllers\Admin\CertificateController::class, 'details']);

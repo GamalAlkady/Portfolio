@@ -35,7 +35,9 @@ class Projects extends BaseModel {
     }
 
     public function getProject($id,$currentLanguage=true) {
+        // $query = 'SELECT id, category, created_at,';
         if($currentLanguage){
+
             $project = DB::db()->query("SELECT
                             id,  
                             JSON_UNQUOTE(JSON_EXTRACT(title, '$.".locale()."')) AS title,

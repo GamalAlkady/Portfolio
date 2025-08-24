@@ -71,7 +71,9 @@
     <h1 class="credit"><?=__('designed_by')?> <i class="fa fa-heart pulse"></i> <a href="https://wa.me/message/RWP5KH55UTUUF1"><?=setting('name_'.locale())?></a></h1>
 
 </section>
-
+<!-- scroll top btn -->
+<a href="#home" aria-label="ScrollTop" id="scroll-top"><i class="fas fa-angle-up"></i></a>
+<!-- scroll back to top -->
 <style>
 .visitor-stats {
     display: flex;

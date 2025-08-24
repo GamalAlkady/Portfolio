@@ -8,7 +8,7 @@ return [
     'experience' => 'الخبرات',
     'skills' => 'المهارات',
     'contact' => 'اتصل بنا',
-    
+
     // ترجمات لوحة التحكم
     'dashboard' => 'لوحة التحكم',
     'profile' => 'الملف الشخصي',
@@ -63,7 +63,7 @@ return [
     'en' => 'الإنجليزية',
     'common_fields' => 'الحقول المشتركة',
     'enter_title' => 'أدخل العنوان',
-    'enter_name'=>'أدخل الاسم',
+    'enter_name' => 'أدخل الاسم',
     'enter_description' => 'أدخل الوصف',
     'tech_placeholder_ar' => 'مثال: PHP, Laravel, MySQL, JavaScript',
     'tech_placeholder_en' => 'Example: PHP, Laravel, MySQL, JavaScript',
@@ -201,7 +201,7 @@ return [
     'project_gallery' => 'معرض المشروع',
     'no_main_image' => 'لا توجد صورة رئيسية',
     'gallery' => 'المعرض',
-    
+
     // رسائل النظام
     'success' => 'تمت العملية بنجاح',
     'error' => 'حدث خطأ ما',
@@ -209,7 +209,7 @@ return [
     'yes' => 'نعم',
     'no' => 'لا',
     'cancel' => 'إلغاء',
-    
+
     // حقول النموذج
     'title' => 'العنوان',
     'enter_project_title' => 'أدخل عنوان المشروع',
@@ -230,10 +230,11 @@ return [
     'images' => 'الصور',
     'choose_files' => 'اختر الملفات',
     'choose_image' => 'اختر صورة',
+    'choose_logo' => 'اختيار الشعار',
     'files' => 'ملفات',
     'save' => 'حفظ',
     'edit' => 'تعديل',
-    
+
 
     // كلمات إضافية
     'actions' => 'الإجراءات',
@@ -297,7 +298,7 @@ return [
     'logout' => 'تسجيل الخروج',
     'setting' => 'الإعدادات',
     'about_me' => 'عني',
-    'me'=>'ي',
+    'me' => 'ي',
     'my_education' => 'تعليمي',
     'my_experience' => 'خبرتي',
     'skills_abilities' => 'المهارات والقدرات',
@@ -332,12 +333,12 @@ return [
     'add_skill' => 'إضافة مهارة',
     'edit_skill' => 'تعديل مهارة',
     'skill_details' => 'تفاصيل المهارة',
-    
+
     // تصنيفات المهارات
-    'technical_skills'=> 'مهارات تقنية',
+    'technical_skills' => 'مهارات تقنية',
     'design_skills' => 'مهارات التصميم',
     'personal_skills' => 'مهارات شخصية',
-    
+
     // ترجمات ملف PDF / السيرة الذاتية
     'cv_resume' => 'السيرة الذاتية',
     'uploaded_on' => 'تم الرفع في',
@@ -484,6 +485,208 @@ return [
     'switch_to_english' => 'التبديل إلى الإنجليزية',
 
     // ترجمات الفوتر
-    'designed_by'=>'تم التصميم بواسطة',
-    'thanks_message'=>'شكراً على زيارتك لموقع بروفيولي الخاص بي. اتصل بي عبر وسائل التواصل.'
+    'designed_by' => 'تم التصميم بواسطة',
+    'thanks_message' => 'شكراً على زيارتك لموقع بروفيولي الخاص بي. اتصل بي عبر وسائل التواصل.',
+
+    // ترجمات نظام الشهادات والإنجازات
+    'certificates' => 'الشهادات',
+    'certificates_achievements' => 'الشهادات والإنجازات',
+    'certificates_management' => 'إدارة الشهادات',
+    'add_certificate' => 'إضافة شهادة',
+    'edit_certificate' => 'تعديل شهادة',
+    'certificate_details' => 'تفاصيل الشهادة',
+    'view_certificate' => 'عرض الشهادة',
+    'delete_certificate' => 'حذف الشهادة',
+
+    // أنواع الشهادات
+    'certificate' => 'شهادة',
+    'award' => 'جائزة',
+    'course' => 'دورة',
+    'achievement' => 'إنجاز',
+    'license' => 'رخصة',
+    'membership' => 'عضوية',
+
+    // حالات الشهادات
+    'featured' => 'مميز',
+    'featured_certificate' => 'شهادة مميزة',
+    'featured_certificates' => 'الشهادات المميزة',
+    'all_certificates' => 'جميع الشهادات',
+    'recent_certificates' => 'الشهادات الحديثة',
+    'expired_certificates' => 'الشهادات منتهية الصلاحية',
+
+    // حقول النماذج
+    'certificate_title' => 'عنوان الشهادة',
+    'title_arabic' => 'العنوان بالعربية',
+    'title_english' => 'العنوان بالإنجليزية',
+    'enter_title_arabic' => 'أدخل العنوان بالعربية',
+    'enter_title_english' => 'أدخل العنوان بالإنجليزية',
+    'description_arabic' => 'الوصف بالعربية',
+    'description_english' => 'الوصف بالإنجليزية',
+    'enter_description_arabic' => 'أدخل الوصف بالعربية',
+    'enter_description_english' => 'أدخل الوصف بالإنجليزية',
+    'issuer' => 'الجهة المانحة',
+    'enter_issuer' => 'أدخل الجهة المانحة',
+    'certificate_type' => 'نوع الشهادة',
+    'select_type' => 'اختر النوع',
+    'issued_date' => 'تاريخ المنح',
+    'expiry_date' => 'تاريخ الانتهاء',
+    'leave_empty_if_no_expiry' => 'اتركه فارغاً إذا لم تنته صلاحية الشهادة',
+    'verification_url' => 'رابط التحقق',
+    'verification_url_help' => 'رابط للتحقق من صحة الشهادة',
+    'skills_related' => 'المهارات المرتبطة',
+    'skills_help' => 'فصل بينها بفواصل',
+    'certificate_file' => 'ملف الشهادة',
+    'choose_file' => 'اختر ملف',
+    'choose_new_file' => 'اختر ملف جديد',
+    'current_file' => 'الملف الحالي',
+    'file_types_allowed' => 'أنواع الملفات المسموحة',
+    'max_size' => 'الحد الأقصى',
+    'leave_empty_to_keep_current' => 'اتركه فارغاً للاحتفاظ بالملف الحالي',
+    'display_order' => 'ترتيب العرض',
+    'display_order_help' => '0 = ترتيب تلقائي، أرقام أعلى تظهر أولاً',
+    'optional' => 'اختياري',
+    'browse' => 'تصفح',
+
+    // معلومات الشهادة
+    'certificate_information' => 'معلومات الشهادة',
+    'certificate_info' => 'معلومات الشهادة',
+    'add_new_certificate' => 'إضافة شهادة جديدة',
+    'edit_certificate_information' => 'تعديل معلومات الشهادة',
+    'preview' => 'معاينة',
+    'certificate_title_will_appear_here' => 'عنوان الشهادة سيظهر هنا',
+    'issuer_name' => 'اسم الجهة المانحة',
+    'issue_date' => 'تاريخ المنح',
+    'certificate_description' => 'وصف الشهادة سيظهر هنا',
+    'created_at' => 'تاريخ الإنشاء',
+    'last_updated' => 'آخر تحديث',
+    'certificate_id' => 'معرف الشهادة',
+
+    // قائمة الشهادات
+    'certificates_list' => 'قائمة الشهادات',
+    'total_certificates' => 'إجمالي الشهادات',
+    'certificate_types' => 'أنواع الشهادات',
+    'no_certificates_found' => 'لا توجد شهادات',
+    'add_first_certificate' => 'قم بإضافة أول شهادة لك',
+    'search_certificates' => 'البحث في الشهادات',
+    'all_types' => 'جميع الأنواع',
+    'certificates_by_type' => 'الشهادات حسب النوع',
+    'view_all' => 'عرض الكل',
+
+    // الإجراءات
+    'view_details' => 'عرض التفاصيل',
+    'set_featured' => 'تعيين كمميز',
+    'remove_featured' => 'إلغاء المميز',
+    'activate' => 'تفعيل',
+    'deactivate' => 'إلغاء تفعيل',
+    'save_certificate' => 'حفظ الشهادة',
+    'update_certificate' => 'تحديث الشهادة',
+    'back_to_list' => 'العودة للقائمة',
+    'confirm_delete' => 'هل أنت متأكد من الحذف؟',
+    'featured_help' => 'الشهادات المميزة تظهر في المقدمة',
+
+    // رسائل النجاح والأخطاء
+    'certificate_created_successfully' => 'تم إنشاء الشهادة بنجاح',
+    'certificate_updated_successfully' => 'تم تحديث الشهادة بنجاح',
+    'certificate_deleted_successfully' => 'تم حذف الشهادة بنجاح',
+    'certificate_not_found' => 'الشهادة غير موجودة',
+    'certificate_creation_failed' => 'فشل في إنشاء الشهادة',
+    'certificate_update_failed' => 'فشل في تحديث الشهادة',
+    'certificate_deletion_failed' => 'فشل في حذف الشهادة',
+    'certificate_featured_status_updated' => 'تم تحديث حالة الشهادة المميزة',
+    'certificate_status_updated' => 'تم تحديث حالة الشهادة',
+
+    // تحقق من البيانات
+    'title_ar_required' => 'العنوان بالعربية مطلوب',
+    'title_en_required' => 'العنوان بالإنجليزية مطلوب',
+    'issuer_required' => 'الجهة المانحة مطلوبة',
+    'issued_date_required' => 'تاريخ المنح مطلوب',
+    'certificate_type_required' => 'نوع الشهادة مطلوب',
+    'title_ar_min_length' => 'العنوان بالعربية يجب أن يكون 3 أحرف على الأقل',
+    'title_en_min_length' => 'العنوان بالإنجليزية يجب أن يكون 3 أحرف على الأقل',
+    'issuer_min_length' => 'الجهة المانحة يجب أن تكون حرفين على الأقل',
+    'invalid_date' => 'تاريخ غير صحيح',
+    'invalid_file_type' => 'نوع الملف غير مدعوم',
+    'file_too_large' => 'الملف كبير جداً',
+    'file_upload_failed' => 'فشل في رفع الملف',
+
+    // واجهة المستخدم الأمامية
+    'certificates_page_description' => 'استعرض جميع الشهادات والإنجازات والجوائز الحاصل عليها',
+    'no_certificates_yet' => 'لا توجد شهادات حالياً',
+    'certificates_coming_soon' => 'ستتم إضافة الشهادات قريباً',
+    'view_all_certificates' => 'عرض جميع الشهادات',
+    'verify_certificate' => 'التحقق من الشهادة',
+    'verify' => 'تحقق',
+    'view' => 'عرض',
+    'back_to_home' => 'العودة للرئيسية',
+    'no_certificates_available' => 'لا توجد شهادات متاحة',
+    'certificates_will_be_added_soon' => 'سيتم إضافة الشهادات قريباً',
+
+    // إعدادات الشهادات
+    'show_certificates_section' => 'عرض قسم الشهادات',
+    'certificates_per_page' => 'عدد الشهادات في الصفحة',
+    'certificates_section_title_ar' => 'عنوان قسم الشهادات بالعربية',
+    'certificates_section_title_en' => 'عنوان قسم الشهادات بالإنجليزية',
+
+    // الواجهة الأمامية - تفاصيل إضافية
+    'visitor_statistics' => 'إحصائيات الزوار',
+    'unique_today' => 'فريد اليوم',
+    'total_visits' => 'إجمالي الزيارات',
+
+    // إعدادات الشهادات
+    'certificates_section_title' => 'الشهادات والإنجازات',
+    // إضافة إلى ملف messages.php
+    'certificate_details' => 'تفاصيل الشهادة',
+    'certificates_by_type' => 'الشهادات حسب النوع',
+    'certificate_types' => 'أنواع الشهادات',
+    'recent_certificates' => 'الشهادات الحديثة',
+    'featured_certificates' => 'الشهادات المميزة',
+    'total_certificates' => 'إجمالي الشهادات',
+    'certificates_management' => 'إدارة الشهادات',
+    'all_types' => 'جميع الأنواع',
+    'certificates_list' => 'قائمة الشهادات',
+    'search_certificates' => 'البحث عن الشهادات',
+    'view_all' => 'عرض الكل',
+    'issued_by' => 'صادرة عن',
+    'issue_date' => 'تاريخ الإصدار',
+    'certificate_description' => 'وصف الشهادة',
+    'verify_certificate' => 'التحقق من الشهادة',
+    'skills_related' => 'المهارات ذات الصلة',
+    'enter_skills_related' => 'أدخل المهارات ذات الصلة',
+    'certificate_title_will_appear_here' => 'عنوان الشهادة سيظهر هنا',
+    'certificate_type' => 'نوع الشهادة',
+    'certificate_expiry_date' => 'تاريخ انتهاء الشهادة',
+    'skills_help' => 'أدخل المهارات المرتبطة بفصلها بفواصل',
+    'verification_url_help' => 'أدخل رابط التحقق من الشهادة',
+    'edit_certificate' => 'تعديل الشهادة',
+    'add_certificate' => 'إضافة شهادة',
+    'delete_certificate' => 'حذف الشهادة',
+    'certificate_information' => 'معلومات الشهادة',
+    'issued_date' => 'تاريخ الإصدار',
+    'issued_name' => 'اسم الجهة المانحة',
+    'expiry_date' => 'تاريخ انتهاء الشهادة',
+    'leave_empty_if_no_expiry' => 'اتركه فارغاً إذا لم تنته صلاحية الشهادة',
+    
+    'verification_url' => 'رابط التحقق من الشهادة',
+    'certificate_type' => 'نوع الشهادة',
+    'certificate_file' => 'ملف الشهادة',
+    'certificate_file_help' => 'قم بتحميل ملف الشهادة بصيغة PDF أو صورة',
+    'current_file' => 'الملف الحالي',
+    'display_order' => 'ترتيب العرض',
+    'display_order_help'=>'0 = ترتيب تلقائي، أرقام أعلى تظهر أولاً',
+    'featured_certificate' => 'شهادة مميزة',
+    'featured_help'=>'الشهادات المميزة تظهر في المقدمة',
+    'file_types_allowed' => 'أنواع الملفات المسموح بها:files',
+    'max_size' => 'الحد الأقصى:size',
+
+    'cancel_featured'=>'إلغاء المميز',
+    'set_featured'=>'تعيين كمميز',
+    'certificate_deleted_successfully'=>'تم حذف الشهادة بنجاح',
+    'certificate_deletion_failed'=>'فشل في حذف الشهادة',
+    'certificates_achievements'=>'الشهادات والإنجازات',
+    'certificates_page_description' => 'استعرض جميع الشهادات والإنجازات والجوائز الحاصل عليها',
+    'all_certificates' => 'جميع الشهادات',
+    'back_to_home' => 'العودة للرئيسية',
+    'verify'=>'تحقق',
+    'view_certificate'=>'عرض الشهادة'
+
 ];

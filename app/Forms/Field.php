@@ -30,6 +30,7 @@ abstract class Field
     protected string $form_group_class = '';
     protected string $errorMessage = '';
     protected bool $is_required = false;
+    protected string $smallText = '';
 
     public function __construct(string $name, string $label = '', $placeHolder = '')
     {
@@ -137,6 +138,19 @@ abstract class Field
             $this->errorMessage = $message;
         return $this;
     }
+
+    
+    /**
+     * Set the small text for the field.
+     * @param string $smallText
+     * @return static
+     */
+    public function smallText(string $smallText): static
+    {
+        $this->smallText = $smallText;
+        return $this;
+    }
+
     /**
      * Render the HTML for the field.
      * @return string
@@ -182,6 +196,8 @@ abstract class Field
             $html .= '</label>';
         }
         $html .= $content;
+
+        $html .= '<small class="form-text text-muted">' . $this->smallText . '</small>';
 
         $html .= '<div class="form-error text-danger text-sm mt-1">' . (!empty($this->errorMessage) ? $this->errorMessage : errors($this->name)) . '</div>';
         $html .= '</div>';

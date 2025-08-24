@@ -156,8 +156,15 @@ class Request
         $args = func_get_args();
 
         foreach ($_REQUEST as $key => $value) {
-            if (!in_array($key, $args))
-                $all[$key] = strip_tags($value);
+            if (!in_array($key, $args)) {
+                if (is_array($value)) {
+                    foreach ($value as $i => $v) {
+                        $value[$i] = strip_tags($v);
+                    }
+                    $all[$key] = $value;
+                } else
+                    $all[$key] = strip_tags($value);
+            }
         }
         return $all;
     }

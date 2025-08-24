@@ -71,23 +71,21 @@ class Input extends Field
      */
     public function render(): string
     {
+        if(empty($this->placeHolder)){
+            if(isset($this->attrs['placeholder']))
+                $this->placeHolder = $this->attrs['placeholder'];
+            else
+                $this->placeHolder = $this->label;
+        }
+        
         $_input_attrs_str = $this->buildAttributes($this->attrs);
         $input_class_final = !empty($this->input_class) ? ' ' . $this->input_class : '';
         $controls_class_final = !empty($this->controls_class) ? ' ' . $this->controls_class : '';
-        $this->placeHolder=(!empty($this->placeHolder)?$this->placeHolder:$this->label);
         $input_html = '';
         if ($this->type === 'file') {
             $input_html .= '<div class="custom-file">';
             $input_html .= '<input type="' . htmlspecialchars($this->type) . '" id="' . htmlspecialchars($this->name) . '" name="' . htmlspecialchars($this->name) . '" class="form-control' . htmlspecialchars($input_class_final) . '" ' . $_input_attrs_str . ' value="' . htmlspecialchars($this->value) . '"' . 'placeholder="' . htmlspecialchars(_($this->placeHolder)) . '">';
             $input_html .= '<label class="custom-file-label" for="' . htmlspecialchars($this->name) . '">' . htmlspecialchars($this->placeHolder) . '</label>';
-            $input_html .= '</div>';
-        } elseif ($this->type === 'date' || $this->type === 'datetime-local') { // Using datetime-local for datetimepicker
-            $picker_class = ($this->type === 'date' ? 'datepicker' : 'datetimepicker');
-            $input_html .= '<div class="input-group date">';
-            $input_html .= '<input type="text" id="' . htmlspecialchars($this->name) . '" name="' . htmlspecialchars($this->name) . '" class="form-control ' . htmlspecialchars($picker_class) . htmlspecialchars($input_class_final) . '" ' . $_input_attrs_str . ' value="' . htmlspecialchars($this->value) . '" autocomplete="off">';
-            $input_html .= '<div class="input-group-addon">
-                <i class="fa fa-calendar calendar-icon"></i>
-            </div>';
             $input_html .= '</div>';
         } elseif ($this->type === 'color') {
             $input_html .= '<div class="input-group mbot15 colorpicker-input">

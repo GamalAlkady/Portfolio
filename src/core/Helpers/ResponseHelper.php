@@ -39,7 +39,7 @@ if (!function_exists('toRoute')) {
     /**
      * Finds route by route name and redirect this route.
      */
-    function toRoute(string $name, array | string $params = null): void {
+    function toRoute(string $name, array $params = []): void {
         Router::singleton()->toRoute($name, $params);
     }
 }
@@ -48,7 +48,7 @@ if (!function_exists('route')) {
     /**
      * Finds route by route name and redirect this route.
      */
-    function route(string $name, array | string $params = null): string {
+    function route(string $name, array $params = []): string {
         return Router::singleton()->getRoute($name, $params);
     }
 }

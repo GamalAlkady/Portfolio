@@ -63,6 +63,18 @@
                         </p>
                     </a>
                 </li>
+
+                
+                 <li class="nav-item">
+                    <a class="nav-link <?php echo $current_page == 'certificates' ? 'active' : ''; ?>" href="/admin/certificates">
+                        <i class="nav-icon fas fa-certificate"></i>
+                        <p>
+                            <?= __("certificates") ?>
+                            <!--                            <span class="right badge badge-danger">New</span>-->
+                        </p>
+                    </a>
+                </li>
+                
                 <li class="nav-header"><div class="border-top"></div></li>
 
                 <li class="nav-item">

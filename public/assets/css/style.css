@@ -78,11 +78,13 @@ html[lang='ar'] .form-check-input {
     color: #495057 !important;
 
 }
+
 .nav-tabs .nav-link.active {
     color: #495057;
     /* background-color: #fff; */
     border-color: #dee2e6 #dee2e6 #fff;
 }
+
 .tab-content {
     border: 1px solid #dee2e6;
     border-top: none;
@@ -259,22 +261,79 @@ html[lang='ar'] .form-check-input {
 
 /* Nested Language Tabs Styling */
 
-.ar{
+.ar {
     direction: rtl;
     text-align: right;
 }
-.ar input{
+
+.ar input,
+.ar .file-upload-btn {
     text-align: right;
 }
 
-.en{
+.en {
     direction: ltr;
     text-align: left;
 }
-.en input{
+
+.en input,
+.en .file-upload-btn {
     text-align: left;
 }
+
 .dark-mode .table-striped>tbody>tr:nth-of-type(odd)>* {
     background-color: #343a40 !important;
     color: #f8f9fa !important;
+}
+
+/* Custom file input styles */
+.file-upload-wrapper {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Hide the default file input */
+.file-input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+    width: 1px;
+    height: 1px;
+}
+
+.file-name-display {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #777;
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.btn i {
+    margin-right: .5rem;
+}
+
+
+a.file:hover{
+    background-color: transparent !important;
+    color: white !important;
+}
+
+.btn-group-certificate a{
+    width: 30px;
+}
+
+.btn-group-certificate form{
+    width: 40px;
+}
+
+.btn-group-certificate i{
+    margin-right: 0;
+}
+.btn-group-certificate a,.btn-group-certificate form{
+    margin-inline-end: 3px;
 }

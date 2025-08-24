@@ -30,13 +30,20 @@ if (!function_exists('resource_path')) {
 }
 
 if (!function_exists('includeView')) {
+    /**
+     * This function loads a view and extracts an array of data
+     * into local variables.
+     *
+     * @param string $path The path to the view, relative to the resources/views directory.
+     * @param array $data An optional array of data to be extracted into local variables.
+     */
     function includeView($path, $data = [])
     {
         // استخراج المتغيرات كمصفوفات إلى متغيرات محلية
         extract($data);
 
         // تحديد المسار الكامل إلى الملف المطلوب
-        $viewPath = __DIR__ . '/../../resources/views/' . str_replace('.', '/', $path) . '.php';
+        $viewPath = resource_path('views/'.$path) . '.php';
 
         // التحقق من وجود الملف
         if (file_exists($viewPath)) {
@@ -105,45 +112,70 @@ function assets($path, $default = '')
     return $baseUrl . '/assets/' . $path;
 }
 
-function uploadFile($name, $folder = 'files', $oldFile = '')
+function uploadFile($name, $path = 'files', $oldFile = '')
 {
-    if (!isset($_FILES[$name]) || $_FILES[$name]['error'] !== UPLOAD_ERR_OK) {
-        return null; // لا يوجد ملف أو خطأ في الرفع
-    }
-
-    // المسار الكامل داخل السيرفر
-    //    $uploadDir = __DIR__ . '/../../public/assets/images/' . $folder . '/';
-    $uploadDir = public_path('assets/' . $folder . '/');
-
-    //    dd([$uploadDir,public_path('')]);
-    // أنشئ المجلد إذا لم يكن موجودًا
-    if (!file_exists($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
-
-    // احصل على امتداد الملف
-    // $extension = pathinfo($_FILES[$name]['name'], PATHINFO_EXTENSION);
-
-    // أنشئ اسم فريد للملف
-    $fileName = uniqid() . $_FILES[$name]['name'];
-
-    // المسار الفعلي للحفظ
-    $targetPath = $uploadDir . $fileName;
-
-    // نقل الملف
-    if (move_uploaded_file($_FILES[$name]['tmp_name'], $targetPath)) {
-        if (!empty($oldFile)) {
-            $oldFileRelativePath = trim($oldFile, '/\\');
-            $oldFileFullPath = public_path('assets/' . $oldFileRelativePath);
-            if (file_exists($oldFileFullPath)) {
-                unlink($oldFileFullPath);
-            }
+    try {
+        if (!isset($_FILES[$name]) || $_FILES[$name]['error'] !== UPLOAD_ERR_OK) {
+            return null; // لا يوجد ملف أو خطأ في الرفع
         }
-        // المسار النسبي داخل public لاستخدامه في العرض أو قاعدة البيانات
-        return $folder . '/' . $fileName;
-    }
 
-    return null; // فشل النقل
+        $file = $_FILES[$name];
+        $allowedTypes = ['pdf', 'jpg', 'jpeg', 'png'];
+        $fileInfo = pathinfo($file['name']);
+        $fileExtension = strtolower($fileInfo['extension']);
+
+        if (!in_array($fileExtension, $allowedTypes)) {
+            flushMessage()->set('error', __('invalid_file_type') ?: 'نوع الملف غير مدعوم');
+            return false;
+        }
+
+        // التحقق من حجم الملف (5MB max)
+        $maxSize = 5 * 1024 * 1024; // 5MB
+        if ($file['size'] > $maxSize) {
+            flushMessage()->set('error', __('file_too_large') ?: 'الملف كبير جداً');
+            return false;
+        }
+
+
+        // المسار الكامل داخل السيرفر
+        //    $uploadDir = __DIR__ . '/../../public/assets/images/' . $folder . '/';
+        $uploadDir = public_path('assets/' . $path . '/');
+
+        //    dd([$uploadDir,public_path('')]);
+        // أنشئ المجلد إذا لم يكن موجودًا
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
+        $fileName = uniqid($name) . '.' . $fileExtension;
+
+        // احصل على امتداد الملف
+        // $extension = pathinfo($_FILES[$name]['name'], PATHINFO_EXTENSION);
+
+        // أنشئ اسم فريد للملف
+        // $fileName = uniqid() . $_FILES[$name]['name'];
+
+        // المسار الفعلي للحفظ
+        $targetPath = $uploadDir . $fileName;
+
+        // نقل الملف
+        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+            if (!empty($oldFile)) {
+                $oldFileRelativePath = trim($oldFile, '/\\');
+                $oldFileFullPath = public_path('assets/' . $oldFileRelativePath);
+                if (file_exists($oldFileFullPath)) {
+                    unlink($oldFileFullPath);
+                }
+            }
+            // المسار النسبي داخل public لاستخدامه في العرض أو قاعدة البيانات
+            return $path . '/' . $fileName;
+        }
+
+        return false; // فشل النقل
+    } catch (\Exception $e) {
+        flushMessage()->set('error', __('file_upload_failed') . ': ' . $e->getMessage());
+        return false;
+    }
 }
 
 function uploadImage($name, $folder = 'projects', $oldImagePath = '')
@@ -205,6 +237,13 @@ if (!function_exists('locale')) {
     }
 }
 
+if (!function_exists('unLocale')) {
+    function unLocale()
+    {
+        return locale() === 'ar' ? 'en' : 'ar';
+    }
+}
+
 if (!function_exists('__')) {
 
     function __(string $key, array $replace = [], $locale = '')
@@ -236,7 +275,7 @@ if (!function_exists('__')) {
 }
 
 if (!function_exists('renderLangTabs')) {
-    function renderLangTabs(string $prefix, callable $callback,$data=null)
+    function renderLangTabs(string $prefix, callable $callback, $data = null)
     {
         $langs = ['en', 'ar'];
         if (locale() == 'ar') {
@@ -267,7 +306,7 @@ if (!function_exists('renderLangTabs')) {
                         <div class="row">
                             <?php
                             // هنا نستدعي الكولباك ونمرر له اللغة
-                            $callback($lang,$data);
+                            $callback($lang, $data);
                             ?>
                         </div>
                     </div>

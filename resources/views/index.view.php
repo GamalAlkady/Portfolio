@@ -124,6 +124,22 @@ use App\Models\Skills;
 
     </div>
 </section>
+
+<!-- featured certificates section starts -->
+ <?php includeView('components/certificates-section.view',compact('featuredCertificates'))?>
+<section class="featured-certificates">
+    <h2><?=__('certificates')?></h2>
+    <div class="certificates-grid">
+        <?php foreach ($featuredCertificates as $certificate): ?>
+            <div class="certificate-item">
+                <img src="<?= assets($certificate['certificate_file']) ?>" alt="<?= $certificate['title'] ?>">
+                <h3><?= $certificate['title'] ?></h3>
+                <p><?= $certificate['description'] ?></p>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</section>
+<!-- featured certificates section ends -->
 <!-- education section ends -->
 
 <?php if(count($skills)>0):?>
@@ -200,9 +216,7 @@ use App\Models\Skills;
 <!-- footer section ends -->
 
 
-<!-- scroll top btn -->
-<a href="#home" aria-label="ScrollTop" id="scroll-top"><i class="fas fa-angle-up"></i></a>
-<!-- scroll back to top -->
+
 
 <!-- typed.js cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.5/typed.min.js"
@@ -223,3 +237,56 @@ use App\Models\Skills;
     });
     // <!-- typed js effect ends -->
 </script>
+
+<style>
+/* Featured Certificates Section */
+.featured-certificates {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.featured-certificates h2 {
+    margin-bottom: 30px;
+    font-size: 2.5em;
+    color: #333;
+}
+
+.certificates-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.certificate-item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    transition: transform 0.3s ease;
+}
+
+.certificate-item:hover {
+    transform: translateY(-10px);
+}
+
+.certificate-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.certificate-item h3 {
+    margin: 15px 0;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.certificate-item p {
+    padding: 0 15px 20px;
+    color: #666;
+    font-size: 1em;
+}
+</style>

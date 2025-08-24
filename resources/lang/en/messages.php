@@ -214,6 +214,7 @@ return [
     'images' => 'Images',
     'choose_images' => 'Choose Images',
     'choose_files' => 'Choose Files',
+    'choose_logo' => 'Choose Logo',
 
     // Additional common translations
     'details' => 'Details',
@@ -449,5 +450,66 @@ return [
 
     // Footer translation
     'thanks_message'=>'Thank you for visiting my personal portfolio website. Connect with me over socials.',
-    'designed_by'=>'Designed By'
+    'designed_by'=>'Designed By',
+
+    // Certificates translations
+    'certificate' => 'Certificate',
+    'certificates' => 'Certificates',
+    'certificates_by_type' => 'Certificates by Type',
+    'view_all' => 'View All',
+    'recent_certificates' => 'Recent Certificates',
+    'featured_certificates' => 'Featured Certificates',
+    'total_certificates' => 'Total Certificates',
+    'certificates_management' => 'Certificates Management',
+    'all_types' => 'All Types',
+    'certificates_list' => 'Certificates List',
+    'search_certificates' => 'Search Certificates',
+    'certificate_details' => 'Certificate Details',
+    'certificate_information' => 'Certificate Information',
+    'certificate_types' => 'Certificate Types',
+    'edit_certificate' => 'Edit Certificate',
+    'add_certificate' => 'Add Certificate',
+    'add_new_certificate' => 'Add New Certificate',
+    'certificate_title_will_appear_here'=>'Certificate Title Will Appear Here',
+    'issuer_name' => 'Issuer Name',
+    'issued_by' => 'Issued By',
+    'issue_date' => 'Issue Date',
+    'expiration_date' => 'Expiration Date',
+    'certificate_image' => 'Certificate Image',
+
+    'skills_related' => 'Related Skills',
+    'enter_skills_related' => 'Enter related skills',
+    'skills_help' => 'Enter skills related to the certificate, separated by commas',
+    
+    'verify_certificate' => 'Verify Certificate',
+    'certificate_description' => 'Certificate Description',
+    'certificate_type' => 'Certificate Type',
+    
+    'verification_url' => 'Verification URL',
+    'enter_verification_url' => 'Enter verification URL',
+    'verification_url_help' => 'Enter the URL for verifying the certificate',
+    'issued_date' => 'Issued Date',
+    'expiry_date' => 'Expiry Date',
+    'leave_empty_if_no_expiry' => 'Leave empty if no expiry',
+    'certificate_file' => 'Certificate File',
+    'certificate_file_help' => 'Upload the certificate file in PDF or image format',
+    'current_file' => 'Current File',
+    'display_order' => 'Display Order',
+    'display_order_help' => '0 = Automatic order, higher numbers appear first',
+    'featured_certificate' => 'Featured Certificate',
+    'featured_help' => 'Featured certificates appear at the top',
+    'file_types_allowed' => 'Allowed file types: :files',
+    'max_size' => 'Max size: :size',
+
+    'cancel_featured' => 'Cancel Featured',
+    'set_featured' => 'Set Featured',
+    'certificate_deleted_successfully'=>'Certificate deleted successfully',
+    'certificate_deletion_failed'=>'Certificate deletion failed',
+    'certificates_achievements' => 'Certificates and Achievements',
+    'certificates_page_description' => 'This page displays all certificates and achievements earned by the user.',
+    'all_certificates' => 'All Certificates',
+    'back_to_home' => 'Back to Home',
+    'verify'=>'Verify',
+    'view_certificate'=>'View Certificate'
+
 ];

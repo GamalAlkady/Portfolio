@@ -65,7 +65,7 @@ echo $form->select(
     [], // لا حاجة لتحديد option_attrs إذا كانت بسيطة (ستفترض 'id' و 'name' بنفس القيمة)
     'اختر الفئة' // تسمية الحقل
 )->selected('Mobile App') // اختيار قيمة افتراضية (يجب أن تتطابق مع قيمة في المصفوفة الأصلية)
-->selectAttrs(['data-live-search' => 'true']) // سمات إضافية
+->attrs(['data-live-search' => 'true']) // سمات إضافية
 ->render();
 
 // مثال آخر مع مصفوفة ترابطية (لا يزال يعمل كما كان)
@@ -88,7 +88,7 @@ $countries = [
 ];
 echo $form->select('country', $countries, ['id', 'name'], 'اختر البلد')
           ->selected('eg')
-          ->selectAttrs(['data-live-search' => 'true'])
+          ->attrs(['data-live-search' => 'true'])
           ->formGroupClass('col-md-4')
           ->render();
 

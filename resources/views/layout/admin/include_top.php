@@ -40,4 +40,5 @@
 <script src="<?= assets('plugins/summernote/summernote-bs4.min.js') ?>"></script>
 <script src="<?= assets('plugins/summernote/lang/summernote-ar-AR.min.js') ?>"></script>
 
+<script src="<?=assets("js/translation-manager.js")?>"></script>
 <script src="<?=assets("js/utils.js")?>"></script>

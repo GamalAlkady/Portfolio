@@ -431,7 +431,7 @@ class Router
         }
         throw new RouterException('Route name did not defined', 404);
     }
-    public function getRoute(string $name, array $params = null)
+    public function getRoute(string $name, array $params = [])
     {
 //        I edit this function
         // Iterate over all routes which defined with the Requested method.

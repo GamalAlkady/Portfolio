@@ -29,7 +29,7 @@
                     <h1 class="m-0"><?= __("site_settings") ?></h1>
                 </div>
                 <div class="col-sm-6">
-            
+
                 </div>
             </div>
         </div>
@@ -106,12 +106,43 @@
                                     <?php
                                     renderLangTabs('general', function ($lang) {
                                         $form = new FormHelper();
-                                        echo $form->input('site_name_' . $lang, '  <i class="fas fa-globe me-1"></i>' . __("site_name", [], $lang) . ' (' . __($lang, [], $lang) . ')', old('site_name_' . $lang, setting('site_name_' . $lang)))
-                                            ->labelClass('col-sm-3 col-form-label')->controlsClass('col-sm-6')
+                                        echo $form->input('site_name_' . $lang, '  <i class="fas fa-globe mx-1"></i>' . __("site_name", [], $lang) . ' (' . __($lang, [], $lang) . ')', old('site_name_' . $lang, setting('site_name_' . $lang)))
+                                            ->labelClass('col-sm-12 col-form-label')->controlsClass('col-sm-12')
+                                            ->formGroupClass('col-md-6')
                                             ->attrs(['placeholder' => __('enter_site_name_' . $lang)])
                                             ->render();
+                                    ?>
 
-                                        echo $form->textarea('site_description_' . $lang, '  <i class="fas fa-align-left me-1"></i>' . __("site_description", [], $lang) . ' (' . __($lang, [], $lang) . ')', old('site_description_' . $lang, setting('site_description_' . $lang)))
+
+                                        <div class="col-md-5">
+                                            <div class="mb-3">
+                                                <label for="site_logo_<?= $lang ?>" class="form-label">
+                                                    <i class="fas fa-image me-1"></i><?= __("site_logo", [], $lang) ?>
+                                                </label>
+                                                <div class="file-upload-wrapper form-control border-0 w-100" >
+                                                    <input type="file" id="site_logo_<?= $lang ?>" name="site_logo_<?= $lang ?>" class="file-input">
+                                                    <label for="site_logo_<?= $lang ?>" class="btn btn-primary rounded-pill file-upload-btn w-100">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                        <span class="display-file-name" data-key="upload_button"><?=__('choose_logo', [], $lang)?></span>
+                                                    </label>
+                                                </div>
+                                                <!-- <div class="file-name-display mx-4" data-key="no_file_chosen">No file chosen.</div> -->
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-1">
+                                            <?php if (!empty(setting('site_logo_' . $lang))): ?>
+                                                <div class="mt-2">
+                                                    <img src="<?= assets(setting('site_logo_' . $lang)) ?>" alt="<?= __("current_logo") ?>"
+                                                        class="img-thumbnail" style="max-height: 60px;">
+                                                    <small class="text-muted d-block"><?= __("current_logo") ?></small>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+
+                                    <?php
+
+                                        echo $form->textarea('site_description_' . $lang, '  <i class="fas fa-align-left mx-1"></i>' . __("site_description", [], $lang) . ' (' . __($lang, [], $lang) . ')', old('site_description_' . $lang, setting('site_description_' . $lang)))
                                             ->placeHolder(__('enter_site_description_' . $lang))
                                             ->render();
 
@@ -120,7 +151,6 @@
                                             ->render();
                                     })
                                     ?>
-
 
                                     <!-- Contact Information Tab -->
                                     <div class="tab-pane fade " id="contact" role="tabpanel">
@@ -438,10 +468,14 @@
         summerNote('site_description_ar', 'rtl');
         summerNote('site_description_en', 'ltr');
 
+        $('input[type="file"]').on('change', function() {
+            var fileName = $(this).val().split('\\').pop();
+            $('.display-file-name').html(fileName);
+        });
     });
 
     $(document).ready(function() {
-   
+
         ChangeTabs("<?= route('updateSetting') ?>");
 
         // تفعيل التبويبات المتداخلة للغات

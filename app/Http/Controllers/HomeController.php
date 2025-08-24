@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Skills;
+use App\Models\Certificates;
 use App\Templates\EmailTemplates;
 use App\Helpers\VisitorTracker;
 use Devamirul\PhpMicro\core\Foundation\Application\Facade\Facades\DB;
@@ -23,7 +24,13 @@ class HomeController extends BaseController
         $data = new Skills();
         $skills = $data->getAll();
 
-        return view('index', compact('skills'));
+        // الحصول على الشهادات المميزة
+        $certificatesModel = new Certificates();
+        $featuredCertificates = $certificatesModel->getFeaturedCertificates();
+
+        // dd($featuredCertificates);
+        $routeName = 'home';
+        return view('index', compact('skills', 'featuredCertificates', 'routeName'));
     }
 
     public function showProjects()
@@ -49,6 +56,19 @@ class HomeController extends BaseController
         ")->fetchAll();
         $routeName = 'home';
         return view('projects', compact('projects', 'routeName'));
+    }
+
+    public function showCertificates()
+    {
+        // تتبع زيارة صفحة الشهادات
+        VisitorTracker::run();
+        
+        $certificatesModel = new Certificates();
+        $certificates = $certificatesModel->getAll();
+        $featuredCertificates = $certificatesModel->getFeaturedCertificates();
+        $certificateTypes = $certificatesModel->getCertificateTypes();
+        
+        return view('certificates', compact('certificates', 'featuredCertificates', 'certificateTypes'));
     }
 
     public function maintenance()
