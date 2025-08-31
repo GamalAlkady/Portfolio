@@ -337,3 +337,14 @@ a.file:hover{
 .btn-group-certificate a,.btn-group-certificate form{
     margin-inline-end: 3px;
 }
+.lg-outer,
+.lg,
+.lg-current,
+.lg-inner,
+.lg-img-wrap,
+.lg-item,
+.lg-img-wrap img,
+.lg-img {
+    direction: ltr !important;
+    /* text-align: center !important; */
+}

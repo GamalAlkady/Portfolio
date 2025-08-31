@@ -13,13 +13,13 @@
     <section class="filter-section" style="min-height: 0;">
         <div class="filter-container">
             <div class="filter-buttons">
-                <a href="#" class="filter-btn active" data-filter="all">
+                <a href="Javascript:void(0);" class="filter-btn active" data-filter="all">
                     <i class="fas fa-th"></i>
                     <?= __('all_certificates') ?: 'جميع الشهادات' ?>
                 </a>
                 <?php foreach ($certificateTypes as $certificateType): 
                     ?>
-                    <a href="#" class="filter-btn" data-filter="<?= $certificateType['id'] ?>">
+                    <a href="Javascript:void(0);" class="filter-btn" data-filter="<?= $certificateType['id'] ?>">
                         <i class="fas fa-<?= 
                             $certificateType['id'] === 'certificate' ? 'certificate' : 
                             ($certificateType['id'] === 'award' ? 'trophy' : 
@@ -29,7 +29,7 @@
                     </a>
                 <?php endforeach; ?>
             </div>
-            <div class="certificates-count">
+            <div class="cards-count">
                 <i class="fas fa-certificate"></i>
                 <span id="count-display"><?= count($certificates) ?></span> 
                 <?= __('certificate') ?: 'شهادة' ?>
@@ -37,54 +37,55 @@
         </div>
     </section>
 
-    <!-- Certificates Grid -->
-    <section class="certificates-grid">
+  
+ <!-- Certificates Grid -->
+    <section class="cards-grid">
         <?php if (!empty($certificates)): ?>
-            <div class="certificates-container" id="certificates-container">
+            <div class="cards-container" id="certificates-container">
                 <?php foreach ($certificates as $certificate): ?>
-                    <div class="certificate-card-enhanced" data-type="<?= $certificate['certificate_type'] ?>">
+                    <div class="card-enhanced" data-type="<?= $certificate['certificate_type'] ?>">
                         <?php if ($certificate['is_featured']): ?>
                             <div class="featured-badge-enhanced">
                                 <i class="fas fa-star"></i>
                             </div>
                         <?php endif; ?>
                         
-                        <div class="certificate-image">
-                            <i class="certificate-icon fas fa-<?= 
+                        <div class="card-image">
+                            <i class="card-icon fas fa-<?= 
                                 $certificate['certificate_type'] === 'certificate' ? 'certificate' : 
                                 ($certificate['certificate_type'] === 'award' ? 'trophy' : 
                                 ($certificate['certificate_type'] === 'course' ? 'graduation-cap' : 'star')) 
                             ?>"></i>
                         </div>
                         
-                        <div class="certificate-body-enhanced">
-                            <div class="certificate-header-enhanced">
-                                <span class="certificate-type-enhanced">
+                        <div class="card-body-enhanced">
+                            <div class="card-header-enhanced">
+                                <span class="card-type-enhanced">
                                     <?= $certificateTypes[$certificate['certificate_type']] ?? $certificate['certificate_type'] ?>
                                 </span>
-                                <div class="certificate-date-enhanced">
+                                <div class="card-date-enhanced">
                                     <i class="fas fa-calendar-alt"></i>
                                     <?= date('Y', strtotime($certificate['issued_date'])) ?>
                                 </div>
                             </div>
                             
-                            <h3 class="certificate-title-enhanced">
+                            <h3 class="card-title-enhanced">
                                 <?= htmlspecialchars($certificate['title']) ?>
                             </h3>
                             
-                            <div class="certificate-issuer-enhanced">
+                            <div class="card-issuer-enhanced">
                                 <i class="fas fa-building"></i>
                                 <?= htmlspecialchars($certificate['issuer']) ?>
                             </div>
                             
                             <?php if (!empty($certificate['description'])): ?>
-                                <p class="certificate-description-enhanced">
+                                <p class="card-description-enhanced">
                                     <?= htmlspecialchars($certificate['description']) ?>
                                 </p>
                             <?php endif; ?>
                             
                             <?php if (!empty($certificate['skills_related'])): ?>
-                                <div class="certificate-skills-enhanced">
+                                <div class="card-skills-enhanced">
                                     <div class="skills-list">
                                         <?php
                                         $skills = array_map('trim', explode(',', $certificate['skills_related']));
@@ -96,7 +97,7 @@
                                 </div>
                             <?php endif; ?>
                             
-                            <div class="certificate-actions-enhanced">
+                            <div class="card-actions-enhanced">
                                 <?php if (!empty($certificate['certificate_file'])): ?>
                                     <a href="<?= assets($certificate['certificate_file']) ?>" 
                                        target="_blank" class="action-btn action-btn-primary">
@@ -124,27 +125,23 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-        <?php else: ?>
-            <div class="empty-state">
+            <div class="empty-state" <?=empty($certificates) ? 'style="display: block;"' : 'style="display: none;"' ?>>
                 <i class="fas fa-certificate"></i>
-                <h3><?= __('no_certificates_available') ?: 'لا توجد شهادات متاحة' ?></h3>
-                <p><?= __('certificates_will_be_added_soon') ?: 'سيتم إضافة الشهادات قريباً' ?></p>
-                <a href="<?= route('home') ?>" class="action-btn action-btn-primary">
+                <h3><?= __('no_certificates_found') ?: 'لا توجد شهادات متاحة' ?></h3>
+                <!-- <a href="<?= route('home') ?>" class="action-btn action-btn-primary">
                     <i class="fas fa-home"></i>
                     <?= __('back_to_home') ?: 'العودة للرئيسية' ?>
-                </a>
+                </a> -->
             </div>
         <?php endif; ?>
     </section>
-
-
 
     
     <script>
     // Filter functionality
     document.addEventListener('DOMContentLoaded', function() {
         const filterButtons = document.querySelectorAll('.filter-btn');
-        const certificates = document.querySelectorAll('.certificate-card-enhanced');
+        const certificates = document.querySelectorAll('.card-enhanced');
         const countDisplay = document.getElementById('count-display');
         
         filterButtons.forEach(button => {
@@ -171,6 +168,7 @@
                     }
                 });
                 
+                        $('.empty-state').css('display',visibleCount === 0?'block':'none');
                 // Update count
                 countDisplay.textContent = visibleCount;
             });

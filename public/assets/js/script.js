@@ -30,13 +30,21 @@ $(document).ready(function () {
             }
         });
     });
-
     // smooth scrolling
     $('a[href="#"]').on('click', function (e) {
-        e.preventDefault();
-        $('html, body').animate({
-            scrollTop: $($(this).attr('href')).offset().top,
-        }, 500, 'linear')
+        console.log('target');
+
+        $('nav a').removeClass('active');
+        $(this).addClass('active');
+
+        var target = $(this).attr('href');
+        
+        if (target !== "#" && $(target).length) {
+            e.preventDefault();
+            $('html, body').animate({
+                scrollTop: $(target).offset().top,
+            }, 500, 'linear');
+        }
     });
 
     // <!-- emailjs to mail contact form data -->
@@ -69,49 +77,6 @@ document.addEventListener('visibilitychange',
             $("#favicon").attr("href", "assets/images/favhand.png");
         }
     });
-
-
-function showProjects(projects) {
-    let projectsContainer = document.querySelector("#work .box-container");
-    let projectHTML = "";
-    projects.slice(0, 10).filter(project => project.category != "android").forEach(project => {
-        projectHTML += `
-        <div class="box tilt">
-      <img draggable="false" src="/assets/images/projects/${project.image}.png" alt="project" />
-      <div class="content">
-        <div class="tag">
-        <h3>${project.name}</h3>
-        </div>
-        <div class="desc">
-          <p>${project.desc}</p>
-          <div class="btns">
-            <a href="${project.links.view}" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-            <a href="${project.links.code}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>`
-    });
-    projectsContainer.innerHTML = projectHTML;
-
-    // <!-- tilt js effect starts -->
-    VanillaTilt.init(document.querySelectorAll(".tilt"), {
-        max: 15,
-    });
-    // <!-- tilt js effect ends -->
-
-    /* ===== SCROLL REVEAL ANIMATION ===== */
-    const srtop = ScrollReveal({
-        origin: 'top',
-        distance: '80px',
-        duration: 1000,
-        reset: true
-    });
-
-    /* SCROLL PROJECTS */
-    srtop.reveal('.work .box', { interval: 200 });
-
-}
 
 
 // <!-- tilt js effect starts -->
@@ -177,11 +142,11 @@ srtop.reveal('.home .content p', { delay: 200 });
 srtop.reveal('.home .content .btn', { delay: 200 });
 
 srtop.reveal('.home .image', { delay: 400 });
-srtop.reveal('.home .linkedin', { interval: 600 });
-srtop.reveal('.home .github', { interval: 800 });
-srtop.reveal('.home .twitter', { interval: 1000 });
-srtop.reveal('.home .telegram', { interval: 600 });
-srtop.reveal('.home .instagram', { interval: 600 });
+// srtop.reveal('.home .whatsapp', { delay: 600 });
+srtop.reveal(
+    '.home .whatsapp, .home .linkedin, .home .github, .home .instagram, .home .facebook, .home .twitter, .home .youtube, .home .email, .home .dev',
+    { interval: 300 }
+);
 srtop.reveal('.home .dev', { interval: 600 });
 
 /* SCROLL ABOUT */

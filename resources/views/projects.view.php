@@ -6,21 +6,46 @@
 <link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/css/lg-thumbnail.css" />
 <link rel="stylesheet" href="<?= assets('css/projects.css') ?>">
 
+    <!-- Page Header -->
+    <section class="page-header" style="background: linear-gradient(135deg, #26326a 0%, #764ba2 100%);">
+        <h1><?= __('projects') ?: 'المشاريع' ?></h1>
+    </section>
+
+        <!-- Filter Section -->
+    <section class="filter-section" style="min-height: 0;">
+        <div class="filter-container">
+            <div class="filter-buttons">
+                <a href="Javascript:void(0);" class="filter-btn active" data-filter="all">
+                    <i class="fas fa-th"></i>
+                    <?= __('all') ?: 'جميع الفئات' ?>
+                </a>
+                <?php foreach ($categories as $category): ?>
+                    <a href="Javascript:void(0);" class="filter-btn" data-filter="<?= $category['id'] ?>">
+                    
+                        <?= $category['name'] ?>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+            <div class="cards-count">
+                <i class="fas fa-certificate"></i>
+                <span id="count-display"><?= count($projects) ?></span> 
+                <?= __('categories') ?>
+            </div>
+        </div>
+    </section>
 
 <!-- projects section starts -->
-<section class="projects" id="projects" style="margin-top: 5rem">
-    <h1 class="heading"><i class="fas fa-project-diagram"></i><span><?=__('projects')?></span></h1>
 
-    <div class="projects-container">
+    <section class="cards-grid">
         <?php if (!empty($projects)): ?>
-            <div class="projects-grid">
+            <div class="cards-container" id="certificates-container">
                 <?php foreach ($projects as $index => $project): ?>
                     <?php
                     $images = !empty($project['all_images']) ? explode(',', $project['all_images']) : [];
                     $mainFlags = !empty($project['image_main_flags']) ? explode(',', $project['image_main_flags']) : [];
                     $hasImages = !empty($images);
                     ?>
-                    <div class="project-card">
+                    <div class="card-enhanced"data-type="<?= $project['category'] ?>">
                         <div class="image-gallery">
                             <?php if ($hasImages): ?>
                                 <div class="main-image-container">
@@ -90,7 +115,7 @@
                         <div class="project-content">
                             <div class="project-header">
                                 <h3 class="project-title"><?php echo htmlspecialchars($project['title']); ?></h3>
-                                <span class="project-category"><?php echo htmlspecialchars($project['category']); ?></span>
+                                <span class="project-category"><?php echo htmlspecialchars(__($project['category'])); ?></span>
                             </div>
 
                             <p class="project-description">
@@ -136,15 +161,13 @@
                     </div>
                 <?php endforeach; ?>
             </div>
-        <?php else: ?>
-            <div class="no-projects">
+            <div class="no-projects empty-state" <?=(empty($projects) ? 'style="display: block;"' : 'style="display: none;"') ?>>
                 <i class="fas fa-folder-open"></i>
                 <h3><?=__('no_projects_found')?></h3>
                 <p><?=__('projects_will_appear_here_once_they_are_added')?></p>
             </div>
         <?php endif; ?>
     </div>
-</section>
 <!-- projects section ends -->
 
 <!-- scroll top btn -->
@@ -152,9 +175,9 @@
 <!-- scroll back to top -->
 
 <!-- LightGallery JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/lightgallery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/plugins/zoom/lg-zoom.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/lightgallery.min.js" integrity="sha512-n02TbYimj64qb98ed5WwkNiSw/i9Xlvv4Ehvhg0jLp3qMAMWCYUHbOMbppZ0vimtyiyw9NqNqxUZC4hq86f4aQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/plugins/zoom/lg-zoom.min.js" integrity="sha512-fwxc/NvaA3du4ZRE6J/Ilrqi2xwOB1QfHBR4neA+ha13/pkweiRfPgBiV4VbfAf/Vi3rXAXdQ3zexUJ1V2bWrg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/plugins/thumbnail/lg-thumbnail.min.js" integrity="sha512-jZxB8WysJ6S6e4Hz5IZpAzR1WiflBl0hBxriHGlLkUN32T18+rD1aLNifa1KTll/zx8lIfWVP1NqEjHi/Khy5w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
     // Gallery functionality
@@ -163,6 +186,44 @@
 
     // Initialize galleries when page loads
     document.addEventListener('DOMContentLoaded', function() {
+         const filterButtons = document.querySelectorAll('.filter-btn');
+        const certificates = document.querySelectorAll('.card-enhanced');
+        const countDisplay = document.getElementById('count-display');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                const filterType = this.getAttribute('data-filter');
+                let visibleCount = 0;
+                
+                certificates.forEach(certificate => {
+                    const certificateType = certificate.getAttribute('data-type');
+                    
+                    if (filterType === 'all' || certificateType === filterType) {
+                        certificate.style.display = 'block';
+                        certificate.style.animation = 'fadeInUp 0.6s ease-out';
+                        visibleCount++;
+                    } else {
+                        certificate.style.display = 'none';
+                    }
+                });
+                
+                        $('.empty-state').css('display',visibleCount === 0?'block':'none');
+                // Update count
+                countDisplay.textContent = visibleCount;
+            });
+        });
+        
+        // Add stagger animation to certificates
+        certificates.forEach((certificate, index) => {
+            certificate.style.animationDelay = `${index * 0.1}s`;
+        });
         <?php if (!empty($projects)): ?>
             <?php foreach ($projects as $project): ?>
                 <?php

@@ -294,7 +294,7 @@ function summerNote(id, dir = 'ltr') {
             ['fontsize', ['fontsize']],
             ['color', ['forecolor', 'backcolor']],
             ['para', ['ul', 'ol', 'paragraph']],
-            ['view', ['fullscreen', 'codeview', 'help']],
+            ['view', ['fullscreen', 'codeview', 'help','undo','redo']],
             ['height', ['height']]
         ],
         styleTags: [

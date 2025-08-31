@@ -1,17 +1,18 @@
 <header>
     <a href="<?= isset($routeName) ? route($routeName) : '' ?>#" class="logo">
-        <img src="<?= assets('images/logo.svg') ?>" alt="V2 Logo" style="height: 35px; width: auto; margin-right: 8px; vertical-align: middle;"><?=setting('name_'.locale())?>
+        <img src="<?= assets('images/logo.svg') ?>" alt="V2 Logo" style="height: 35px; width: auto; margin-inline-end: 8px; vertical-align: middle;"><?=setting('name_'.locale())?>
     </a>
 
     <div id="menu" class="fas fa-bars"></div>
     <nav class="navbar">
         <ul>
-            <li><a class="active" href="<?= isset($routeName) ? route($routeName) : '' ?>#home"><?= __('home') ?></a></li>
-            <li><a href="<?= isset($routeName) ? route($routeName) : '' ?>#about"><?= __('about_me') ?></a></li>
-            <li><a href="<?= isset($routeName) ? route($routeName) : '' ?>#education"><?= __('education') ?></a></li>
-            <li><a href="<?= isset($routeName) ? route($routeName) : '' ?>#experience"><?= __('experience') ?></a></li>
-            <li><a href="<?= isset($routeName) ? route($routeName) : '' ?>#skill"><?= __('skills') ?></a></li>
-            <li><a href="<?= isset($routeName) ? route($routeName) : '' ?>#contact"><?= __('contact') ?></a></li>
+            <li><a class="active" href="#home"><?= __('home') ?></a></li>
+            <li><a href="#about"><?= __('about_me') ?></a></li>
+            <?php if(!empty(setting('education_'.locale()))): ?><li><a href="#education"><?= __('education') ?></a></li><?php endif; ?>
+            <?php if(!empty(setting('experience_'.locale()))): ?><li><a href="#experience"><?= __('experience') ?></a></li><?php endif; ?>
+            <?php if (!empty($featuredCertificates)): ?><li><a href="#certificate"><?= __('certificates') ?></a></li><?php endif; ?>
+            <?php if(count($skills)>0):?> <li><a href="#skill"><?= __('skills') ?></a></li><?php endif; ?>
+            <li><a href="#contact"><?= __('contact') ?></a></li>
             <li>
                 <!-- Language Switcher -->
                 <div class="language-switcher">

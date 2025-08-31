@@ -5,6 +5,7 @@ return [
     'home' => 'Home',
     'contact' => 'Contact',
     'about' => 'About',
+    'quick_links' => 'Quick Links',
 
     // Dashboard translations
     'dashboard' => 'Dashboard',
@@ -476,6 +477,7 @@ return [
     'issue_date' => 'Issue Date',
     'expiration_date' => 'Expiration Date',
     'certificate_image' => 'Certificate Image',
+    'no_certificates_found' => 'No certificates found',
 
     'skills_related' => 'Related Skills',
     'enter_skills_related' => 'Enter related skills',
@@ -510,6 +512,9 @@ return [
     'all_certificates' => 'All Certificates',
     'back_to_home' => 'Back to Home',
     'verify'=>'Verify',
-    'view_certificate'=>'View Certificate'
+    'view_certificate'=>'View Certificate',
+    'visitors_statistics' => 'Visitors Statistics',
+    'unique_today' => 'Unique Today',
+    'total_visits' => 'Total Visits',
 
 ];

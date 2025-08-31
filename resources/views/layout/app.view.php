@@ -9,6 +9,19 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+        <!-- Google Fonts: Cairo (Arabic) & Roboto (English) -->
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@330;400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+            html[dir="rtl"],
+            .body {
+                font-family: 'Cairo', Arial, sans-serif !important;
+            }
+            html[dir="ltr"],
+            .body {
+                font-family: 'Roboto', Arial, sans-serif !important;
+            }
+        </style>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 

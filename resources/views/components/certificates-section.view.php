@@ -1,11 +1,11 @@
 <!-- Certificates Section -->
-<section class="education bg1" id="education">
-    <h1 class="heading"><?= setting('certificates_section_title_' . locale(), __('certificates_achievements') ?: 'الشهادات والإنجازات') ?></h1>
+<section class="education " id="certificate">
+    <h1 class="heading"><i class="fas fa-certificate"></i> <span><?= __('certificates_achievements') ?></span></h1>
 
     <?php if (!empty($featuredCertificates)): ?>
-        <div class="box-container">
+        <div class="box-container" style="flex-direction: row;">
             <?php foreach ($featuredCertificates as $certificate): ?>
-                <div class="box" data-aos="zoom-in" style="width: fit-content;">
+                <div class="box" data-aos="zoom-in" style="width: fit-content;margin-inline-end: 1% !important;">
                     <div class="certificate-card ">
                         <!-- Certificate Header -->
                         <div class="certificate-header">
@@ -72,7 +72,7 @@
                         <div class="certificate-footer">
                             <div class="certificate-actions">
                                 <?php if (!empty($certificate['certificate_file'])): ?>
-                                    <a href="<?= assets('files/' . $certificate['certificate_file']) ?>"
+                                    <a href="<?= assets( $certificate['certificate_file']) ?>"
                                         target="_blank" class="btn-view-certificate"
                                         title="<?= __('view_certificate') ?: 'عرض الشهادة' ?>">
                                         <i class="fas fa-eye"></i>
@@ -141,7 +141,7 @@
         overflow: hidden;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         transition: all 0.3s ease;
-        border: 1px solid var(--border);
+        /* border: 1px solid var(--gray); */
         position: relative;
     }
 
@@ -155,7 +155,7 @@
         justify-content: space-between;
         align-items: flex-start;
         padding: 1.5rem;
-        background: linear-gradient(135deg, var(--main-color), var(--main-color-dark, #e6a820));
+        background: linear-gradient(135deg, var(--light), var(--dark, #e6a820));
         color: white;
     }
 
@@ -235,6 +235,8 @@
         color: var(--light-color);
         font-size: 1.5rem;
         margin-bottom: 1rem;
+        text-align: start;
+
     }
 
     .issuer i {
@@ -246,6 +248,7 @@
         line-height: 1.6;
         margin-bottom: 1rem;
         font-size: 1rem;
+        text-align: start;
     }
 
     .skills-tags {
@@ -257,7 +260,7 @@
 
     .skill-tag {
         background: var(--main-color-light, #f8f9fa);
-        color: var(--main-color);
+        color: var(--text-dark);
         padding: 0.3rem 0.8rem;
         border-radius: 15px;
         /* font-size: 0.8rem; */
@@ -272,11 +275,11 @@
 
     .certificate-footer {
         padding: 1rem 1.5rem;
-        border-top: 1px solid var(--border);
+        border-top: 1px solid var(--gray);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: var(--light-bg, #f8f9fa);
+        background: var(--light, #f8f9fa);
     }
 
     .certificate-actions {
@@ -298,12 +301,12 @@
     }
 
     .btn-view-certificate {
-        background: var(--main-color);
+        background: var(--primary);
         color: var(--white);
     }
 
     .btn-view-certificate:hover {
-        background: var(--main-color-dark, #e6a820);
+        background: var(--dark, #e6a820);
         transform: translateY(-2px);
     }
 

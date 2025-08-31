@@ -6,6 +6,7 @@ use App\Models\Skills;
 use App\Models\Certificates;
 use App\Templates\EmailTemplates;
 use App\Helpers\VisitorTracker;
+use App\Models\Projects;
 use Devamirul\PhpMicro\core\Foundation\Application\Facade\Facades\DB;
 use Devamirul\PhpMicro\core\Foundation\Application\Request\Request;
 use Devamirul\PhpMicro\core\Foundation\Controller\BaseController;
@@ -37,25 +38,11 @@ class HomeController extends BaseController
     {
         // تتبع زيارة صفحة المشاريع
         VisitorTracker::run();
-        
-        $projects = DB::db()->query("
-            SELECT    p.id,
-                            JSON_UNQUOTE(JSON_EXTRACT(p.title, '$." . locale() . "')) AS title,
-                            JSON_UNQUOTE(JSON_EXTRACT(p.description, '$." . locale() . "')) AS description,
-                            p.technologies,
-                            p.category,
-                            p.host_url,
-                            p.github_url,
-                            p.created_at,
-                   GROUP_CONCAT(pi.path ORDER BY pi.is_main DESC, pi.id ASC) as all_images,
-                   GROUP_CONCAT(pi.is_main ORDER BY pi.is_main DESC, pi.id ASC) as image_main_flags
-            FROM projects p
-            LEFT JOIN project_images pi ON p.id = pi.project_id
-            GROUP BY p.id
-            ORDER BY p.created_at DESC
-        ")->fetchAll();
-        $routeName = 'home';
-        return view('projects', compact('projects', 'routeName'));
+        $projects=new Projects();
+        $data['projects']=$projects->getWithImages();
+        $data['categories'] = $projects->getCategories();
+        // dd(count($data['projects']));
+        return view('projects', $data);
     }
 
     public function showCertificates()
@@ -73,9 +60,9 @@ class HomeController extends BaseController
 
     public function maintenance()
     {
-        // if(!isMaintenanceMode()){
-        //     return redirect('/');
-        // }
+        if(!isMaintenanceMode()){
+            return redirect('/');
+        }
         return view('maintenance_mode');
     }
 

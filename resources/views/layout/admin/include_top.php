@@ -7,10 +7,11 @@
 <!-- Font Awesome Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
 <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.2/dist/sweetalert2.min.css" rel="stylesheet">
+
 <!-- Light Gallery -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/css/lightgallery.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/css/lg-zoom.min.css">
-<link type="text/css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/css/lg-thumbnail.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/css/lightgallery.min.css" integrity="sha512-QMCloGTsG2vNSnHcsxYTapI6pFQNnUP6yNizuLL5Wh3ha6AraI6HrJ3ABBaw6SIUHqlSTPQDs/SydiR98oTeaQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/css/lg-thumbnail.min.css" integrity="sha512-rKuOh3xlF/027KUPuMok0ESsZ2zWPRzkniD3n5zZKCAtbiVkYw66DR4KtVAGf8dLPLr5DdyQs05BlSmEyXctkQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/css/lg-zoom.min.css" integrity="sha512-S/hU6dGSK3D7SRpCvRF/IEufIr6Ikgp5vDiJarhdeFGEnw36hWZ6gVBjnwBbzjA+NEP7D8Gdm+5LL1HEsyiB1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- summernote -->
 <link rel="stylesheet" href="<?=assets("plugins/summernote/summernote-bs4.min.css")?>">
 

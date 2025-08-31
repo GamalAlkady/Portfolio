@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="<?= locale() ?>" dir="<?= locale() === 'ar' ? 'rtl' : 'ltr' ?>">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
+
     <!-- SEO Meta Tags -->
     <title><?= getTitle() ?> - <?= siteName() ?></title>
     <meta name="description" content="<?= siteDescription() ?>">
     <meta name="keywords" content="<?= siteKeywords() ?>">
     <meta name="author" content="<?= siteName() ?>">
-    
+
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="<?= getTitle() ?> - <?= siteName() ?>">
     <meta property="og:description" content="<?= siteDescription() ?>">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="<?= siteName() ?>">
-    
+
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?= getTitle() ?> - <?= siteName() ?>">
     <meta name="twitter:description" content="<?= siteDescription() ?>">
-    
+
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?= siteLogo() ?>" type="image/x-icon">
     <link rel="icon" href="<?= siteLogo() ?>" type="image/x-icon">
-    
+
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
-          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,16 +42,29 @@
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="<?=assets('plugins/icheck-bootstrap/icheck-bootstrap.min.css')?>">
+    <link rel="stylesheet" href="<?= assets('plugins/icheck-bootstrap/icheck-bootstrap.min.css') ?>">
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?=assets('css/adminlte.css')?>">
-     <!-- Additional Inline Styles for Layout Only -->
+    <link rel="stylesheet" href="<?= assets('css/adminlte.css') ?>">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@330;400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Additional Inline Styles for Layout Only -->
     <style>
         /* Language Switcher */
+
+        html[dir="rtl"],
+        .body {
+            font-family: 'Cairo', Arial, sans-serif !important;
+        }
+
+        html[dir="ltr"],
+        .body {
+            font-family: 'Roboto', Arial, sans-serif !important;
+        }
+
         .language-switcher {
             position: fixed;
             top: 20px;
@@ -71,9 +85,9 @@
             justify-content: center;
             width: 40px;
             height: 40px;
-                 background: #667eea;
+            background: #667eea;
             color: white;
-   
+
             text-decoration: none;
             border-radius: 50%;
             font-weight: 600;
@@ -85,7 +99,7 @@
 
         .language-switcher a:hover,
         .language-switcher a.active {
-                background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.9);
             color: #667eea;
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
@@ -116,41 +130,42 @@
         }
     </style>
 </head>
+
 <body class="hold-transition login-page">
     <!-- Language Switcher -->
     <div class="language-switcher">
-        <?php if(locale()=='en'):?>
-        <a href="<?= route('language.switch', ['locale' => 'ar']) ?>" 
-           class="<?= locale() === 'ar' ? 'active' : '' ?>"
-           title="<?= __('arabic') ?>"
-           aria-label="<?= __('switch_to_arabic') ?>">
-            ع
-        </a>
-        <?php else:?>
-        <a href="<?= route('language.switch', ['locale' => 'en']) ?>" 
-           class="<?= locale() === 'en' ? 'active' : '' ?>"
-           title="<?= __('english') ?>"
-           aria-label="<?= __('switch_to_english') ?>">
-            EN
-        </a>
+        <?php if (locale() == 'en'): ?>
+            <a href="<?= route('language.switch', ['locale' => 'ar']) ?>"
+                class="<?= locale() === 'ar' ? 'active' : '' ?>"
+                title="<?= __('arabic') ?>"
+                aria-label="<?= __('switch_to_arabic') ?>">
+                ع
+            </a>
+        <?php else: ?>
+            <a href="<?= route('language.switch', ['locale' => 'en']) ?>"
+                class="<?= locale() === 'en' ? 'active' : '' ?>"
+                title="<?= __('english') ?>"
+                aria-label="<?= __('switch_to_english') ?>">
+                EN
+            </a>
         <?php endif; ?>
     </div>
 
     <!-- Main Content -->
     <main class="fade-in">
-    {{content}}
-</main>
+        {{content}}
+    </main>
 
 
 
-<!-- jQuery -->
-<script src="<?=assets('plugins/jquery/jquery.min.js')?>"></script>
-<!-- Bootstrap 4 -->
-<script src="<?=assets('plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
-<!-- AdminLTE App -->
-<script src="<?=assets('js/adminlte.js')?>"></script>
+    <!-- jQuery -->
+    <script src="<?= assets('plugins/jquery/jquery.min.js') ?>"></script>
+    <!-- Bootstrap 4 -->
+    <script src="<?= assets('plugins/bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+    <!-- AdminLTE App -->
+    <script src="<?= assets('js/adminlte.js') ?>"></script>
 
-   <!-- JavaScript -->
+    <!-- JavaScript -->
     <script>
         // Add smooth scrolling and animations
         document.addEventListener('DOMContentLoaded', function() {
@@ -161,7 +176,7 @@
                     element.style.opacity = '0';
                     element.style.transform = 'translateY(30px)';
                     element.style.transition = 'all 0.6s ease';
-                    
+
                     setTimeout(() => {
                         element.style.opacity = '1';
                         element.style.transform = 'translateY(0)';
@@ -190,7 +205,7 @@
             const body = document.body;
             body.style.opacity = '0';
             body.style.transition = 'opacity 0.5s ease';
-            
+
             setTimeout(() => {
                 body.style.opacity = '1';
             }, 100);
@@ -240,18 +255,19 @@
 
     <!-- Schema.org Structured Data -->
     <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "<?= siteName() ?>",
-        "description": "<?= siteDescription() ?>",
-        "url": "<?= $_SERVER['HTTP_HOST'] ?? '' ?>",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "<?= $_SERVER['HTTP_HOST'] ?? '' ?>/search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "<?= siteName() ?>",
+            "description": "<?= siteDescription() ?>",
+            "url": "<?= $_SERVER['HTTP_HOST'] ?? '' ?>",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "<?= $_SERVER['HTTP_HOST'] ?? '' ?>/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
         }
-    }
     </script>
 </body>
+
 </html>

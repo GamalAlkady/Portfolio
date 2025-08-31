@@ -121,7 +121,7 @@
                                                         <div class="col-md-3 col-sm-4 col-6">
                                                             <div class="position-relative">
                                                                 <a href="<?= assets($img['path']) ?>"
-                                                                    class="gallery-item"
+                                                                    class="gallery-item  d-inline-block"
                                                                     data-sub-html="<h4><?= __("project_image") ?></h4>">
                                                                     <img src="<?= assets($img['path']) ?>"
                                                                         class="img-fluid rounded shadow-sm"
@@ -193,9 +193,9 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="addImageModalLabel">
-                                            <i class="fas fa-image me-2"></i><?= __("add_new_image") ?>
+                                            <i class="fas fa-image mx-2"></i><?= __("add_new_image") ?>
                                         </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        <button type="button" class="btn-close mx-2" data-bs-dismiss="modal"
                                             aria-label="<?= __("close") ?>"></button>
                                     </div>
                                     <form action="/admin/projects/images/<?php echo $project['id']; ?>/add" method="POST"
@@ -222,13 +222,15 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
+                                        <div class="modal-footer d-flex justify-content-between">
+                                             <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-save me-1"></i><?= __("save_images") ?>
+                                            </button>
+
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                 <i class="fas fa-times me-1"></i><?= __("cancel") ?>
                                             </button>
-                                            <button type="submit" class="btn btn-primary">
-                                                <i class="fas fa-save me-1"></i><?= __("save_images") ?>
-                                            </button>
+                                           
                                         </div>
                                     </form>
                                 </div>
@@ -321,10 +323,10 @@
     </section>
 </div>
 <!-- LightGallery JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/lightgallery.min.js"></script>
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/plugins/zoom/lg-zoom.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/plugins/thumbnail/lg-thumbnail.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/lightgallery.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/lightgallery.min.js" integrity="sha512-n02TbYimj64qb98ed5WwkNiSw/i9Xlvv4Ehvhg0jLp3qMAMWCYUHbOMbppZ0vimtyiyw9NqNqxUZC4hq86f4aQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/plugins/zoom/lg-zoom.min.js" integrity="sha512-fwxc/NvaA3du4ZRE6J/Ilrqi2xwOB1QfHBR4neA+ha13/pkweiRfPgBiV4VbfAf/Vi3rXAXdQ3zexUJ1V2bWrg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.8.3/plugins/thumbnail/lg-thumbnail.min.js" integrity="sha512-jZxB8WysJ6S6e4Hz5IZpAzR1WiflBl0hBxriHGlLkUN32T18+rD1aLNifa1KTll/zx8lIfWVP1NqEjHi/Khy5w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!--<script src="--><?php // echo assets('js/DropzoneCard.js') 
                     ?><!--"></script>-->
 

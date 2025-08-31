@@ -13,6 +13,17 @@
     <title><?=getTitle()?></title>
     <meta name="description" content="Responsive sidebar with navbar using Bootstrap 5">
     <?php  include_once 'include_top.php'?>
+       <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@330;400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+            html[dir="rtl"],
+            .body {
+                font-family: 'Cairo', Arial, sans-serif !important;
+            }
+            html[dir="ltr"],
+            .body {
+                font-family: 'Roboto', Arial, sans-serif !important;
+            }
+        </style>
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">

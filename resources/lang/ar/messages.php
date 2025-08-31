@@ -8,6 +8,7 @@ return [
     'experience' => 'الخبرات',
     'skills' => 'المهارات',
     'contact' => 'اتصل بنا',
+    'quick_links' => 'روابط سريعة',
 
     // ترجمات لوحة التحكم
     'dashboard' => 'لوحة التحكم',
@@ -214,6 +215,7 @@ return [
     'title' => 'العنوان',
     'enter_project_title' => 'أدخل عنوان المشروع',
     'category' => 'التصنيف',
+    'categories' => 'التصنيفات',
     'choose_category' => 'اختر التصنيف',
     'web_development' => 'تطوير الويب',
     'mobile_app' => 'تطبيق جوال',
@@ -394,6 +396,7 @@ return [
     'recently_added_products' => 'المنتجات المضافة مؤخراً',
     'top_rated_products' => 'المنتجات الأعلى تقييماً',
     'visitors_today' => 'زوار اليوم',
+    'visitors_statistics'=>'إحصائيات الزوار',
     'visitors_week' => 'زوار هذا الأسبوع',
     'visitors_month' => 'زوار هذا الشهر',
     'total_visitors' => 'إجمالي الزوار',
@@ -571,6 +574,7 @@ return [
     'all_types' => 'جميع الأنواع',
     'certificates_by_type' => 'الشهادات حسب النوع',
     'view_all' => 'عرض الكل',
+    'all'=>'الكل',
 
     // الإجراءات
     'view_details' => 'عرض التفاصيل',
@@ -628,7 +632,6 @@ return [
     'certificates_section_title_en' => 'عنوان قسم الشهادات بالإنجليزية',
 
     // الواجهة الأمامية - تفاصيل إضافية
-    'visitor_statistics' => 'إحصائيات الزوار',
     'unique_today' => 'فريد اليوم',
     'total_visits' => 'إجمالي الزيارات',
 
@@ -687,6 +690,8 @@ return [
     'all_certificates' => 'جميع الشهادات',
     'back_to_home' => 'العودة للرئيسية',
     'verify'=>'تحقق',
-    'view_certificate'=>'عرض الشهادة'
+    'view_certificate'=>'عرض الشهادة',
+    'unique_today' => 'فريد اليوم',
+    'total_visits' => 'إجمالي الزيارات',
 
 ];
