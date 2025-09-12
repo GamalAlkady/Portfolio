@@ -30,6 +30,10 @@
     border: 2px solid #ccc;
     cursor: pointer;
 }
+.cursor-pointer{
+    cursor: pointer;
+}
+
 
 .dark-mode .table-hover tbody tr:hover td {
     color: #e3eaf0 !important;

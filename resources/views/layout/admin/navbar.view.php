@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-dark">
+<nav class="main-header navbar navbar-expand navbar-<?= theme() ?>">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -10,27 +10,7 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <!-- Navbar Search -->
-        <li class="nav-item">
-            <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                <i class="fas fa-search"></i>
-            </a>
-            <div class="navbar-search-block">
-                <form class="form-inline">
-                    <div class="input-group input-group-sm">
-                        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                        <div class="input-group-append">
-                            <button class="btn btn-navbar" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                            <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </li>
+ 
 
         <!-- Messages Dropdown Menu -->
         <li class="nav-item dropdown d-none">
@@ -120,13 +100,17 @@
 
         <!-- Change Theme -->
          <li class="nav-item">
-            <a class="nav-link" id="changeTheme" href="#" role="button">
-                <i class="fa fa-moon" id="darkMode"></i>
+            <a href="<?= route('theme.switch',['theme'=>session()->get('theme')==='dark'?"light":'dark','type'=>''])?>" class="nav-link" title="<?=__('change_theme')?>" >
+                <?php if(session()->get('theme')==='light'):?>
+                <i class="fa fa-sun" id=""></i>
+                <?php else:?>
+                <i class="fa fa-moon" id=""></i>
+                <?php endif;?>
             </a>
         </li>
         <!-- switch language with EN/AR icon, no dropdown -->
         <li class="nav-item">
-            <a href="<?= route('language.switch', ['locale' => session()->get('locale') === 'ar' ? 'en' : 'ar']) ?>" class="nav-link" title="<?= session()->get('locale') === 'ar' ? __('english') : __('arabic') ?>">
+            <a href="<?= route('language.switch', ['locale' => session()->get('locale') === 'ar' ? 'en' : 'ar','type'=>'']) ?>" class="nav-link" title="<?= session()->get('locale') === 'ar' ? __('english') : __('arabic') ?>">
             <span class="d-none d-md-inline font-weight-bold">
                 <?= session()->get('locale') === 'ar' ? 'EN' : 'AR' ?>
             </span>

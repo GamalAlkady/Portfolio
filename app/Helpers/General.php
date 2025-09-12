@@ -1,6 +1,14 @@
 <?php
 
 use Devamirul\PhpMicro\core\Foundation\Session\Session;
+use Rakit\Validation\Rules\Callback;
+
+if (!function_exists('viewAdmin')) {
+    function viewAdmin($view, ?array $params = null): string
+    {
+        return layout('admin/app')->view("/admin/$view", $params);
+    }
+}
 
 // تحميل مساعد الترجمة
 require_once __DIR__ . '/TranslationHelper.php';
@@ -43,7 +51,7 @@ if (!function_exists('includeView')) {
         extract($data);
 
         // تحديد المسار الكامل إلى الملف المطلوب
-        $viewPath = resource_path('views/'.$path) . '.php';
+        $viewPath = resource_path('views/' . $path) . '.php';
 
         // التحقق من وجود الملف
         if (file_exists($viewPath)) {
@@ -230,10 +238,14 @@ function uploadMultipleImages($inputName, $folder = 'projects'): array
 if (!function_exists('locale')) {
     function locale()
     {
-        if (!session()->has('locale')) {
-            session()->set('locale', config('app', 'locale'));
+        $type = '';
+        if (defined('TYPE_USER') && TYPE_USER === 'user') {
+            $type = '_user';
         }
-        return session()->get('locale');
+        if (!session()->has('locale' . $type)) {
+            session()->set('locale' . $type, config('app', 'locale'));
+        }
+        return session()->get('locale' . $type);
     }
 }
 
@@ -244,12 +256,28 @@ if (!function_exists('unLocale')) {
     }
 }
 
+if (!function_exists('theme')) {
+    function theme()
+    {
+        $type = '';
+        if (defined('TYPE_USER') && TYPE_USER === 'user') {
+            $type = '_user';
+        }
+        return session()->get('theme' . $type) ?? 'light';
+    }
+}
+
 if (!function_exists('__')) {
 
     function __(string $key, array $replace = [], $locale = '')
     {
+        $type = '';
+        if (defined('TYPE_USER') && TYPE_USER === 'user') {
+            $type = '_user';
+        }
+
         if (empty($locale)) {
-            $locale = locale();
+            $locale = locale($type);
         }
 
         // die(config('app', 'locale'));
@@ -275,7 +303,7 @@ if (!function_exists('__')) {
 }
 
 if (!function_exists('renderLangTabs')) {
-    function renderLangTabs(string $prefix, callable $callback, $data = null)
+    function renderLangTabs(string $prefix, callable $callback, ?callable $commonfields = null)
     {
         $langs = ['en', 'ar'];
         if (locale() == 'ar') {
@@ -306,11 +334,22 @@ if (!function_exists('renderLangTabs')) {
                         <div class="row">
                             <?php
                             // هنا نستدعي الكولباك ونمرر له اللغة
-                            $callback($lang, $data);
+                            $callback($lang);
                             ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
+
+                <?php if (is_callable($commonfields)) : ?>
+                    <hr>
+
+                    <div class="col-12 mt-3">
+                        <h5 class="mb-3"><?= __("common_fields") ?></h5>
+                        <div class="row">
+                            <?php $commonfields(); ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
 <?php

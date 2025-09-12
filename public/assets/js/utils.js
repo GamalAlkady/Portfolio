@@ -1,3 +1,26 @@
+/**
+ * ربط صورة بمدخل ملف لتغيير المعاينة مباشرة عند اختيار صورة جديدة
+ * @param {string|HTMLElement} imageSelector - معرف أو عنصر الصورة
+ * @param {string|HTMLElement} inputSelector - معرف أو عنصر input[type=file]
+ */
+// دالة: فتح اختيار الصورة عند الضغط على الصورة
+function openFileInput(inputId) {
+    document.getElementById(inputId).click();
+}
+
+// دالة: معاينة الصورة بعد اختيارها
+function previewImage(input, imgId) {
+    const file = input.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        document.getElementById(imgId).src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+
 function assets(path) {
     const isSecure = window.location.protocol === 'https:';
     const scheme = isSecure ? 'https' : 'http';
@@ -339,7 +362,7 @@ function ChangeTabs(url){
             }
         }
 
-        $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function(e) {
+        $('button[data-toggle="tab"]').on('shown.bs.tab', function(e) {
             const tabId = e.target.id.replace('-tab', '');
             history.replaceState(null, '', window.location.pathname + '#' + tabId);
             $('.settings-form').attr('action', url+'#' + tabId);

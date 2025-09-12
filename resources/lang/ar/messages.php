@@ -436,6 +436,8 @@ return [
     'system_settings' => 'إعدادات النظام',
     'site_name' => 'اسم الموقع',
     'site_logo' => 'شعار الموقع',
+    'logo_light' => 'شعار الموقع (نسخة فاتحة)',
+    'logo_dark' => 'شعار الموقع (نسخة داكنة)',
     'current_logo' => 'الشعار الحالي',
     'site_description' => 'وصف الموقع',
     'enter_site_description' => 'أدخل وصف الموقع',

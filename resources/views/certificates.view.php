@@ -1,3 +1,5 @@
+<?php define('TYPE_USER','user'); ?>
+
 <?php setTitle(__('certificates_achievements') ?: 'الشهادات والإنجازات') ?>
 
 

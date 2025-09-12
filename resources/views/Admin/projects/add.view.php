@@ -98,8 +98,6 @@ setTitle(__($isEdit ? "edit_project" : "add_project")); ?>
                                 <div class="row">
                                     <?php
 
-
-
                                     echo $form->select(
                                         'category',
                                         $categories,

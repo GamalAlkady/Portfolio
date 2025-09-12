@@ -11,6 +11,8 @@ use Devamirul\PhpMicro\core\Foundation\Application\Facade\Facades\DB;
 use Devamirul\PhpMicro\core\Foundation\Application\Request\Request;
 use Devamirul\PhpMicro\core\Foundation\Controller\BaseController;
 
+define('TYPE_USER','user'); 
+
 class HomeController extends BaseController
 {
 

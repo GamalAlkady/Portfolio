@@ -1,3 +1,4 @@
+
 <?php setTitle("Projects Gallery"); ?>
 
 <!-- LightGallery CSS -->

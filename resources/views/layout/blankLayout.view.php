@@ -65,67 +65,94 @@
             font-family: 'Roboto', Arial, sans-serif !important;
         }
 
+           /* Styles for the language switcher button */
         .language-switcher {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 1.5rem;
+            right: 2rem;
             z-index: 1000;
             display: flex;
-            gap: 10px;
-        }
-
-        [dir="rtl"] .language-switcher {
-            right: auto;
-            left: 20px;
+            gap: 0.75rem;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 9999px;
+            padding: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
         }
 
         .language-switcher a {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: #667eea;
-            color: white;
-
+            width: 2.5rem;
+            height: 2.5rem;
             text-decoration: none;
-            border-radius: 50%;
+            color: #6b7280;
+            border-radius: 9999px;
             font-weight: 600;
-            font-size: 14px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
         }
 
         .language-switcher a:hover,
         .language-switcher a.active {
-            background: rgba(255, 255, 255, 0.9);
-            color: #667eea;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            background-color: #3b82f6;
+            color: white;
+            transform: scale(1.1);
         }
 
-        .language-switcher a:focus {
-            outline: 2px solid #667eea;
-            outline-offset: 2px;
+        /* RTL support for content */
+        [lang="ar"] .content-container {
+            direction: rtl;
+            text-align: right;
         }
 
-        /* Responsive */
+        [lang="en"] .content-container {
+            direction: ltr;
+            text-align: left;
+        }
+
+        .content-container {
+            max-width: 600px;
+            margin: 2rem;
+            padding: 2.5rem;
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            transition: all 0.5s ease-in-out;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.75;
+            color: #4b5563;
+        }
+
         @media (max-width: 768px) {
             .language-switcher {
-                top: 10px;
-                right: 10px;
-            }
-
-            [dir="rtl"] .language-switcher {
-                right: auto;
-                left: 10px;
+                top: 0.75rem;
+                right: 0.75rem;
+                padding: 0.375rem;
+                gap: 0.5rem;
             }
 
             .language-switcher a {
-                width: 35px;
-                height: 35px;
-                font-size: 12px;
+                width: 2rem;
+                height: 2rem;
+                font-size: 0.875rem;
+            }
+
+            .content-container {
+                padding: 1.5rem;
+                margin: 1rem;
             }
         }
     </style>
@@ -134,21 +161,18 @@
 <body class="hold-transition login-page">
     <!-- Language Switcher -->
     <div class="language-switcher">
-        <?php if (locale() == 'en'): ?>
-            <a href="<?= route('language.switch', ['locale' => 'ar']) ?>"
+            <a href="<?= route('language.switch', ['locale' => 'ar','type'=>'user']) ?>"
                 class="<?= locale() === 'ar' ? 'active' : '' ?>"
                 title="<?= __('arabic') ?>"
                 aria-label="<?= __('switch_to_arabic') ?>">
                 ع
             </a>
-        <?php else: ?>
-            <a href="<?= route('language.switch', ['locale' => 'en']) ?>"
+            <a href="<?= route('language.switch', ['locale' => 'en','type'=>'user']) ?>"
                 class="<?= locale() === 'en' ? 'active' : '' ?>"
                 title="<?= __('english') ?>"
                 aria-label="<?= __('switch_to_english') ?>">
                 EN
             </a>
-        <?php endif; ?>
     </div>
 
     <!-- Main Content -->

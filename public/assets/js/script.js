@@ -4,6 +4,7 @@ $(document).ready(function () {
 
     $('#menu').click(function () {
         $(this).toggleClass('fa-times');
+        $(this).toggleClass('fa-bars');
         $('.navbar').toggleClass('nav-toggle');
     });
 
@@ -25,7 +26,7 @@ $(document).ready(function () {
             let id = $(this).attr('id');
 
             if (top > offset && top < offset + height) {
-                $('.navbar ul li a').removeClass('active');
+                $('.navbar ul li a:not([data-lang]').removeClass('active');
                 $('.navbar').find(`[href="#${id}"]`).addClass('active');
             }
         });
@@ -158,8 +159,8 @@ srtop.reveal('.about .content .resumebtn', { delay: 200 });
 
 
 /* SCROLL SKILLS */
-srtop.reveal('.skills .container', { interval: 200 });
-srtop.reveal('.skills .container .bar', { delay: 400 });
+// srtop.reveal('.skills .container', { interval: 200 });
+// srtop.reveal('.skills .container .bar', { delay: 400 });
 
 /* SCROLL EDUCATION */
 srtop.reveal('.education .box', { interval: 200 });

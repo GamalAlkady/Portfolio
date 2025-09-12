@@ -1,3 +1,5 @@
+<?php define('TYPE_USER','user'); ?>
+
 <?php
 
 use App\Models\Skills;
@@ -49,6 +51,9 @@ setTitle("Home"); ?>
 </section>
 
 <section class="about" id="about">
+    <?php 
+    // dd(TYPE_USER)
+    ?>
     <h2 class="heading"><i class="fas fa-user-alt"></i><span><?= __("about_me") ?></span></h2>
 
     <div class="row">
@@ -198,7 +203,9 @@ setTitle("Home"); ?>
 
 
 
-
+    <!-- particle.js links -->
+    <!-- <script src="<?= assets('js/particles.min.js') ?>"></script> -->
+    <!-- <script src="<?= assets('js/app.js') ?>"></script> -->
 <!-- typed.js cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.5/typed.min.js"
     integrity="sha512-1KbKusm/hAtkX5FScVR5G36wodIMnVd/aP04af06iyQTkD17szAMGNmxfNH+tEuFp3Og/P5G32L1qEC47CZbUQ=="

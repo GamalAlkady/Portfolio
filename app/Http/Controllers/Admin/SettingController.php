@@ -41,10 +41,16 @@ class SettingController
             if ($image) $data['image'] = $image;
         }
 
-        if (isset($_POST['site_logo'])) {
-            $site_logo = uploadImage('site_logo', '', $_POST['site_logo']);
-            if ($site_logo) $data['site_logo'] = $site_logo;
+        // dd($_POST);
+        if (isset($_POST['logo_light'])) {
+            $logo_light = uploadImage('logo_light', '', $_POST['logo_light']);
+            if ($logo_light) $data['logo_light'] = $logo_light;
         }
+        if (isset($_POST['logo_dark'])) {
+            $logo_dark = uploadImage('logo_dark', '', $_POST['logo_dark']);
+            if ($logo_dark) $data['logo_dark'] = $logo_dark;
+        }
+        
         if(isset($_POST['cv_pdf'])){
             $cv_pdf = uploadFile('cv_pdf', 'files', $_POST['cv_pdf']);
             if ($cv_pdf) $data['cv_pdf'] = $cv_pdf;

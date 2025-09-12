@@ -1,9 +1,9 @@
 <?php $current_page = basename($_SERVER['PHP_SELF']); ?>
 
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-<?=theme()?>-primary elevation-4">
     <!-- Brand Logo -->
     <a href="<?=route('dashboard')?>" class="brand-link">
-        <img src="<?=assets('images/logo.svg')?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8;width: 40px;background-color: white;">
+        <img src="<?=assets(setting('logo_'.theme()), 'images/logo.svg')?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8;width: 40px;">
         <span class="brand-text font-weight-light">Profolio</span>
     </a>
 
@@ -15,7 +15,7 @@
                 <img src="<?=assets(setting('image'),'images/default-150x150.png')?>" class="user-image img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block"><?=setting('name')?></a>
+                <a href="#" class="d-block"><?=setting('name_'.locale())?></a>
             </div>
         </div>
 

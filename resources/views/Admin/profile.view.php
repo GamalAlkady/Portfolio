@@ -1,34 +1,5 @@
 <?= setTitle(__('profile')) ?>
 
-<!-- إضافة الترجمات للـ JavaScript -->
-<?= renderTranslations(locale(), [
-    'name',
-    'email',
-    'phone',
-    'save',
-    'edit',
-    'cancel',
-    'delete',
-    'upload',
-    'description',
-    'education',
-    'experience',
-    'specialization',
-    'location',
-    'arabic',
-    'english',
-    'uploading',
-    'upload_error',
-    'delete_error',
-    'confirm_delete_pdf',
-    'choose_file',
-    'please_select_file',
-    'only_pdf_allowed',
-    'file_too_large',
-    'success',
-    'error'
-]) ?>
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -57,10 +28,15 @@
                             <div class="text-center">
                                 <img id="myImage" class="profile-user-img img-fluid img-circle"
                                     src="<?= (!empty(setting('image'))) ? assets(setting('image')) : assets('images/user.png') ?>"
-                                    alt="Click to change image">
-                                <input type="file" id="fileInput" name="image" accept="image/*" style="display: none;">
-                                <input type="hidden" id="oldFileInput" name="image" value="<?= setting('image') ?>" accept="image/*" style="display: none;">
+                                    alt="Click to change image"
+                                    onclick="openFileInput('fileInput')">
+
+                                <input type="file" id="fileInput" name="image" accept="image/*" style="display: none;"
+                                    onchange="previewImage(this, 'myImage')">
+
+                                <input type="hidden" id="oldFileInput" name="image" value="<?= setting('image') ?>" style="display: none;">
                             </div>
+
 
 
                         </div>
@@ -123,36 +99,36 @@
                             <?php
                             renderLangTabs('about', function ($lang) { ?>
                                 <div class="border-bottom mb-2 pb-2">
-                                    <strong><i class="fas fa-book mr-1"></i> <?= __('description',[],$lang) ?> (<?= __($lang,[],$lang) ?>)</strong>
+                                    <strong><i class="fas fa-book mr-1"></i> <?= __('description', [], $lang) ?> (<?= __($lang, [], $lang) ?>)</strong>
                                     <div class="mt-3">
-                                        <div id="description_<?= $lang ?>"><?php echo setting('description_' . $lang,[],$lang) ?></div>
+                                        <div id="description_<?= $lang ?>"><?php echo setting('description_' . $lang, [], $lang) ?></div>
                                     </div>
                                     <div class="d-flex justify-content-end">
-                                        <button id="description_<?= $lang ?>Edit" class="btn btn-info" type="button"><?= __('edit',[],$lang) ?></button>
-                                        <button id="description_<?= $lang ?>Save" class="btn btn-primary" type="button"><?= __('save',[],$lang) ?></button>
+                                        <button id="description_<?= $lang ?>Edit" class="btn btn-info" type="button"><?= __('edit', [], $lang) ?></button>
+                                        <button id="description_<?= $lang ?>Save" class="btn btn-primary" type="button"><?= __('save', [], $lang) ?></button>
                                     </div>
                                 </div>
 
 
                                 <div class="border-bottom mb-2 pb-2">
-                                    <strong><i class="fas fa-book mr-1"></i> <?= __('education',[],$lang) ?> (<?= __($lang,[],$lang) ?>)</strong>
+                                    <strong><i class="fas fa-book mr-1"></i> <?= __('education', [], $lang) ?> (<?= __($lang, [], $lang) ?>)</strong>
                                     <div class="mt-3">
-                                        <div id="education_<?= $lang ?>"><?php echo setting('education_' . $lang,[],$lang) ?></div>
+                                        <div id="education_<?= $lang ?>"><?php echo setting('education_' . $lang, [], $lang) ?></div>
                                     </div>
                                     <div class="d-flex justify-content-end">
-                                        <button id="education_<?= $lang ?>Edit" class="btn btn-info" type="button"><?= __('edit',[],$lang) ?></button>
-                                        <button id="education_<?= $lang ?>Save" class="btn btn-primary" type="button"><?= __('save',[],$lang) ?></button>
+                                        <button id="education_<?= $lang ?>Edit" class="btn btn-info" type="button"><?= __('edit', [], $lang) ?></button>
+                                        <button id="education_<?= $lang ?>Save" class="btn btn-primary" type="button"><?= __('save', [], $lang) ?></button>
                                     </div>
                                 </div>
 
                                 <div class="">
-                                    <strong><i class="fas fa-pencil-alt mr-1"></i> <?= __('experience',[],$lang) ?> (<?= __($lang,[],$lang) ?>)</strong>
+                                    <strong><i class="fas fa-pencil-alt mr-1"></i> <?= __('experience', [], $lang) ?> (<?= __($lang, [], $lang) ?>)</strong>
                                     <div class="mt-3">
-                                        <div id="experience_<?= $lang ?>"><?php echo setting('experience_' . $lang,[],$lang) ?></div>
+                                        <div id="experience_<?= $lang ?>"><?php echo setting('experience_' . $lang, [], $lang) ?></div>
                                     </div>
                                     <div class="d-flex justify-content-end">
-                                        <button id="experience_<?= $lang ?>Edit" class="btn btn-info" type="button"><?= __('edit',[],$lang) ?></button>
-                                        <button id="experience_<?= $lang ?>Save" class="btn btn-primary" type="button"><?= __('save',[],$lang) ?></button>
+                                        <button id="experience_<?= $lang ?>Edit" class="btn btn-info" type="button"><?= __('edit', [], $lang) ?></button>
+                                        <button id="experience_<?= $lang ?>Save" class="btn btn-primary" type="button"><?= __('save', [], $lang) ?></button>
                                     </div>
                                 </div>
                             <?php
@@ -289,6 +265,11 @@
                 tabTrigger.show()
             })
         });
+
+        // ربط صورة البروفايل بمعاينة التغيير
+        if (typeof bindImagePreview === 'function') {
+            bindImagePreview('myImage', 'fileInput');
+        }
     });
 
     $(function() {
@@ -303,25 +284,6 @@
         //     })
         // });
 
-        // ChangeTabs("<?= route('updateSetting') ?>");
-
-        const myImage = document.getElementById('myImage');
-        const fileInput = document.getElementById('fileInput');
-
-        myImage.addEventListener('click', () => {
-            fileInput.click();
-        });
-
-        fileInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    myImage.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
 
         // إعداد محررات النصوص للغتين
         editSave('description_ar', 'rtl');

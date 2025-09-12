@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="<?= locale() ?>" dir="<?= (locale() == 'en' ? 'ltr' : 'rtl') ?>">
+<html lang="<?= locale() ?>">
 
 <head>
     <meta charset="UTF-8">
@@ -22,8 +22,8 @@
             }
         </style>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> -->
 
     <!-- Favicon -->
     <link id='favicon' rel="shortcut icon" href="<?= assets('images/logo.svg') ?>" type="image/x-png">
@@ -34,7 +34,7 @@
     <script src="<?= assets('js/utils.js') ?>"></script>
 </head>
 
-<body>
+<body style="direction:<?= (locale() == 'en' ? 'ltr' : 'rtl') ?>">
     <?php
     if (isset($routeName))
         require_once 'header.view.php';
@@ -67,8 +67,8 @@
 
 
     <!-- particle.js links -->
-    <!-- <script src="<?= assets('js/particles.min.js') ?>"></script> -->
-    <!-- <script src="<?= assets('js/app.js') ?>"></script> -->
+    <script src="<?= assets('js/particles.min.js') ?>"></script>
+    <script src="<?= assets('js/app.js') ?>"></script>
 
     <!-- vanilla tilt.js links -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"
