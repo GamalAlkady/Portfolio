@@ -1,4 +1,3 @@
-<?php define('TYPE_USER','user'); ?>
 
 <?php
 
@@ -17,7 +16,8 @@ setTitle("Home"); ?>
     <div class="content">
 
         <!-- <h2>Hi There,<br /> I'm Mohammed Al-Qadi <span></span></h2> -->
-        <p><?= setting('site_description_' . locale()) ?><span class="typing-text"></span></p>
+        <p><?= setting('site_description_' . locale()) ?>
+        <div style="height: 40px;"><span class="typing-text"></span></div></p>
 
         <a href="<?= route('showProjects') ?>" class="btn"><span><?= __("view_portfolio") ?></span>
             <i class="fa fa-arrow-circle-<?= (locale() == 'ar' ? 'left' : 'right') ?>"></i>
@@ -197,15 +197,6 @@ setTitle("Home"); ?>
 <!-- contact section ends -->
 
 
-<!-- footer section starts -->
-
-<!-- footer section ends -->
-
-
-
-    <!-- particle.js links -->
-    <!-- <script src="<?= assets('js/particles.min.js') ?>"></script> -->
-    <!-- <script src="<?= assets('js/app.js') ?>"></script> -->
 <!-- typed.js cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.5/typed.min.js"
     integrity="sha512-1KbKusm/hAtkX5FScVR5G36wodIMnVd/aP04af06iyQTkD17szAMGNmxfNH+tEuFp3Og/P5G32L1qEC47CZbUQ=="

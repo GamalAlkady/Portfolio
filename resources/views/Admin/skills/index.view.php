@@ -30,7 +30,7 @@
                                 <th><?= __('name') ?></th>
                                 <th><?= __('description') ?></th>
                                 <th><?= __('category') ?></th>
-                                <th><?= __('actions') ?></th>
+                                <th style="width:110px"><?= __('actions') ?></th>
                             </tr>
                         </thead>
 

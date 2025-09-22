@@ -19,4 +19,3 @@
 
 <!-- AdminLTE for demo purposes -->
 <script src="<?=assets('js/demo.js')?>"></script>
-<script src="<?=assets('js/app.js')?>"></script>

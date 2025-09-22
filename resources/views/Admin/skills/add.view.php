@@ -35,15 +35,14 @@ setTitle(__(($isEdit ? 'edit_skill' : 'add_skill')));
                     echo setCsrf();
                     if ($isEdit) {
                         echo setMethod('PUT');
-                    }
+                    } else $skill = null;
                     ?>
                     <!-- Language Tabs -->
                     <?php
-                    renderLangTabs('skill', function ($lang,$data) {
-                        $form = new FormHelper();
+                    renderLangTabs('skill', function ($lang) use ($form, $skill) {
                         $form->formGroupClass('col-md-6 mb-2');
                         $activeEn = session()->get('activeEn') ?? true;
-                        $input = $form->input('name[' . $lang . ']', __("name", [], $lang), old('name.' . $lang, isset($data) ? $data['name_' . $lang] : ''))
+                        $input = $form->input('name[' . $lang . ']', __("name", [], $lang), old('name.' . $lang, isset($skill) ? $skill['name_' . $lang] : ''))
                             ->attrs(['placeholder' => __("enter_name", [], $lang)])
                             ->errorMessage(errors('name.' . $lang))
                             ->formGroupClass('col-md-6 mb-3');
@@ -51,35 +50,30 @@ setTitle(__(($isEdit ? 'edit_skill' : 'add_skill')));
                         echo  $input->render();
 
                         $description = $form->textarea('description[' . $lang . ']', __("description", [], $lang))
-                            ->value(old('description.' . $lang, isset($data) ? $data['description_' . $lang] : ''))
+                            ->value(old('description.' . $lang, isset($skill) ? $skill['description_' . $lang] : ''))
                             ->attrs(['rows' => 5, 'placeholder' => __("enter_description", [], $lang)])
                             ->errorMessage(errors('description.' . $lang))
                             ->formGroupClass('col-md-12 mb-3')
                             ->textareaClass('tinymce-' . $lang);
                         if (locale() == $lang)    $description->required();
                         echo $description->render();
-                    },$skill??null);
-                    ?>
-                    <!-- Common Fields -->
-                    <div class="col-12 mt-3">
-                        <h5 class="mb-3"><?= __("common_fields") ?></h5>
-                        <div class="row">
-                            <?php
+                    }, function () use ($form,$skill,$categories){ 
 
-                            echo $form->select(
-                                'category',
-                                $categories,
-                                ['id', 'name'],
-                                __("choose_category")
-                            )
-                                ->selected(old('category', isset($skill) ? $skill['category'] : ''))
-                                ->selectClass('form-control mb-3')
-                                ->formGroupClass('col-md-12 mb-3')
-                                ->attrs(['required' => true])
-                                ->render();
-                            ?>
-                        </div>
-                    </div>
+                                echo $form->select( 
+                                    'category',
+                                    $categories,
+                                    ['id', 'name'],
+                                    __("choose_category")
+                                )
+                                    ->selected(old('category', isset($skill) ? $skill['category'] : ''))
+                                    ->selectClass('form-control mb-3')
+                                    ->formGroupClass('col-md-12 mb-3')
+                                    ->attrs(['required' => true])
+                                    ->render();
+                         
+                });
+                    ?>
+
 
 
                     <div class="col-12 mt-4 d-flex justify-content-between">

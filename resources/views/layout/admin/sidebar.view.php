@@ -4,7 +4,7 @@
     <!-- Brand Logo -->
     <a href="<?=route('dashboard')?>" class="brand-link">
         <img src="<?=assets(setting('logo_'.theme()), 'images/logo.svg')?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8;width: 40px;">
-        <span class="brand-text font-weight-light">Profolio</span>
+        <span class="brand-text font-weight-light"><?=setting('site_name_'.locale())?></span>
     </a>
 
     <!-- Sidebar -->

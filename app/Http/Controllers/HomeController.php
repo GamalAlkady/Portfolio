@@ -31,6 +31,7 @@ class HomeController extends BaseController
         $certificatesModel = new Certificates();
         $featuredCertificates = $certificatesModel->getFeaturedCertificates();
 
+        // dd(isMobileDevice());
         // dd($featuredCertificates);
         $routeName = 'home';
         return view('index', compact('skills', 'featuredCertificates', 'routeName'));

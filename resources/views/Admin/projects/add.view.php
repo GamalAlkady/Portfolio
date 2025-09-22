@@ -51,7 +51,7 @@ setTitle(__($isEdit ? "edit_project" : "add_project")); ?>
                             <div class="toast align-items-center  alert-info w-100" style="max-width: none;" aria-live="assertive" aria-atomic="true" id='toast'>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="toast-body">
-                                <i class="fas fa-info-circle me-2"></i>
+                                        <i class="fas fa-info-circle me-2"></i>
                                         Hello, world! This is a toast message.
                                     </div>
                                     <button type="button" class="btn-close mx-2" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -70,7 +70,7 @@ setTitle(__($isEdit ? "edit_project" : "add_project")); ?>
                             if ($isEdit) {
                                 echo setMethod('PUT');
                             } else $project = null;
-                            
+
                             renderLangTabs('project', function ($lang) use ($form, $project) {
                                 // var_dump($project);
                                 $input = $form->input('title[' . $lang . ']', __("title", [], $lang), old('title.' . $lang, $project['title_' . $lang] ?? ''))
@@ -182,20 +182,6 @@ setTitle(__($isEdit ? "edit_project" : "add_project")); ?>
 <script>
     (function() {
         'use strict'
-
-      
-
-        // var forms = document.querySelectorAll('.needs-validation')
-        // Array.prototype.slice.call(forms).forEach(function(form) {
-        //     form.addEventListener('submit', function(event) {
-        //         if (!form.checkValidity() || !validateLanguageContent()) {
-        //             event.preventDefault()
-        //             event.stopPropagation()
-        //         }
-        //         form.classList.add('was-validated')
-        //     }, false)
-        // });
-
         // التحقق من وجود محتوى بلغة واحدة على الأقل
         function validateLanguageContent() {
             const titleAr = document.querySelector('input[name="title[ar]"]');
@@ -248,53 +234,39 @@ setTitle(__($isEdit ? "edit_project" : "add_project")); ?>
             });
         });
         <?php
-        if(!$isEdit){
+        if (!$isEdit) {
         ?>
-        
-        var fileInput = document.querySelector('.custom-file-input');
-        fileInput.addEventListener('change', function({
-            target
-        }) {
-            const label = document.querySelector('.custom-file-label');
-            label.innerHTML = target.files.length + " " + "<?= __("files") ?>";
 
-            const previewContainer = document.getElementById('otherImagesPreview');
-            previewContainer.innerHTML = ''; // Clear existing previews
 
-            Array.from(target.files).forEach(file => {
-                const reader = new FileReader();
-                const imgPreview = document.createElement('img');
-                imgPreview.className = 'preview-image';
+            previewImages('.custom-file-input', 'otherImagesPreview');
 
-                reader.onload = function(e) {
-                    imgPreview.src = e.target.result;
-                    imgPreview.style.display = 'block';
-                }
+            function previewImages(fileInput, containerImagesId) {
+                var fileInput = (typeof(fileInput) == 'string') ? document.querySelector(fileInput) : fileInput;
+                fileInput.addEventListener('change', function({
+                    target
+                }) {
+                    const label = document.querySelector('.custom-file-label');
+                    label.innerHTML = target.files.length + " " + "<?= __("files") ?>";
 
-                reader.readAsDataURL(file);
-                previewContainer.appendChild(imgPreview);
-            });
-        });
+                    const previewContainer = document.getElementById(containerImagesId);
+                    previewContainer.innerHTML = ''; // Clear existing previews
 
-        function previewImages(input) {
-            const previewContainer = document.getElementById('otherImagesPreview');
-            previewContainer.innerHTML = ''; // Clear existing previews
+                    Array.from(target.files).forEach(file => {
+                        const reader = new FileReader();
+                        const imgPreview = document.createElement('img');
+                        imgPreview.className = 'preview-image';
 
-            Array.from(input.files).forEach(file => {
-                const reader = new FileReader();
-                const imgPreview = document.createElement('img');
-                imgPreview.className = 'preview-image';
+                        reader.onload = function(e) {
+                            imgPreview.src = e.target.result;
+                            imgPreview.style.display = 'block';
+                        }
 
-                reader.onload = function(e) {
-                    imgPreview.src = e.target.result;
-                    imgPreview.style.display = 'block';
-                }
+                        reader.readAsDataURL(file);
+                        previewContainer.appendChild(imgPreview);
+                    });
+                });
+            }
 
-                reader.readAsDataURL(file);
-                previewContainer.appendChild(imgPreview);
-            });
-        }
-
-        <?php }?>
+        <?php } ?>
     })();
 </script>

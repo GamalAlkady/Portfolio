@@ -49,9 +49,9 @@ html {
 }
 
 [lang="ar"] {
-    font-family: 'Tajawal', sans-serif;
-    direction: rtl;
-    text-align: right;
+  font-family: 'Tajawal', sans-serif;
+  direction: rtl;
+  text-align: right;
 }
 
 [lang="en"] {
@@ -142,6 +142,10 @@ header .logo {
   color: #0e2431;
 }
 
+header .logo img {
+  border-radius: 50%;
+}
+
 header .logo i {
   font-size: 1.375rem;
 }
@@ -150,7 +154,7 @@ header .logo:hover {
   color: #fc8c05;
 }
 
-header .navbar ul {
+header .navbar>ul {
   list-style: none;
   display: flex;
   justify-content: center;
@@ -161,12 +165,12 @@ header .navbar ul {
   background-color: rgb(248, 249, 250);
 }
 
-header .navbar li {
+header .navbar>ul>li {
   margin-left: 1.5625rem;
 }
 
 
-header .navbar ul li a {
+header .navbar>ul>li>a {
   font-size: 0.98125rem;
   color: #0e2431;
   font-weight: 600;
@@ -176,15 +180,15 @@ header .navbar ul li a {
 
 }
 
-header .navbar ul li a.active {
+header .navbar>ul>li>a.active {
   color: #ffd700;
   /* لون ذهبي */
   font-weight: bold;
   border-bottom: 2px solid #ffd700;
 }
 
-header .navbar ul li a.active,
-header .navbar ul li a:hover {
+header .navbar>ul>li>a.active,
+header .navbar>ul>li>a:hover {
   color: #011aff;
   border-bottom: 0.125rem solid #011aff;
   padding: 0.3125rem 0;
@@ -205,6 +209,9 @@ header .navbar ul li a:hover {
     display: block;
   }
 
+  header{
+    padding-inline-end: 1%;
+  }
   header .navbar {
     position: fixed;
     top: 4.0625rem;
@@ -214,20 +221,20 @@ header .navbar ul li a:hover {
     align-items: flex-start;
   }
 
-  [lang='en'] header .navbar{
+  [lang='en'] header .navbar {
     left: -120%;
   }
- 
-  [lang='ar'] header .navbar{
+
+  [lang='ar'] header .navbar {
     right: -120%;
   }
 
-  header .navbar ul {
+  header .navbar>ul {
     flex-flow: column;
     padding: 0.625rem;
   }
 
-  header .navbar ul li {
+  header .navbar>ul>li {
     text-align: center;
     width: 100%;
     margin: 5px 0.625rem 1px;
@@ -239,19 +246,22 @@ header .navbar ul li a:hover {
     /* width: 100%; */
   }
 
-  header .navbar ul li a {
+  header .navbar>ul>li>a {
     width: 100%;
     display: block;
   }
 
-  header .navbar ul li a.active,
-  header .navbar ul li a:hover {
+  header .navbar>ul>li>a.active,
+  header .navbar>ul>li>a:hover {
     padding: 0.625rem;
     /* color: #fff; */
     border-radius: 0.3125rem;
     border-bottom: 0.3125rem solid #011aff;
   }
 
+  header .logo img {
+  padding: 5%;  
+}
   .fa-times {
     transform: rotate(180deg);
   }
@@ -329,6 +339,7 @@ html[lang="ar"] .home .image img {
   font-size: 3.125rem;
   font-weight: 800;
   color: #ff7b00;
+
 }
 
 .home .content p {
@@ -1611,7 +1622,7 @@ form .button-area {
 
   .footer .box-container .box .share a {
     /* padding: 0.5rem; */
-        height: 2.5rem;
+    height: 2.5rem;
     width: 2.5rem;
     align-content: center;
   }
@@ -1631,8 +1642,8 @@ form .button-area {
   }
 
   .skill .container::after {
-        font-size: 2.375rem;
-    }
+    font-size: 2.375rem;
+  }
 
   .home .content h2 {
     margin-top: 60px;

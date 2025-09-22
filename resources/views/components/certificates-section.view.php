@@ -331,8 +331,8 @@
     }
 
     .btn-view-all {
-        background: var(--main-color);
-        color: var(--white);
+        /* background: var(--main-color); */
+        /* color: var(--white); */
         padding: 1rem 2rem;
         border-radius: 25px;
         text-decoration: none;
@@ -341,12 +341,11 @@
         align-items: center;
         gap: 0.5rem;
         transition: all 0.3s ease;
-        border: 2px solid var(--main-color);
+        border: 2px solid var(--shadow-light);
     }
 
     .btn-view-all:hover {
         background: transparent;
-        color: var(--main-color);
         transform: translateY(-3px);
     }
 

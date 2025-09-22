@@ -355,3 +355,20 @@ if (!function_exists('renderLangTabs')) {
 <?php
     }
 }
+
+
+if(!function_exists('isMobileDevice')){
+    function isMobileDevice(): bool
+    {
+        $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+        $mobileAgents = ['Mobile', 'Android', 'Silk/', 'Kindle', 'BlackBerry', 'Opera Mini', 'Opera Mobi'];
+
+        foreach ($mobileAgents as $agent) {
+            if (stripos($userAgent, $agent) !== false) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}

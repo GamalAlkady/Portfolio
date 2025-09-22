@@ -58,13 +58,13 @@ class ProjectController
     {
         $project = (new Projects())->get("*", ['id' => $request->getParam('id')])->getData();
         $images = DB::db()->select("project_images", "*", ['project_id' => $project['id']]);
-                $title=json_decode($project['title']);
-        $project['title_en']=$title->en;
-        $project['title_ar']=$title->ar;
+        $title = json_decode($project['title']);
+        $project['title_en'] = $title->en;
+        $project['title_ar'] = $title->ar;
 
         $description = json_decode($project['description']);
-        $project['description_en']=$description->en;
-        $project['description_ar']=$description->ar;
+        $project['description_en'] = $description->en;
+        $project['description_ar'] = $description->ar;
         return viewAdmin('projects/details', compact('project', 'images'));
         //        return layout('admin/app')->view('/admin/projects/index', compact('projects'));
     }
@@ -106,9 +106,10 @@ class ProjectController
             }
 
             $projectImages[0]['is_main'] = 1;
-            $table = $database->insert('project_images', $projectImages);
-
-            if ($table->rowCount() == 0) {
+            $data = $database->insert('project_images', $projectImages);
+            // var_dump($data);
+            // die;
+            if ($data !=null and $data->rowCount() == 0) {
                 $database->pdo->rollBack();
                 return back()->withError("Can't save project");
             }
@@ -125,7 +126,7 @@ class ProjectController
 
     public function edit(Request $request)
     {
-        $project = (new Projects())->getProject($request->getParam('id'),false);
+        $project = (new Projects())->getProject($request->getParam('id'), false);
         // $images = DB::db()->select("project_images", "*", ['project_id' => $project['id']]);
 
         $categories = [
@@ -153,7 +154,7 @@ class ProjectController
     {
         $projects = (new Projects());
         $data = $this->extracted($request, true);
-        unset($data['_method']);
+        // dd($data);
         $p = $projects->update($data, ['id' => $request->input('id')]);
         if ($p->error() != null) {
             return back()->withError($p->error());
@@ -298,7 +299,7 @@ class ProjectController
      */
     public function extracted(Request $request, $removeOld = false): \Devamirul\PhpMicro\core\Foundation\Application\Redirect\Redirect|array
     {
-        $data = $request->input();
+        $data = $request->except('url','_method');
 
         // dd($data);
         // رسائل التحقق بالعربية والإنجليزية

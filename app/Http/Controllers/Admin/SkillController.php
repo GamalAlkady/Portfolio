@@ -111,7 +111,6 @@ class SkillController
     {
         $skills = (new Skills());
         $data = $this->extracted($request, true);
-        unset($data['_method']);
         // dd($request->input());
         $p = $skills->update($data, ['id' => $request->input('id')]);
         if ($p->error() != null) {
@@ -141,7 +140,7 @@ class SkillController
      */
     public function extracted(Request $request, $removeOld = false): \Devamirul\PhpMicro\core\Foundation\Application\Redirect\Redirect|array
     {
-        $data = $request->input();
+        $data = $request->except('url','csrf','_method');
         // رسائل التحقق بالعربية والإنجليزية
         $messages = [
             // رسائل العنوان - عربي
@@ -217,7 +216,6 @@ class SkillController
         $data['name'] = json_encode($data['name']);
         $data['description'] = json_encode($data['description']);
         // dd($data);
-        unset($data['csrf']);
         return $data;
     }
 }
